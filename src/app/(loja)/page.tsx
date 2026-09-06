@@ -10,7 +10,7 @@ import {
 export default function StorefrontHomePage() {
   return (
     <div className="w-full flex flex-col relative">
-      {/* 1. Hero Section with 3D Gorilla Canvas & Lenis-driven Parallax */}
+      {/* 1. Hero Section with 3D Gorilla Canvas & Parallax */}
       <Hero />
 
       {/* 2. Kinetic Ticker / Brand Marquee */}
