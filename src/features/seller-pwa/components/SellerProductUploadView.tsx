@@ -6,6 +6,7 @@ import {
   Trash2,
   CheckCircle2,
   ChevronDown,
+  ChevronUp,
   Image as ImageIcon,
   Star,
   Plus,
@@ -18,6 +19,9 @@ import {
   Scale,
   RefreshCw,
   Camera,
+  Ruler,
+  FileText,
+  Bookmark,
 } from "lucide-react";
 import { useSellerListingStore } from "../stores/useSellerListingStore";
 import {
@@ -30,24 +34,45 @@ import {
   type TaxonomyCategory,
   type TaxonomyGender,
 } from "../taxonomy";
-import type { ItemCondition } from "../types";
+import type { ItemCondition, EditorialTag } from "../types";
+
+const EDITORIAL_TAGS: EditorialTag[] = [
+  "ARQUIVO",
+  "GRAIL",
+  "ICÔNICO",
+  "VANGUARDA",
+  "ESSENCIAL",
+  "PASSARELA",
+];
+
+const CLOTHING_SIZES = ["PP", "P", "M", "G", "GG", "XGG", "ÚNICO"];
+const SNEAKER_SIZES = ["37", "38", "39", "40", "41", "42", "43", "44", "45"];
+const ACCESSORY_SIZES = ["ÚNICO"];
 
 export function SellerProductUploadView() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [showMeasurements, setShowMeasurements] = useState(false);
+  const [customSizeInput, setCustomSizeInput] = useState("");
 
   const {
     photos,
     brand,
+    isCustomBrand,
+    customBrand,
     gender,
     category,
     subcategory,
     condition,
     title,
     price,
+    size,
+    tag,
+    description,
     weight,
     packageSize,
+    measurements,
     isSubmitting,
     isSubmitted,
     processingStep,
@@ -58,14 +83,20 @@ export function SellerProductUploadView() {
     setPrimaryPhoto,
     clearPhotos,
     setBrand,
+    setIsCustomBrand,
+    setCustomBrand,
     setGender,
     setCategory,
     setSubcategory,
     setCondition,
     setTitle,
     setPrice,
+    setSize,
+    setTag,
+    setDescription,
     setWeight,
     setPackageSize,
+    setMeasurements,
     resetListing,
     submitListing,
   } = useSellerListingStore();
@@ -75,7 +106,6 @@ export function SellerProductUploadView() {
       const selectedFiles = Array.from(e.target.files);
       addPhotos(selectedFiles);
     }
-    // Clear input value so same files can be re-selected if removed
     if (e.target) {
       e.target.value = "";
     }
@@ -103,13 +133,23 @@ export function SellerProductUploadView() {
     ? TAXONOMY_SUBCATEGORIES[category as TaxonomyCategory] || []
     : [];
 
+  // Size options based on category
+  const recommendedSizes =
+    category === "Sneakers"
+      ? SNEAKER_SIZES
+      : category === "Acessórios"
+      ? ACCESSORY_SIZES
+      : CLOTHING_SIZES;
+
   // Validation rules
   const hasPhotos = photos.length > 0;
-  const hasBrand = Boolean(brand);
+  const effectiveBrand = isCustomBrand ? customBrand.trim() : brand;
+  const hasBrand = Boolean(effectiveBrand);
   const hasCategory = Boolean(category);
   const hasSubcategory = Boolean(subcategory);
   const hasCondition = Boolean(condition);
   const hasPrice = Boolean(price && Number(price) > 0);
+  const hasSize = Boolean(size && size.trim().length > 0);
 
   const isFormValid =
     hasPhotos &&
@@ -117,7 +157,8 @@ export function SellerProductUploadView() {
     hasCategory &&
     hasSubcategory &&
     hasCondition &&
-    hasPrice;
+    hasPrice &&
+    hasSize;
 
   // Render Submitted Confirmation View
   if (isSubmitted) {
@@ -126,17 +167,17 @@ export function SellerProductUploadView() {
         <div className="pt-6 md:pt-10 space-y-6">
           <div className="bg-canvas-well border border-border-subtle p-6 space-y-4 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-canvas-base border border-border-subtle text-text-optic mx-auto">
-              <CheckCircle2 className="w-9 h-9 text-text-optic" />
+              <CheckCircle2 className="w-9 h-9 text-emerald-400" />
             </div>
             <div>
               <span className="text-[10px] font-mono tracking-widest uppercase text-emerald-400 block mb-1">
-                STATUS: LOTE PROCESSADO E ATIVO
+                STATUS: LOTE PUBLICADO COM SUCESSO
               </span>
               <h1 className="text-xl md:text-2xl font-bold tracking-tight uppercase font-mono">
-                Produto Registrado
+                Peça Registrada no Acervo
               </h1>
               <p className="text-xs text-text-platinum mt-1">
-                Fotos processadas, metadados indexados e triagem iniciada.
+                Fotos processadas em WebP, laudo pericial gerado e metadados ativos no Neon PostgreSQL.
               </p>
             </div>
           </div>
@@ -175,13 +216,23 @@ export function SellerProductUploadView() {
           <div className="bg-canvas-well border border-border-subtle p-4 space-y-3 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-border-subtle pb-2">
               <span className="text-text-slate uppercase">Marca</span>
-              <span className="font-bold text-text-optic">{brand}</span>
+              <span className="font-bold text-text-optic">{effectiveBrand}</span>
             </div>
             <div className="flex items-center justify-between border-b border-border-subtle pb-2">
               <span className="text-text-slate uppercase">Categoria</span>
               <span className="text-text-platinum">
                 {gender ? `${gender} / ` : ""}
                 {category} / {subcategory}
+              </span>
+            </div>
+            <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+              <span className="text-text-slate uppercase">Tamanho</span>
+              <span className="font-bold text-text-optic">{size}</span>
+            </div>
+            <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+              <span className="text-text-slate uppercase">Selo Editorial</span>
+              <span className="px-2 py-0.5 bg-canvas-base border border-border-subtle text-text-optic font-bold text-[10px]">
+                {tag}
               </span>
             </div>
             {title && (
@@ -215,7 +266,7 @@ export function SellerProductUploadView() {
           {createdSlug && (
             <a
               href={`/produtos/${createdSlug}`}
-              className="w-full h-16 min-h-[48px] bg-emerald-400 text-canvas-base font-bold text-sm uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 hover:bg-emerald-300 active:scale-[0.99] transition-all font-mono"
+              className="w-full h-16 min-h-[48px] bg-emerald-400 text-canvas-base font-bold text-sm uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 hover:bg-emerald-300 active:scale-[0.99] transition-all font-mono shadow-lg"
             >
               <span>Ver Peça no Storefront</span>
               <ArrowRight className="w-5 h-5" />
@@ -227,7 +278,7 @@ export function SellerProductUploadView() {
             className="w-full h-16 min-h-[48px] bg-canvas-well border border-border-subtle text-text-optic font-bold text-sm uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 hover:bg-white/10 active:scale-[0.99] transition-all font-mono"
           >
             <RefreshCw className="w-5 h-5" />
-            <span>Cadastrar Novo Produto</span>
+            <span>Cadastrar Outra Peça</span>
           </button>
         </div>
       </div>
@@ -243,15 +294,15 @@ export function SellerProductUploadView() {
             <span className="w-2 h-2 bg-emerald-400 rounded-none inline-block"></span>
             <div>
               <h1 className="text-xs font-mono font-bold tracking-widest uppercase text-text-optic">
-                VENDEDOR PWA // UPLOAD DE PRODUTOS
+                VENDEDOR PWA // CADASTRO DE PEÇAS
               </h1>
               <p className="text-[10px] font-mono text-text-slate">
-                ONYX BASALT // MODO ALTO DESEMPENHO
+                ONYX BASALT // CURADORIA &amp; ARQUIVO
               </p>
             </div>
           </div>
           <span className="text-[10px] font-mono bg-canvas-base px-2 py-1 border border-border-subtle text-text-platinum">
-            v2.4
+            v3.0
           </span>
         </div>
       </header>
@@ -265,7 +316,7 @@ export function SellerProductUploadView() {
 
       {/* 2. FORM BODY */}
       <main className="flex-1 px-4 py-6 space-y-6">
-        {/* Pinned Native Camera Input for iOS & Android (as per .context/design.md Section 4) */}
+        {/* Pinned Native Camera Input for iOS & Android */}
         <input
           ref={cameraInputRef}
           type="file"
@@ -287,7 +338,7 @@ export function SellerProductUploadView() {
           onChange={handleFileChange}
         />
 
-        {/* SECTION: PHOTO UPLOAD */}
+        {/* SECTION 1: PHOTO UPLOAD */}
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <label
@@ -312,7 +363,7 @@ export function SellerProductUploadView() {
             )}
           </div>
 
-          {/* Massive Touch Targets: Direct Camera Capture (iOS) + Multi-File Library */}
+          {/* Dual Camera / Gallery Buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <button
               type="button"
@@ -328,7 +379,7 @@ export function SellerProductUploadView() {
               className="h-14 min-h-[48px] px-4 bg-canvas-well border border-border-subtle hover:border-text-optic text-text-optic font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer active:scale-[0.99] transition-all shadow-sm"
             >
               <UploadCloud className="w-4 h-4 text-text-platinum" />
-              <span>Galeria de Fotos (Múltiplas)</span>
+              <span>Galeria de Fotos</span>
             </button>
           </div>
 
@@ -341,7 +392,7 @@ export function SellerProductUploadView() {
             onDragLeave={() => setIsDragOver(false)}
             onDrop={handleDrop}
             onClick={triggerFileInput}
-            className={`w-full p-4 border-2 border-dashed transition-all cursor-pointer flex flex-col items-center justify-center text-center gap-2 min-h-[100px] ${
+            className={`w-full p-4 border-2 border-dashed transition-all cursor-pointer flex flex-col items-center justify-center text-center gap-2 min-h-[90px] ${
               isDragOver
                 ? "border-text-optic bg-canvas-well"
                 : photos.length > 0
@@ -360,10 +411,10 @@ export function SellerProductUploadView() {
               <span className="text-xs font-mono font-bold text-text-optic uppercase tracking-wider block">
                 {photos.length === 0
                   ? "Arraste fotos ou clique aqui"
-                  : "Adicionar Mais Arquivos"}
+                  : "Adicionar Mais Fotos"}
               </span>
               <span className="text-[10px] text-text-slate block mt-0.5">
-                Otimização automática para WebP editorial em alta resolução
+                Compressão WebP automática a 85% com retenção de detalhes macro
               </span>
             </div>
           </div>
@@ -437,48 +488,78 @@ export function SellerProductUploadView() {
                 })}
               </div>
               <p className="text-[10px] font-mono text-text-slate">
-                Dica: Toque na estrela para definir a foto como capa principal do catálogo.
+                Toque na estrela de qualquer foto para torná-la a capa principal do produto.
               </p>
             </div>
           )}
         </section>
 
-        {/* SECTION: TAXONOMY SELECTS */}
+        {/* SECTION 2: BRAND, CATEGORY & SIZE */}
         <section className="space-y-4 pt-2 border-t border-border-subtle">
           <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-text-platinum">
             <Tag className="w-4 h-4 text-text-optic" />
-            <span>2. Marca &amp; Categoria</span>
+            <span>2. Marca, Categoria &amp; Tamanho</span>
           </div>
 
           <div className="grid grid-cols-1 gap-4">
-            {/* BRAND SELECT */}
+            {/* BRAND SELECT / CUSTOM BRAND */}
             <div className="space-y-1.5">
-              <label
-                htmlFor="seller-brand"
-                className="block text-xs font-bold uppercase tracking-wider text-text-platinum"
-              >
-                Marca da Peça <span className="text-red-400">*</span>
-              </label>
-              <div className="relative">
-                <select
-                  id="seller-brand"
-                  value={brand}
-                  onChange={(e) => setBrand(e.target.value)}
-                  className="w-full h-14 min-h-[48px] bg-canvas-well border border-border-subtle px-4 text-sm font-medium text-text-optic appearance-none focus:outline-none focus:border-text-optic rounded-none cursor-pointer"
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="seller-brand"
+                  className="block text-xs font-bold uppercase tracking-wider text-text-platinum"
                 >
-                  <option value="" disabled className="bg-canvas-well text-text-slate">
-                    Selecione a Marca...
-                  </option>
-                  {TAXONOMY_BRANDS.map((item) => (
-                    <option key={item} value={item} className="bg-canvas-well text-text-optic">
-                      {item}
-                    </option>
-                  ))}
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-text-slate">
-                  <ChevronDown className="w-4 h-4" />
-                </div>
+                  Marca da Peça <span className="text-red-400">*</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setIsCustomBrand(!isCustomBrand)}
+                  className="text-[10px] font-mono text-text-platinum hover:text-text-optic underline cursor-pointer"
+                >
+                  {isCustomBrand ? "Escolher da lista de marcas" : "+ Outra marca não listada"}
+                </button>
               </div>
+
+              {!isCustomBrand ? (
+                <div className="relative">
+                  <select
+                    id="seller-brand"
+                    value={brand}
+                    onChange={(e) => {
+                      if (e.target.value === "__OTHER__") {
+                        setIsCustomBrand(true);
+                      } else {
+                        setBrand(e.target.value);
+                      }
+                    }}
+                    className="w-full h-14 min-h-[48px] bg-canvas-well border border-border-subtle px-4 text-sm font-medium text-text-optic appearance-none focus:outline-none focus:border-text-optic rounded-none cursor-pointer"
+                  >
+                    <option value="" disabled className="bg-canvas-well text-text-slate">
+                      Selecione a Marca...
+                    </option>
+                    {TAXONOMY_BRANDS.map((item) => (
+                      <option key={item} value={item} className="bg-canvas-well text-text-optic">
+                        {item}
+                      </option>
+                    ))}
+                    <option value="__OTHER__" className="bg-canvas-well text-emerald-400 font-bold">
+                      + Outra Marca (Digitar livremente)...
+                    </option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-text-slate">
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  value={customBrand}
+                  onChange={(e) => setCustomBrand(e.target.value)}
+                  placeholder="Digite o nome da marca (Ex: Undercover, Rick Owens, Vetements)"
+                  className="w-full h-14 min-h-[48px] bg-canvas-well border border-border-subtle px-4 text-sm font-medium text-text-optic placeholder:text-text-slate focus:outline-none focus:border-text-optic rounded-none font-mono"
+                  autoFocus
+                />
+              )}
             </div>
 
             {/* GENDER SELECT */}
@@ -497,7 +578,7 @@ export function SellerProductUploadView() {
                   className="w-full h-14 min-h-[48px] bg-canvas-well border border-border-subtle px-4 text-sm font-medium text-text-optic appearance-none focus:outline-none focus:border-text-optic rounded-none cursor-pointer"
                 >
                   <option value="" className="bg-canvas-well text-text-slate">
-                    Gênero (Opcional / Unissex)
+                    Unissex / Geral
                   </option>
                   {TAXONOMY_GENDERS.map((g) => (
                     <option key={g} value={g} className="bg-canvas-well text-text-optic">
@@ -541,7 +622,7 @@ export function SellerProductUploadView() {
               </div>
             </div>
 
-            {/* SUBCATEGORY SELECT (Cascaded) */}
+            {/* SUBCATEGORY SELECT */}
             <div className="space-y-1.5">
               <label
                 htmlFor="seller-subcategory"
@@ -559,7 +640,7 @@ export function SellerProductUploadView() {
                   <option value="" disabled className="bg-canvas-well text-text-slate">
                     {category
                       ? `Selecione a Subcategoria de ${category}...`
-                      : "Selecione primeiro uma Categoria ou escolha abaixo..."}
+                      : "Selecione primeiro uma Categoria..."}
                   </option>
                   {category ? (
                     availableSubcategories.map((sub) => (
@@ -568,7 +649,6 @@ export function SellerProductUploadView() {
                       </option>
                     ))
                   ) : (
-                    // When category is not yet selected, provide grouped optgroups of the entire taxonomy
                     TAXONOMY_CATEGORIES.map((cat) => (
                       <optgroup
                         key={cat}
@@ -593,14 +673,85 @@ export function SellerProductUploadView() {
                 </div>
               </div>
             </div>
+
+            {/* SIZE SELECTOR (Tamanho da Peça) */}
+            <div className="space-y-2 pt-1">
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-bold uppercase tracking-wider text-text-platinum">
+                  Tamanho da Peça <span className="text-red-400">*</span>
+                </label>
+                <span className="text-[10px] font-mono text-text-slate">
+                  Atual: <strong className="text-text-optic">{size}</strong>
+                </span>
+              </div>
+
+              {/* Quick Tap Buttons */}
+              <div className="flex items-center gap-1.5 flex-wrap font-mono text-xs">
+                {recommendedSizes.map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => {
+                      setSize(s);
+                      setCustomSizeInput("");
+                    }}
+                    className={`h-11 px-3.5 border transition-all cursor-pointer font-bold ${
+                      size === s && !customSizeInput
+                        ? "bg-text-optic text-canvas-base border-text-optic shadow-sm"
+                        : "bg-canvas-well text-text-platinum border-border-subtle hover:text-text-optic hover:border-border-specular"
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+
+              {/* Custom Size Text Input */}
+              <div className="relative pt-1">
+                <input
+                  type="text"
+                  value={customSizeInput}
+                  onChange={(e) => {
+                    setCustomSizeInput(e.target.value);
+                    setSize(e.target.value);
+                  }}
+                  placeholder="Ou digite tamanho customizado (Ex: US 10.5, W32 L34, 48 EU)"
+                  className="w-full h-11 bg-canvas-well border border-border-subtle px-3 text-xs font-mono text-text-optic placeholder:text-text-slate focus:outline-none focus:border-text-optic rounded-none"
+                />
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* SECTION: CONDITION & DETAILS */}
+        {/* SECTION 3: EDITORIAL TAG, CONDITION & IDENTIFICATION */}
         <section className="space-y-4 pt-2 border-t border-border-subtle">
           <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-text-platinum">
             <Layers className="w-4 h-4 text-text-optic" />
-            <span>3. Condição e Identificação</span>
+            <span>3. Condição &amp; Selo Editorial</span>
+          </div>
+
+          {/* EDITORIAL TAG SELECTOR */}
+          <div className="space-y-2">
+            <label className="block text-xs font-bold uppercase tracking-wider text-text-platinum flex items-center gap-1.5">
+              <Bookmark className="w-3.5 h-3.5 text-text-optic" />
+              <span>Selo Editorial do Catálogo</span>
+            </label>
+            <div className="grid grid-cols-3 gap-2 font-mono text-xs">
+              {EDITORIAL_TAGS.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTag(t)}
+                  className={`h-10 border transition cursor-pointer font-bold text-[11px] uppercase tracking-wider ${
+                    tag === t
+                      ? "bg-text-optic text-canvas-base border-text-optic shadow-sm"
+                      : "bg-canvas-well text-text-platinum border-border-subtle hover:border-border-specular"
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* CONDITION SELECT */}
@@ -644,7 +795,7 @@ export function SellerProductUploadView() {
               htmlFor="seller-title"
               className="block text-xs font-bold uppercase tracking-wider text-text-platinum"
             >
-              Identificação do Modelo / Nome
+              Identificação do Modelo / Nome da Peça
             </label>
             <input
               type="text"
@@ -680,13 +831,107 @@ export function SellerProductUploadView() {
               />
             </div>
           </div>
+
+          {/* DESCRIPTION / NOTAS DE CURADORIA */}
+          <div className="space-y-1.5">
+            <label
+              htmlFor="seller-description"
+              className="block text-xs font-bold uppercase tracking-wider text-text-platinum flex items-center gap-1.5"
+            >
+              <FileText className="w-3.5 h-3.5 text-text-optic" />
+              <span>História &amp; Notas de Curadoria (Descrição)</span>
+            </label>
+            <textarea
+              id="seller-description"
+              rows={3}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Ex: Peça rara de acervo, tecido pesado de algodão escovado, bordado perfeito. Sem avarias funcionais."
+              className="w-full bg-canvas-well border border-border-subtle p-3 text-xs font-mono text-text-optic placeholder:text-text-slate focus:outline-none focus:border-text-optic rounded-none"
+            />
+          </div>
         </section>
 
-        {/* SECTION: SHIPPING & LOGISTICS (PESO / DIMENSÕES) */}
+        {/* SECTION 4: PHYSICAL MEASUREMENTS (OPTIONAL ACCORDION) */}
+        <section className="space-y-3 pt-2 border-t border-border-subtle">
+          <button
+            type="button"
+            onClick={() => setShowMeasurements(!showMeasurements)}
+            className="w-full flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-text-platinum hover:text-text-optic py-1 cursor-pointer"
+          >
+            <div className="flex items-center gap-2">
+              <Ruler className="w-4 h-4 text-text-optic" />
+              <span>4. Medidas Reais Auditadas (Opcional)</span>
+            </div>
+            {showMeasurements ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </button>
+
+          {showMeasurements && (
+            <div className="bg-canvas-well border border-border-subtle p-3.5 space-y-3 font-mono text-xs animate-in fade-in duration-150">
+              <p className="text-[11px] text-text-slate">
+                Alimente o laudo pericial da peça inserindo as dimensões em centímetros:
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] text-text-slate uppercase">Tórax / Busto</label>
+                  <input
+                    type="text"
+                    value={measurements.chest || ""}
+                    onChange={(e) => setMeasurements({ chest: e.target.value })}
+                    placeholder="Ex: 62 cm"
+                    className="w-full h-10 bg-canvas-base border border-border-subtle px-3 text-xs text-text-optic outline-none focus:border-text-optic"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] text-text-slate uppercase">Comprimento</label>
+                  <input
+                    type="text"
+                    value={measurements.length || ""}
+                    onChange={(e) => setMeasurements({ length: e.target.value })}
+                    placeholder="Ex: 74 cm"
+                    className="w-full h-10 bg-canvas-base border border-border-subtle px-3 text-xs text-text-optic outline-none focus:border-text-optic"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] text-text-slate uppercase">Ombro a Ombro</label>
+                  <input
+                    type="text"
+                    value={measurements.shoulders || ""}
+                    onChange={(e) => setMeasurements({ shoulders: e.target.value })}
+                    placeholder="Ex: 54 cm"
+                    className="w-full h-10 bg-canvas-base border border-border-subtle px-3 text-xs text-text-optic outline-none focus:border-text-optic"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] text-text-slate uppercase">Palmilha (Sneakers)</label>
+                  <input
+                    type="text"
+                    value={measurements.insole || ""}
+                    onChange={(e) => setMeasurements({ insole: e.target.value })}
+                    placeholder="Ex: 28.5 cm"
+                    className="w-full h-10 bg-canvas-base border border-border-subtle px-3 text-xs text-text-optic outline-none focus:border-text-optic"
+                  />
+                </div>
+              </div>
+              <div className="space-y-1 pt-1">
+                <label className="text-[10px] text-text-slate uppercase">Caimento / Fit</label>
+                <input
+                  type="text"
+                  value={measurements.fit || "Regular / Fiel ao tamanho"}
+                  onChange={(e) => setMeasurements({ fit: e.target.value })}
+                  placeholder="Ex: Oversized Boxy Fit"
+                  className="w-full h-10 bg-canvas-base border border-border-subtle px-3 text-xs text-text-optic outline-none focus:border-text-optic"
+                />
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* SECTION 5: SHIPPING & LOGISTICS (PESO / PACOTE) */}
         <section className="space-y-4 pt-2 border-t border-border-subtle">
           <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-text-platinum">
             <Scale className="w-4 h-4 text-text-optic" />
-            <span>4. Peso e Dimensões (Logística)</span>
+            <span>5. Peso e Logística</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -749,13 +994,14 @@ export function SellerProductUploadView() {
           <div className="bg-canvas-well border border-border-subtle p-3.5 space-y-1.5 text-xs text-text-slate font-mono">
             <div className="flex items-center gap-2 text-text-platinum font-bold uppercase">
               <AlertCircle className="w-4 h-4 text-text-platinum" />
-              <span>Pendências para salvar e processar:</span>
+              <span>Pendências para salvar e publicar:</span>
             </div>
             <ul className="list-disc list-inside space-y-0.5 text-[11px] text-text-slate pl-1">
               {!hasPhotos && <li>Adicione pelo menos 1 foto da peça</li>}
-              {!hasBrand && <li>Selecione a marca</li>}
-              {!hasCategory && <li>Selecione a categoria</li>}
+              {!hasBrand && <li>Selecione ou digite a marca</li>}
+              {!hasCategory && <li>Selecione a categoria principal</li>}
               {!hasSubcategory && <li>Selecione a subcategoria</li>}
+              {!hasSize && <li>Selecione o tamanho da peça</li>}
               {!hasCondition && <li>Selecione o estado de conservação</li>}
               {!hasPrice && <li>Defina o preço desejado (R$)</li>}
             </ul>
@@ -771,7 +1017,7 @@ export function SellerProductUploadView() {
           onClick={submitListing}
           className={`w-full h-16 md:h-18 min-h-[56px] font-bold text-sm md:text-base tracking-widest uppercase flex items-center justify-center gap-3 transition-all cursor-pointer font-mono ${
             isFormValid && !isSubmitting
-              ? "bg-text-optic text-canvas-base hover:bg-neutral-200 active:scale-[0.99]"
+              ? "bg-text-optic text-canvas-base hover:bg-neutral-200 active:scale-[0.99] shadow-lg"
               : "bg-canvas-well text-text-slate border border-border-subtle cursor-not-allowed opacity-70"
           }`}
         >
@@ -783,7 +1029,7 @@ export function SellerProductUploadView() {
           ) : (
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5" />
-              <span>Salvar e processar fotos</span>
+              <span>Salvar e publicar no acervo</span>
               <ArrowRight className="w-5 h-5" />
             </div>
           )}
