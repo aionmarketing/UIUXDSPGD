@@ -1,0 +1,16 @@
+# Antigravity Technical Directives
+
+## 1. Stack Enforcement
+* **Framework:** Next.js 16 (App Router) + React 19.
+* **Styling:** Tailwind CSS v4. No tailwind.config.js or .ts files allowed.
+* **State Management:** Zustand only.
+* **Animations:** GSAP + ScrollTrigger for scroll events; Framer Motion for micro-interactions.
+* **3D:** React Three Fiber / Drei.
+
+## 2. Asynchronous Next.js 16 Rules
+* cookies(), headers(), and params are asynchronous and must be awaited.
+* Do not use useMemo or useCallback by default, as the React 19 Compiler handles memoization natively.
+
+## 3. Component Architecture
+* **Screaming Architecture:** Keep features isolated in a features/ directory (e.g., features/checkout, features/catalogo).
+* Server Components are the default. Add "use client" only at the leaf nodes (e.g., GSAP wrappers, WebGL canvases, interactive forms).
