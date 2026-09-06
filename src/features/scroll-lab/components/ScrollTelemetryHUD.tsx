@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useScrollLab } from "../context/ScrollContext";
-import { Activity, Compass, Gauge, Sliders, ChevronsUpDown, ArrowUpRight, Zap } from "lucide-react";
+import { Activity, Gauge, Sliders, ArrowUpRight } from "lucide-react";
 
 export function ScrollTelemetryHUD() {
   const { progress, velocity, direction, isScrolling, settings, setSettings, scrollTo } = useScrollLab();

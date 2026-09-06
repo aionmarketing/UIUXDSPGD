@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Header, Hero, NovidadesGrid, BrandsGrid, Footer } from "@/features/storefront";
-import { ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
 
 export default function StorefrontLenisMirrorPage() {
   return (

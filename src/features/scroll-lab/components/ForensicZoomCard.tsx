@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Search, ShieldAlert, CheckCircle2, Crosshair, Sparkles, Terminal } from "lucide-react";
+import { Search, CheckCircle2, Crosshair, Terminal } from "lucide-react";
 
 export function ForensicZoomCard() {
   const containerRef = useRef<HTMLDivElement>(null);

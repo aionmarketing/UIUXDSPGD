@@ -10,7 +10,6 @@ import {
   Star,
   Plus,
   ArrowRight,
-  Package,
   Layers,
   Sparkles,
   Loader2,
@@ -47,7 +46,6 @@ export function SellerProductUploadView() {
     price,
     weight,
     packageSize,
-    dimensions,
     isSubmitting,
     isSubmitted,
     processingStep,
@@ -64,7 +62,6 @@ export function SellerProductUploadView() {
     setPrice,
     setWeight,
     setPackageSize,
-    setDimensions,
     resetListing,
     submitListing,
   } = useSellerListingStore();

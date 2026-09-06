@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext } from "react";
 import type Lenis from "lenis";
 
 export interface ScrollSettings {
@@ -11,8 +11,7 @@ export interface ScrollSettings {
 }
 
 interface ScrollContextValue {
-  lenis: Lenis | null;
-  setLenis: (instance: Lenis | null) => void;
+  getLenis: () => Lenis | null;
   progress: number;
   velocity: number;
   direction: number;
@@ -30,8 +29,7 @@ const DEFAULT_SETTINGS: ScrollSettings = {
 };
 
 const ScrollContext = createContext<ScrollContextValue>({
-  lenis: null,
-  setLenis: () => {},
+  getLenis: () => null,
   progress: 0,
   velocity: 0,
   direction: 0,
@@ -45,8 +43,7 @@ export const useScrollLab = () => useContext(ScrollContext);
 
 export function ScrollLabContextProvider({
   children,
-  lenis,
-  setLenis,
+  getLenis,
   progress,
   velocity,
   direction,
@@ -56,8 +53,7 @@ export function ScrollLabContextProvider({
   scrollTo,
 }: {
   children: React.ReactNode;
-  lenis: Lenis | null;
-  setLenis: (instance: Lenis | null) => void;
+  getLenis: () => Lenis | null;
   progress: number;
   velocity: number;
   direction: number;
@@ -69,8 +65,7 @@ export function ScrollLabContextProvider({
   return (
     <ScrollContext.Provider
       value={{
-        lenis,
-        setLenis,
+        getLenis,
         progress,
         velocity,
         direction,

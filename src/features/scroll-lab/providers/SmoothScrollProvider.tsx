@@ -18,7 +18,6 @@ export function SmoothScrollProvider({
   initialSettings,
   enableGsapIntegration = true,
 }: SmoothScrollProviderProps) {
-  const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
   const [settings, setSettings] = useState<ScrollSettings>({
@@ -51,11 +50,10 @@ export function SmoothScrollProvider({
     });
 
     lenisRef.current = lenis;
-    setLenisInstance(lenis);
 
     // Synchronize Lenis scroll with GSAP ScrollTrigger and State
     let scrollTimeout: NodeJS.Timeout;
-    const handleScroll = (e: any) => {
+    const handleScroll = (e: Lenis) => {
       setProgress(e.progress ?? 0);
       setVelocity(Math.round((e.velocity ?? 0) * 100) / 100);
       setDirection(e.direction ?? 0);
@@ -86,7 +84,6 @@ export function SmoothScrollProvider({
       gsap.ticker.remove(tickerCallback);
       lenis.destroy();
       lenisRef.current = null;
-      setLenisInstance(null);
       if (enableGsapIntegration) {
         ScrollTrigger.getAll().forEach((t) => t.kill());
       }
@@ -105,10 +102,11 @@ export function SmoothScrollProvider({
     [settings.duration]
   );
 
+  const getLenis = useCallback(() => lenisRef.current, []);
+
   return (
     <ScrollLabContextProvider
-      lenis={lenisInstance}
-      setLenis={setLenisInstance}
+      getLenis={getLenis}
       progress={progress}
       velocity={velocity}
       direction={direction}

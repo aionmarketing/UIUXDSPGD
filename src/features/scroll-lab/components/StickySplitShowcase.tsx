@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { ShieldCheck, Cpu, ArrowDownRight, Layers, FileCheck } from "lucide-react";
+import { ShieldCheck, Layers, FileCheck } from "lucide-react";
 
 interface Step {
   id: string;

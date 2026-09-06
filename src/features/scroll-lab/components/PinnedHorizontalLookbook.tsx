@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Layers, ArrowRight, ShieldCheck, Cpu, Sparkles } from "lucide-react";
+import { ArrowRight, ShieldCheck, Cpu } from "lucide-react";
 
 interface LookbookSlide {
   number: string;

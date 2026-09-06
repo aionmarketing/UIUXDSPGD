@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ShieldCheck, Sparkles, Cpu, Layers } from "lucide-react";
+import { ArrowDown, Sparkles, Cpu, Layers } from "lucide-react";
 
 export function KineticHero() {
   const containerRef = useRef<HTMLDivElement>(null);

@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ShieldCheck, Eye, Sparkles, Hash } from "lucide-react";
+import { ShieldCheck, Sparkles } from "lucide-react";
 
 interface ArchiveItem {
   id: string;

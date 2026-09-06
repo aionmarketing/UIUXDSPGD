@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useScrollLab } from "../context/ScrollContext";
-import { ArrowUp, ArrowUpRight, Cpu, Layers, Check, ShieldCheck } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Check } from "lucide-react";
 
 export function ScrollBenchmarkFooter() {
   const { scrollTo } = useScrollLab();
