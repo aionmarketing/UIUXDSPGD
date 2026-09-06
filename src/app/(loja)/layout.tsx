@@ -36,6 +36,12 @@ export default function LojaLayout({
         >
           Seller PWA (/admin/produtos)
         </Link>
+        <Link
+          href="/preview"
+          className="px-2.5 py-1 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/10 transition flex items-center gap-1 font-bold"
+        >
+          ✨ Glass Lab (/preview)
+        </Link>
       </aside>
     </div>
   );
