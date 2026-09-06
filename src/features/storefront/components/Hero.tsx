@@ -148,7 +148,7 @@ export function Hero() {
             className="inline-flex items-center gap-2.5 w-fit border border-border-subtle bg-canvas-well px-3 py-1.5 text-xs font-mono tracking-widest uppercase text-text-platinum"
           >
             <Sparkles className="w-3 h-3 text-text-optic" />
-            <span>ARQUIVO FORENSE // DROP 2026</span>
+            <span>CURADORIA EXCLUSIVA // DROP 2026</span>
           </div>
 
           {/* Core Headline */}
@@ -157,9 +157,9 @@ export function Hero() {
             className="text-4xl sm:text-5xl xl:text-6xl font-extrabold uppercase tracking-tight leading-[1.05] text-text-optic font-mono"
           >
             MODA CIRCULAR <br />
-            <span className="text-text-platinum font-light italic">SUBVERSIVA</span> &amp;{" "}
+            <span className="text-text-platinum font-light italic">STREETWEAR</span> &amp;{" "}
             <br />
-            AUTENTICIDADE.
+            ARQUIVO VINTAGE.
           </h1>
 
           {/* CONTRAST MANDATE BLOCK */}
@@ -169,16 +169,16 @@ export function Hero() {
           >
             <div className="flex items-center justify-between border-b border-border-subtle pb-2">
               <span className="text-[11px] font-mono uppercase tracking-widest text-text-slate">
-                PROTOCOLO DE QUALIDADE
+                GARANTIA DE AUTENTICIDADE
               </span>
               <span className="text-[11px] font-mono text-text-platinum flex items-center gap-1">
                 <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                WCAG AAA COMPLIANT
+                100% ORIGINAL
               </span>
             </div>
             <p className="text-sm sm:text-base text-text-optic leading-relaxed font-normal">
-              Acervo curado de peças singulares de arquivo, passarela e streetwear de luxo.
-              Cada item é inspecionado fisicamente e autenticado com laudo forense antes da disponibilização.
+              Acervo curado de peças raras de arquivo, passarela e streetwear de luxo.
+              Cada item é inspecionado minuciosamente e certificado antes de ser disponibilizado para venda.
             </p>
           </div>
 
@@ -212,12 +212,12 @@ export function Hero() {
             <div className="flex items-center gap-1.5 bg-canvas-well border border-border-subtle px-3 py-1.5 text-[11px] font-mono">
               <Sparkles className="w-3.5 h-3.5 text-text-optic" />
               <span className="font-bold text-text-optic tracking-wider uppercase">
-                GORILLA 3D // BIOMETRIC AVATAR
+                MASCOTE INTERATIVO // 3D
               </span>
             </div>
 
             <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase tracking-widest">
-              ● REALTIME 60FPS
+              ● INTERAÇÃO EM TEMPO REAL
             </span>
           </div>
 
@@ -259,7 +259,7 @@ export function Hero() {
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-text-optic" />
                 <span className="font-mono text-xs font-bold tracking-wider uppercase text-text-optic">
-                  GORILLA 3D // TRACKING BIOMÉTRICO
+                  DESAPEGADO 3D // MASCOTE DO ACERVO
                 </span>
               </div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400">
@@ -272,10 +272,10 @@ export function Hero() {
               <div className="flex items-baseline justify-between">
                 <div>
                   <h2 className="text-sm font-bold uppercase tracking-tight text-text-optic font-mono">
-                    Gorilla Avatar 3D • Procedural Engine
+                    Gorila 3D • Gráficos Vetoriais
                   </h2>
                   <p className="text-[11px] font-mono text-text-platinum">
-                    Quaternions 3D // Projeção com Paralaxe // Respiração Ambiente
+                    Renderização Interativa // Rastreamento do Cursor
                   </p>
                 </div>
                 <span className="font-mono text-[11px] font-bold px-2 py-0.5 bg-text-optic text-canvas-base uppercase">
@@ -285,18 +285,18 @@ export function Hero() {
 
               <div className="grid grid-cols-3 gap-2 pt-2 border-t border-border-subtle text-[10px] font-mono">
                 <div>
-                  <span className="text-text-slate block">CINEMÁTICA</span>
+                  <span className="text-text-slate block">INTERAÇÃO</span>
                   <span className="text-text-optic font-semibold uppercase">
-                    Yaw • Pitch • Roll
+                    Mouse &amp; Toque
                   </span>
                 </div>
                 <div>
-                  <span className="text-text-slate block">RENDER</span>
-                  <span className="text-text-optic font-semibold">SVG 3D Wireframe</span>
+                  <span className="text-text-slate block">ESTILO</span>
+                  <span className="text-text-optic font-semibold">3D Wireframe</span>
                 </div>
                 <div>
-                  <span className="text-text-slate block">FOCAL</span>
-                  <span className="text-text-optic font-semibold">620 Focal Depth</span>
+                  <span className="text-text-slate block">PERFORMANCE</span>
+                  <span className="text-text-optic font-semibold">60 FPS Fluido</span>
                 </div>
               </div>
             </div>
@@ -308,7 +308,7 @@ export function Hero() {
                 <span>Mova o cursor ou arraste para interagir</span>
               </span>
               <span className="text-text-platinum text-[10px]">
-                MONOLITH EXPERIMENTAL LAB
+                DESAPEGADO LAB
               </span>
             </div>
           </div>
@@ -324,14 +324,14 @@ export function Hero() {
           <div className="flex items-center gap-6 text-text-slate">
             <span className="flex items-center gap-2 text-text-platinum">
               <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
-              SISTEMA OPERACIONAL
+              CATÁLOGO ATIVO
             </span>
-            <span className="hidden sm:inline">ACERVO: 1.482 PEÇAS</span>
-            <span className="hidden md:inline">AUDITORIA FORENSE: 100%</span>
+            <span className="hidden sm:inline">ACERVO EM SÃO PAULO</span>
+            <span className="hidden md:inline">AUTENTICIDADE: 100% GARANTIDA</span>
           </div>
 
           <div className="text-text-slate text-[11px] uppercase tracking-wider">
-            DESAPEGADO.COM // MONOLITH ONYX
+            DESAPEGADO.COM // BRASIL
           </div>
         </div>
       </div>

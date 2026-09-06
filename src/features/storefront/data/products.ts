@@ -82,7 +82,7 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
     tag: "GRAIL",
     forensicReport: {
       certificateId: "MNL-FRN-2026-0891",
-      inspector: "H. Vance (Monolith Forensic Lab)",
+      inspector: "Especialistas Desapegado",
       inspectionDate: "Fev/2026",
       overallGrade: "10/10 (DSWT Pristine)",
       details: {
@@ -99,7 +99,7 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
       fit: "Oversized Streetwear Fit",
     },
     seller: {
-      name: "Monolith Curadoria Oficial",
+      name: "Curadoria Oficial Desapegado",
       verified: true,
       rating: 5.0,
       salesCount: 312,
@@ -233,7 +233,7 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
     tag: "ICÔNICO",
     forensicReport: {
       certificateId: "MNL-FRN-2026-0618",
-      inspector: "H. Vance (Monolith Forensic Lab)",
+      inspector: "Especialistas Desapegado",
       inspectionDate: "Jan/2026",
       overallGrade: "9.2/10 (Gently Preserved)",
       details: {
@@ -296,7 +296,7 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
       fit: "One Size Fits All (Circunferência elástica adaptável)",
     },
     seller: {
-      name: "Monolith Curadoria Oficial",
+      name: "Curadoria Oficial Desapegado",
       verified: true,
       rating: 5.0,
       salesCount: 312,
@@ -329,7 +329,7 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
     tag: "ARQUIVO",
     forensicReport: {
       certificateId: "MNL-FRN-2026-0388",
-      inspector: "H. Vance (Monolith Forensic Lab)",
+      inspector: "Especialistas Desapegado",
       inspectionDate: "Jan/2026",
       overallGrade: "9.8/10 (Pristine Collector)",
       details: {
@@ -393,7 +393,7 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
       fit: "Generous Padded Fit (Conforto volumoso)",
     },
     seller: {
-      name: "Monolith Curadoria Oficial",
+      name: "Curadoria Oficial Desapegado",
       verified: true,
       rating: 5.0,
       salesCount: 312,
@@ -474,7 +474,7 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
     tag: "VANGUARDA",
     forensicReport: {
       certificateId: "MNL-FRN-2026-0511",
-      inspector: "H. Vance (Monolith Forensic Lab)",
+      inspector: "Especialistas Desapegado",
       inspectionDate: "Jan/2026",
       overallGrade: "9.7/10 (Pristine)",
       details: {
@@ -536,7 +536,7 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
       fit: "True to Size",
     },
     seller: {
-      name: "Monolith Curadoria Oficial",
+      name: "Curadoria Oficial Desapegado",
       verified: true,
       rating: 5.0,
       salesCount: 312,

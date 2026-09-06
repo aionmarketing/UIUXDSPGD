@@ -180,7 +180,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-5 h-5 text-emerald-400" />
                   <span className="font-mono text-xs font-bold uppercase tracking-widest text-text-optic">
-                    LAUDO FORENSE // MONOLITH AUTHENTICITY SEAL
+                    CERTIFICADO DE AUTENTICIDADE // SELO DESAPEGADO
                   </span>
                 </div>
                 <span className="font-mono text-[10px] px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold uppercase">
@@ -194,11 +194,11 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
                   <span className="text-text-optic font-bold">{product.forensicReport.certificateId}</span>
                 </div>
                 <div>
-                  <span className="text-text-slate block text-[10px] uppercase">Perito Forense</span>
+                  <span className="text-text-slate block text-[10px] uppercase">Especialista</span>
                   <span className="text-text-optic font-bold">{product.forensicReport.inspector}</span>
                 </div>
                 <div>
-                  <span className="text-text-slate block text-[10px] uppercase">Data Auditoria</span>
+                  <span className="text-text-slate block text-[10px] uppercase">Data de Verificação</span>
                   <span className="text-text-optic font-bold">{product.forensicReport.inspectionDate}</span>
                 </div>
                 <div>
@@ -470,7 +470,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
                 <div className="flex items-start gap-2.5">
                   <Lock className="w-4 h-4 text-text-platinum shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-text-optic font-bold block">Garantia Forense Incondicional</span>
+                    <span className="text-text-optic font-bold block">Garantia Incondicional de Autenticidade</span>
                     <span className="text-[11px]">
                       Se for constatada qualquer divergência de autenticidade, reembolso de 100% do valor com estorno imediato.
                     </span>
@@ -480,9 +480,9 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
                 <div className="flex items-start gap-2.5">
                   <Clock className="w-4 h-4 text-text-platinum shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-text-optic font-bold block">Envio em até 24 Horas Úteis</span>
+                    <span className="text-text-optic font-bold block">Envio Rápido com Seguro Total</span>
                     <span className="text-[11px]">
-                      Embalagem blindada com lacre holográfico anti-violação e rastreamento full-time.
+                      Embalagem de segurança com lacre inviolável e código de rastreamento em tempo real.
                     </span>
                   </div>
                 </div>

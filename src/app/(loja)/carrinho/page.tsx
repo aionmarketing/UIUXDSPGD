@@ -102,7 +102,7 @@ export default function CartPage() {
             </nav>
             <h1 className="text-3xl sm:text-4xl font-extrabold uppercase font-mono tracking-tight text-text-optic flex items-center gap-3">
               <ShoppingBag className="w-7 h-7 text-text-optic" />
-              <span>Sacola Forense</span>
+              <span>Sua Sacola</span>
               <span className="text-base font-normal text-text-slate font-mono">
                 ({itemCount} {itemCount === 1 ? "peça" : "peças"})
               </span>
@@ -141,7 +141,7 @@ export default function CartPage() {
               href="/produtos"
               className="inline-flex items-center gap-2 h-12 px-8 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-widest hover:bg-neutral-200 transition"
             >
-              <span>Explorar Catálogo Forense</span>
+              <span>Explorar Catálogo</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -153,7 +153,7 @@ export default function CartPage() {
               {/* Items List Well */}
               <div className="bg-canvas-well border border-border-subtle divide-y divide-border-subtle shadow-xl">
                 <div className="p-4 sm:p-5 flex items-center justify-between font-mono text-xs text-text-slate uppercase tracking-wider">
-                  <span>Item &amp; Detalhes Forenses</span>
+                  <span>Item &amp; Detalhes</span>
                   <span className="hidden sm:inline">Subtotal</span>
                 </div>
 
@@ -254,7 +254,7 @@ export default function CartPage() {
                 <div className="bg-canvas-well border border-border-subtle p-5 space-y-4 shadow-lg">
                   <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-text-optic">
                     <Truck className="w-4 h-4 text-text-platinum" />
-                    <span>Calcular Envio Forense</span>
+                    <span>Calcular Frete e Prazo</span>
                   </div>
 
                   <form onSubmit={handleApplyCep} className="flex gap-2">
@@ -359,7 +359,7 @@ export default function CartPage() {
                   </div>
 
                   <div className="p-2.5 bg-canvas-base border border-border-subtle text-[11px] font-mono text-text-slate">
-                    💡 Dica: Use o cupom <strong>ONYX10</strong> para obter 10% de desconto na sua primeira compra curada.
+                    💡 Dica: Use o cupom <strong>PRIMEIRACOMPRA</strong> para obter 10% de desconto no seu primeiro pedido curado.
                   </div>
                 </div>
               </div>
@@ -392,7 +392,7 @@ export default function CartPage() {
                   )}
 
                   <div className="flex items-center justify-between text-text-platinum">
-                    <span>Frete Forense:</span>
+                    <span>Frete:</span>
                     <span className="text-text-optic font-bold">
                       {shipping > 0
                         ? `R$ ${shipping.toFixed(2).replace(".", ",")}`
@@ -444,7 +444,7 @@ export default function CartPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Truck className="w-3.5 h-3.5 text-text-platinum shrink-0" />
-                    <span>Lacre Holográfico Monolith Inviolável</span>
+                    <span>Lacre de Segurança Inviolável com Certificado</span>
                   </div>
                 </div>
               </div>

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Desapegado // Monolith Onyx Storefront",
-  description: "Acervo curado de moda circular, arquivo de passarela e autenticação forense digital.",
+  title: "Desapegado // Streetwear, Luxo & Peças Raras de Arquivo",
+  description: "Acervo curado de streetwear de luxo, peças de passarela e raridades vintage com garantia incondicional de autenticidade.",
 };
 
 export default function RootLayout({

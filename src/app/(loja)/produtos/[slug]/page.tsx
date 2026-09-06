@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!product) {
     return {
-      title: "Peça Não Encontrada // Monolith Onyx",
+      title: "Peça Não Encontrada // Desapegado",
     };
   }
 

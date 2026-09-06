@@ -18,11 +18,11 @@ export function Footer() {
             </span>
           </div>
           <p className="text-[11px] text-text-platinum leading-relaxed font-sans">
-            Plataforma forense de moda circular para compra, venda e catalogação de peças de passarela, arquivo e streetwear global.
+            Plataforma curada de streetwear, luxo e arquivo vintage. Compre e venda peças exclusivas com garantia incondicional de autenticidade.
           </p>
           <div className="flex items-center gap-2 text-[10px] text-emerald-400">
             <ShieldCheck className="w-4 h-4" />
-            <span>100% DAS PEÇAS AUDITADAS</span>
+            <span>100% DE PEÇAS AUTÊNTICAS</span>
           </div>
         </div>
 
@@ -36,7 +36,7 @@ export function Footer() {
               {TAXONOMY_SUBCATEGORIES[cat].slice(0, 6).map((sub) => (
                 <li key={sub}>
                   <Link
-                    href="#novidades"
+                    href={`/produtos?category=${encodeURIComponent(cat)}&subcategory=${encodeURIComponent(sub)}`}
                     className="hover:text-text-optic transition-colors block truncate"
                   >
                     {sub}
@@ -53,19 +53,19 @@ export function Footer() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
           <div className="flex items-center gap-4 text-text-slate">
             <span>© 2026 DESAPEGADO.COM</span>
-            <span>MONOLITH ONYX ARCHITECTURE</span>
+            <span>SÃO PAULO • BRASIL</span>
           </div>
 
           <div className="flex items-center gap-6 text-text-platinum">
             <Link href="/admin/produtos" className="hover:text-text-optic flex items-center gap-1 font-bold">
-              <span>Painel do Vendedor PWA</span>
+              <span>Quero Vender // Painel PWA</span>
               <ArrowUpRight className="w-3 h-3" />
             </Link>
             <Link href="#" className="hover:text-text-optic">
-              Termos de Autenticação
+              Termos de Uso &amp; Autenticidade
             </Link>
             <Link href="#" className="hover:text-text-optic">
-              Privacidade
+              Política de Privacidade
             </Link>
           </div>
         </div>

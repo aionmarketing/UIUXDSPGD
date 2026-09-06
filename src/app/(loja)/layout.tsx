@@ -4,9 +4,9 @@ import Link from "next/link";
 import { Header, Footer } from "@/features/storefront";
 
 export const metadata: Metadata = {
-  title: "Desapegado // Monolith Onyx Storefront",
+  title: "Desapegado // Acervo de Streetwear & Luxo",
   description:
-    "Acervo curado de moda circular, arquivo de passarela e autenticação forense digital.",
+    "Compre e venda peças raras de streetwear, arquivo de passarela e sneakers com garantia de originalidade.",
 };
 
 export default function LojaLayout({

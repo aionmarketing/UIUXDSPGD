@@ -72,11 +72,11 @@ export default function EntrarPage() {
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 bg-canvas-well border border-border-subtle px-3 py-1 text-[11px] font-mono tracking-widest text-text-platinum uppercase">
             <Sparkles className="w-3.5 h-3.5 text-text-optic" />
-            <span>ACESSO SEGURO // MONOLITH ID</span>
+            <span>ACESSO SEGURO // DESAPEGADO ID</span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-black font-mono uppercase tracking-wider text-text-optic">
-            {activeTab === "login" ? "Entrar na Conta" : "Criar Conta Forense"}
+            {activeTab === "login" ? "Entrar na Conta" : "Criar Conta"}
           </h1>
 
           <p className="text-xs font-mono text-text-platinum max-w-xs mx-auto">
@@ -199,7 +199,7 @@ export default function EntrarPage() {
                   </>
                 ) : (
                   <>
-                    <span>ACESSAR ACERVO FORENSE</span>
+                    <span>ACESSAR MINHA CONTA</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
@@ -326,7 +326,7 @@ export default function EntrarPage() {
                   className="accent-text-optic mt-0.5"
                 />
                 <label htmlFor="terms" className="text-[10px] text-text-slate leading-tight cursor-pointer">
-                  Declaro que li e concordo com os <strong>Termos de Serviço</strong> e a <strong>Política de Custódia Forense Monolith</strong>.
+                  Declaro que li e concordo com os <strong>Termos de Serviço</strong> e a <strong>Política de Privacidade</strong>.
                 </label>
               </div>
 
@@ -338,11 +338,11 @@ export default function EntrarPage() {
                 {isSubmitted ? (
                   <>
                     <Check className="w-4 h-4" />
-                    <span>Criando Conta Forense...</span>
+                    <span>Criando Conta...</span>
                   </>
                 ) : (
                   <>
-                    <span>CRIAR CONTA &amp; HABILITAR CURADORIA</span>
+                    <span>CRIAR MINHA CONTA</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
@@ -360,7 +360,7 @@ export default function EntrarPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <Lock className="w-3.5 h-3.5 text-text-platinum" />
-              <span>Monolith Auth Guard</span>
+              <span>Autenticação Segura</span>
             </span>
           </div>
 

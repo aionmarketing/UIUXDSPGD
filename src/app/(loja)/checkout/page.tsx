@@ -122,7 +122,7 @@ export default function CheckoutPage() {
   };
 
   const handleCopyPix = () => {
-    navigator.clipboard.writeText("00020126580014br.gov.bcb.pix0136monolith-forense-pay-9923847291045204000053039865802BR5920MONOLITH ONYX BRASIL6009SAO PAULO62070503***6304E8A2");
+    navigator.clipboard.writeText("00020126580014br.gov.bcb.pix0136desapegado-pay-8823746192045204000053039865802BR5920DESAPEGADO BRASIL LTDA6009SAO PAULO62070503***6304E8A2");
     setCopiedPix(true);
     setTimeout(() => setCopiedPix(false), 2500);
   };
@@ -143,7 +143,7 @@ export default function CheckoutPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <span className="font-mono text-xs text-text-slate uppercase tracking-widest block">
-                CHECKOUT FORENSE // AMBIENTE CRIPTOGRAFADO
+                FINALIZAR COMPRA // AMBIENTE SEGURO
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold font-mono uppercase text-text-optic">
                 Finalização de Pedido
@@ -195,13 +195,13 @@ export default function CheckoutPage() {
               </div>
               <div className="inline-flex items-center gap-2 bg-canvas-base border border-border-subtle px-3 py-1 text-xs font-mono text-text-platinum uppercase">
                 <Sparkles className="w-3.5 h-3.5 text-text-optic" />
-                <span>LAUDO FORENSE EMITIDO // PROTOCOLO REGISTRADO</span>
+                <span>PEDIDO CONFIRMADO // CERTIFICADO GERADO</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black font-mono uppercase text-text-optic">
                 Pedido Confirmado com Sucesso!
               </h2>
               <p className="text-xs sm:text-sm font-mono text-text-platinum max-w-xl mx-auto">
-                Seu pedido foi registrado em nossa custódia forense. Um e-mail com a via digital do laudo pericial e nota fiscal foi enviado para <strong>{identification.email}</strong>.
+                Seu pedido foi registrado com sucesso. O comprovante detalhado e o laudo de autenticidade foram enviados para <strong>{identification.email}</strong>.
               </p>
             </div>
 
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
                     <input
                       type="text"
                       readOnly
-                      value="00020126580014br.gov.bcb.pix0136monolith-forense-pay-9923847291045204000053039865802BR5920MONOLITH ONYX BRASIL6009SAO PAULO62070503***6304E8A2"
+                      value="00020126580014br.gov.bcb.pix0136desapegado-pay-8823746192045204000053039865802BR5920DESAPEGADO BRASIL LTDA6009SAO PAULO62070503***6304E8A2"
                       className="flex-1 bg-canvas-base border border-border-subtle px-3 py-2 text-[10px] font-mono text-text-slate select-all outline-none"
                     />
                     <button
@@ -274,7 +274,7 @@ export default function CheckoutPage() {
                 href="/produtos"
                 className="w-full sm:w-auto h-12 px-8 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-neutral-200 transition"
               >
-                <span>Voltar ao Acervo Forense</span>
+                <span>Voltar à Loja</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
@@ -533,7 +533,7 @@ export default function CheckoutPage() {
                     </span>
                     <h2 className="text-xl font-bold font-mono uppercase text-text-optic flex items-center gap-2">
                       <Truck className="w-5 h-5 text-text-platinum" />
-                      <span>Modalidade de Envio Forense</span>
+                      <span>Opção de Envio</span>
                     </h2>
                   </div>
 
@@ -655,7 +655,7 @@ export default function CheckoutPage() {
                         <span>- R$ {pixDiscount.toFixed(2).replace(".", ",")}</span>
                       </div>
                       <p className="text-[11px] text-text-platinum leading-relaxed">
-                        Ao clicar em &apos;Finalizar Pedido Forense&apos;, o QR Code dinâmico e o código Pix Copia-e-Cola serão gerados instantaneamente com liquidação imediata em até 3 segundos.
+                        Ao clicar em &apos;Finalizar Pedido&apos;, o QR Code dinâmico e o código Pix Copia-e-Cola serão gerados instantaneamente com liquidação em segundos.
                       </p>
                     </div>
                   )}
@@ -742,7 +742,7 @@ export default function CheckoutPage() {
                     <div className="p-4 bg-canvas-base border border-border-subtle font-mono text-xs space-y-2">
                       <span className="font-bold text-text-optic uppercase block">USDT (TRC-20 / ERC-20) / BTC</span>
                       <p className="text-[11px] text-text-slate">
-                        Ao prosseguir, você receberá a carteira multi-sig auditada Monolith Vault para liquidação on-chain em dólares digitais ou Bitcoin.
+                        Ao prosseguir, você receberá o endereço de carteira oficial para pagamento seguro em USDT ou Bitcoin.
                       </p>
                     </div>
                   )}
@@ -762,7 +762,7 @@ export default function CheckoutPage() {
                       onClick={handleFinishOrder}
                       className="h-14 px-8 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-2 hover:bg-neutral-200 transition cursor-pointer shadow-xl"
                     >
-                      <span>FINALIZAR PEDIDO FORENSE</span>
+                      <span>FINALIZAR PEDIDO</span>
                       <Check className="w-4 h-4" />
                     </button>
                   </div>

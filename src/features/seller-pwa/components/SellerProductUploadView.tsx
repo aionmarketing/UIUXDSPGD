@@ -176,7 +176,7 @@ export function SellerProductUploadView() {
               <span className="font-bold text-text-optic">{brand}</span>
             </div>
             <div className="flex items-center justify-between border-b border-border-subtle pb-2">
-              <span className="text-text-slate uppercase">Taxonomia</span>
+              <span className="text-text-slate uppercase">Categoria</span>
               <span className="text-text-platinum">
                 {gender ? `${gender} / ` : ""}
                 {category} / {subcategory}
@@ -414,7 +414,7 @@ export function SellerProductUploadView() {
         <section className="space-y-4 pt-2 border-t border-border-subtle">
           <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-text-platinum">
             <Tag className="w-4 h-4 text-text-optic" />
-            <span>2. Classificação e Taxonomia</span>
+            <span>2. Marca &amp; Categoria</span>
           </div>
 
           <div className="grid grid-cols-1 gap-4">

@@ -44,13 +44,13 @@ export function NovidadesGrid() {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 bg-canvas-well border border-border-subtle px-2.5 py-1 text-xs font-mono tracking-widest text-text-platinum uppercase">
               <Sparkles className="w-3 h-3 text-text-optic" />
-              <span>DROP FORENSE // MARÇO 2026</span>
+              <span>DESTAQUES // RECÉM-CHEGADOS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase font-mono tracking-tight text-text-optic">
               Novidades no Acervo
             </h2>
             <p className="text-xs sm:text-sm text-text-platinum font-mono max-w-xl">
-              Peças recém-chegadas e catalogadas. Autenticidade física e digital verificada.
+              Peças exclusivas adicionadas recentemente ao catálogo. Inspecionadas e prontas para envio imediato.
             </p>
           </div>
 
@@ -143,7 +143,7 @@ export function NovidadesGrid() {
 
                   <div className="pt-2 border-t border-border-subtle flex items-baseline justify-between font-mono">
                     <div>
-                      <span className="text-[10px] text-text-slate block uppercase">Valor Curadoria</span>
+                      <span className="text-[10px] text-text-slate block uppercase">Preço</span>
                       <span className="text-base font-bold text-text-optic">
                         R$ {product.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                       </span>

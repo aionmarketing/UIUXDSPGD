@@ -72,7 +72,7 @@ export async function createProductAction(input: CreateProductInput) {
 
     const defaultDescription =
       input.description ||
-      `${input.title} da marca ${input.brand}. Peça autêntica de acervo, com certificação forense e conferência de tecido de alta densidade.`;
+      `${input.title} da marca ${input.brand}. Peça autêntica de acervo, com conferência minuciosa e garantia incondicional de autenticidade.`;
 
     // 3. Insert Product
     const [createdProduct] = await db

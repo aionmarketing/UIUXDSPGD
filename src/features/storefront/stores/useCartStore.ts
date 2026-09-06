@@ -29,27 +29,27 @@ export interface ShippingMethod {
 export const AVAILABLE_SHIPPING_METHODS: ShippingMethod[] = [
   {
     id: "pac",
-    label: "PAC Seguro Monolith",
-    carrier: "Correios Lacre Forense",
+    label: "PAC com Seguro Total",
+    carrier: "Correios",
     price: 24.9,
     estimatedDays: "4 a 6 dias úteis",
-    description: "Envio rastreado com embalagem inviolável e seguro total.",
+    description: "Envio rastreado com embalagem de segurança inviolável e seguro total.",
   },
   {
     id: "sedex",
-    label: "Sedex Express Prioritário",
-    carrier: "Sedex Aéreo Monolith",
+    label: "Sedex Expresso",
+    carrier: "Correios Sedex",
     price: 46.5,
     estimatedDays: "1 a 2 dias úteis",
-    description: "Entrega prioritária rápida com seguro de valor integral.",
+    description: "Entrega prioritária rápida com seguro de valor integral declarado.",
   },
   {
     id: "concierge",
-    label: "Entrega Concierge Blindada",
-    carrier: "Monolith White Glove",
+    label: "Entrega Expressa / White Glove",
+    carrier: "Transportadora Especializada",
     price: 120.0,
-    estimatedDays: "Mesmo dia (Capitais)",
-    description: "Transporte blindado climatizado com entrega em mãos.",
+    estimatedDays: "Mesmo dia (Grande SP)",
+    description: "Entrega expressa personalizada em mãos com horário agendado.",
   },
 ];
 

@@ -131,7 +131,7 @@ function PLPContent() {
               Início
             </Link>
             <span>/</span>
-            <span className="text-text-platinum font-bold">Catálogo Forense</span>
+            <span className="text-text-platinum font-bold">Catálogo</span>
             {selectedCategory !== "ALL" && (
               <>
                 <span>/</span>
@@ -150,7 +150,7 @@ function PLPContent() {
                 {selectedCategory === "ALL" ? "Todas as Peças" : selectedCategory}
               </h1>
               <p className="text-xs sm:text-sm text-text-platinum font-mono max-w-2xl">
-                Navegue pelas peças raras de passarela, arquivo streetwear e sneakers colecionáveis com certificação física e forense.
+                Navegue pela nossa seleção curada de streetwear, peças de passarela e sneakers raros com garantia incondicional de autenticidade.
               </p>
             </div>
 
@@ -185,7 +185,7 @@ function PLPContent() {
                   onChange={(e) => setSortBy(e.target.value as "featured" | "price-asc" | "price-desc" | "name")}
                   className="bg-canvas-well text-text-optic font-mono text-xs outline-none cursor-pointer pr-4"
                 >
-                  <option value="featured">Destaques Monolith</option>
+                  <option value="featured">Destaques da Curadoria</option>
                   <option value="price-asc">Menor Preço</option>
                   <option value="price-desc">Maior Preço</option>
                   <option value="name">Alfabética (A-Z)</option>
@@ -413,7 +413,7 @@ function PLPContent() {
               {/* Condition Filter */}
               <div className="space-y-2.5 font-mono text-xs border-t border-border-subtle pt-4">
                 <label className="text-[11px] text-text-slate uppercase tracking-wider block font-bold">
-                  Estado Forense
+                  Condição da Peça
                 </label>
                 <div className="space-y-1.5">
                   <button
@@ -554,7 +554,7 @@ function PLPContent() {
                         {/* Authenticity Watermark */}
                         <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1 bg-canvas-well/80 backdrop-blur px-2 py-0.5 border border-border-subtle text-[9px] font-mono text-text-platinum">
                           <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                          <span>FORENSE</span>
+                          <span>ORIGINAL</span>
                         </div>
 
                         {/* Size Indicator */}
@@ -585,7 +585,7 @@ function PLPContent() {
 
                         <div className="pt-2 border-t border-border-subtle flex items-baseline justify-between font-mono">
                           <div>
-                            <span className="text-[10px] text-text-slate block uppercase">Valor Curadoria</span>
+                            <span className="text-[10px] text-text-slate block uppercase">Preço</span>
                             <span className="text-base font-bold text-text-optic">
                               R$ {product.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                             </span>
@@ -645,7 +645,7 @@ function PLPContent() {
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="w-4 h-4 text-text-optic" />
                 <span className="font-mono text-sm font-bold uppercase tracking-widest text-text-optic">
-                  Filtros Forenses
+                  Filtros do Catálogo
                 </span>
               </div>
               <button
