@@ -23,12 +23,12 @@ export function NovidadesGrid() {
 
   const filteredProducts =
     selectedCategory === "ALL"
-      ? productsList.slice(0, 8)
-      : productsList.filter((item) => item.category === selectedCategory).slice(0, 8);
+      ? productsList.slice(0, 10)
+      : productsList.filter((item) => item.category === selectedCategory).slice(0, 10);
 
   return (
-    <section id="novidades" className="w-full bg-canvas-base py-16 px-4 sm:px-8 border-b border-border-subtle">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <section id="novidades" className="w-full bg-canvas-base py-14 px-4 sm:px-8 border-b border-border-subtle">
+      <div className="max-w-7xl mx-auto space-y-7">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border-subtle pb-6">
           <div className="space-y-2">
@@ -63,10 +63,10 @@ export function NovidadesGrid() {
           </div>
         </div>
 
-        {/* Product Grid - Editorial Shrunk 4-Column Grid with Glassmorphism Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        {/* Product Grid - Compact 5-Column High-Density Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
           {filteredProducts.map((product, idx) => (
-            <ProductCard key={product.id} product={product} priority={idx < 4} />
+            <ProductCard key={product.id} product={product} priority={idx < 5} />
           ))}
         </div>
 
