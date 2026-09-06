@@ -5,16 +5,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ShieldCheck,
-  ShoppingBag,
+  Bag,
   Truck,
   Check,
   ArrowRight,
-  Maximize2,
+  MagnifyingGlassPlus,
   Clock,
   Lock,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import type { CatalogProduct } from "@/features/storefront";
-import { useCartStore, AVAILABLE_SHIPPING_METHODS } from "@/features/storefront";
+import { useCartStore, AVAILABLE_SHIPPING_METHODS, ProductCard } from "@/features/storefront";
 
 interface PDPClientViewProps {
   product: CatalogProduct;
@@ -86,7 +86,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
           </Link>
           <span>/</span>
           <Link
-            href={`/produtos?subcategory=${encodeURIComponent(product.subcategory)}`}
+            href={`/produtos?category=${encodeURIComponent(product.category)}&subcategory=${encodeURIComponent(product.subcategory)}`}
             className="hover:text-text-optic transition-colors"
           >
             {product.subcategory}
@@ -130,7 +130,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
                 onClick={() => setIsZoomed(!isZoomed)}
                 className="absolute top-4 right-4 bg-canvas-well/90 hover:bg-canvas-well border border-border-subtle text-text-optic px-2.5 py-1 font-mono text-[10px] uppercase flex items-center gap-1.5 transition cursor-pointer"
               >
-                <Maximize2 className="w-3 h-3" />
+                <MagnifyingGlassPlus weight="light" className="w-3.5 h-3.5" />
                 <span>{isZoomed ? "Reduzir" : "Zoom Óptico"}</span>
               </button>
 
@@ -378,12 +378,12 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
                 >
                   {isAdded ? (
                     <>
-                      <Check className="w-4 h-4" />
+                      <Check weight="bold" className="w-4 h-4" />
                       <span>Item Adicionado à Sacola!</span>
                     </>
                   ) : (
                     <>
-                      <ShoppingBag className="w-4 h-4" />
+                      <Bag weight="light" className="w-4 h-4" />
                       <span>Adicionar à Sacola</span>
                     </>
                   )}
@@ -411,7 +411,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
               {/* SHIPPING CALCULATOR (Calculadora de Frete) */}
               <div className="space-y-3 font-mono text-xs border-t border-border-subtle pt-4">
                 <div className="flex items-center gap-2 text-text-optic">
-                  <Truck className="w-4 h-4 text-text-platinum" />
+                  <Truck weight="light" className="w-4 h-4 text-text-platinum" />
                   <span className="font-bold uppercase tracking-wider text-[11px]">
                     Simular Frete e Prazo
                   </span>
@@ -468,7 +468,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
               {/* Provenance & Monolith Guarantees */}
               <div className="space-y-3 pt-4 border-t border-border-subtle font-mono text-xs text-text-slate">
                 <div className="flex items-start gap-2.5">
-                  <Lock className="w-4 h-4 text-text-platinum shrink-0 mt-0.5" />
+                  <Lock weight="light" className="w-4 h-4 text-text-platinum shrink-0 mt-0.5" />
                   <div>
                     <span className="text-text-optic font-bold block">Garantia Incondicional de Autenticidade</span>
                     <span className="text-[11px]">
@@ -478,7 +478,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <Clock className="w-4 h-4 text-text-platinum shrink-0 mt-0.5" />
+                  <Clock weight="light" className="w-4 h-4 text-text-platinum shrink-0 mt-0.5" />
                   <div>
                     <span className="text-text-optic font-bold block">Envio Rápido com Seguro Total</span>
                     <span className="text-[11px]">
@@ -520,42 +520,9 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {relatedProducts.map((rel) => (
-              <Link
-                key={rel.id}
-                href={`/produtos/${rel.slug}`}
-                className="group bg-canvas-well border border-border-subtle hover:border-text-optic flex flex-col justify-between overflow-hidden transition-all duration-300"
-              >
-                <div className="relative aspect-[4/5] w-full bg-canvas-base overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={rel.images[0]}
-                    alt={rel.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-2 left-2 bg-canvas-well/90 px-2 py-0.5 border border-border-subtle text-[9px] font-mono text-text-optic font-bold">
-                    {rel.condition}
-                  </div>
-                </div>
-
-                <div className="p-4 space-y-2 border-t border-border-subtle font-mono">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-text-optic uppercase">{rel.brand}</span>
-                    <span className="text-[10px] text-text-slate">{rel.subcategory}</span>
-                  </div>
-                  <h3 className="text-xs text-text-platinum line-clamp-1 group-hover:text-text-optic transition-colors">
-                    {rel.name}
-                  </h3>
-                  <div className="pt-2 border-t border-border-subtle flex items-baseline justify-between text-xs">
-                    <span className="font-bold text-text-optic">
-                      R$ {rel.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
-                    </span>
-                    <span className="text-[10px] text-text-slate">TAM: {rel.size}</span>
-                  </div>
-                </div>
-              </Link>
+              <ProductCard key={rel.id} product={rel} />
             ))}
           </div>
         </section>

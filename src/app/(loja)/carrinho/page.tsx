@@ -4,8 +4,8 @@ import React, { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  ShoppingBag,
-  Trash2,
+  Bag,
+  Trash,
   Plus,
   Minus,
   ArrowRight,
@@ -14,7 +14,7 @@ import {
   Tag,
   Check,
   Lock,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import {
   useCartStore,
   AVAILABLE_SHIPPING_METHODS,
@@ -101,7 +101,7 @@ export default function CartPage() {
               <span className="text-text-optic font-bold">Sacola de Compras</span>
             </nav>
             <h1 className="text-3xl sm:text-4xl font-extrabold uppercase font-mono tracking-tight text-text-optic flex items-center gap-3">
-              <ShoppingBag className="w-7 h-7 text-text-optic" />
+              <Bag className="w-7 h-7 text-text-optic" weight="light" />
               <span>Sua Sacola</span>
               <span className="text-base font-normal text-text-slate font-mono">
                 ({itemCount} {itemCount === 1 ? "peça" : "peças"})
@@ -115,7 +115,7 @@ export default function CartPage() {
               onClick={clearCart}
               className="text-xs font-mono text-text-slate hover:text-red-400 transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <Trash className="w-3.5 h-3.5" weight="light" />
               <span>Esvaziar Sacola</span>
             </button>
           )}
@@ -125,7 +125,7 @@ export default function CartPage() {
         {items.length === 0 ? (
           <div className="bg-canvas-well border border-border-subtle p-12 sm:p-16 text-center space-y-6 max-w-2xl mx-auto shadow-2xl">
             <div className="w-16 h-16 mx-auto rounded-full bg-canvas-base border border-border-subtle flex items-center justify-center text-text-slate">
-              <ShoppingBag className="w-8 h-8" />
+              <Bag className="w-8 h-8" weight="light" />
             </div>
 
             <div className="space-y-2">
@@ -133,7 +133,7 @@ export default function CartPage() {
                 Sua sacola está vazia
               </h2>
               <p className="text-xs sm:text-sm font-mono text-text-platinum max-w-md mx-auto">
-                Você ainda não adicionou nenhum item de arquivo ou passarela ao seu carrinho. Explore nosso acervo catalogado e autenticado.
+                Nenhuma peça catalogada na sua sacola de aquisições. Explore o acervo forense de streetwear raro, vintage japonês e alta costura utilitária.
               </p>
             </div>
 
@@ -141,8 +141,8 @@ export default function CartPage() {
               href="/produtos"
               className="inline-flex items-center gap-2 h-12 px-8 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-widest hover:bg-neutral-200 transition"
             >
-              <span>Explorar Catálogo</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Explorar Acervo Curado</span>
+              <ArrowRight className="w-4 h-4" weight="light" />
             </Link>
           </div>
         ) : (
@@ -209,7 +209,7 @@ export default function CartPage() {
                           aria-label="Diminuir quantidade"
                           className="w-8 h-8 flex items-center justify-center text-text-platinum hover:text-text-optic hover:bg-canvas-well transition cursor-pointer"
                         >
-                          <Minus className="w-3 h-3" />
+                          <Minus className="w-3 h-3" weight="light" />
                         </button>
                         <span className="w-8 text-center font-mono text-xs font-bold text-text-optic">
                           {item.quantity}
@@ -220,7 +220,7 @@ export default function CartPage() {
                           aria-label="Aumentar quantidade"
                           className="w-8 h-8 flex items-center justify-center text-text-platinum hover:text-text-optic hover:bg-canvas-well transition cursor-pointer"
                         >
-                          <Plus className="w-3 h-3" />
+                          <Plus className="w-3 h-3" weight="light" />
                         </button>
                       </div>
 
@@ -241,7 +241,7 @@ export default function CartPage() {
                         aria-label="Remover item da sacola"
                         className="text-text-slate hover:text-red-400 p-1.5 transition-colors cursor-pointer"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash className="w-4 h-4" weight="light" />
                       </button>
                     </div>
                   </div>
@@ -253,8 +253,8 @@ export default function CartPage() {
                 {/* SHIPPING CALCULATION WELL (--color-canvas-well) */}
                 <div className="bg-canvas-well border border-border-subtle p-5 space-y-4 shadow-lg">
                   <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-text-optic">
-                    <Truck className="w-4 h-4 text-text-platinum" />
-                    <span>Calcular Frete e Prazo</span>
+                    <Truck className="w-4 h-4 text-text-platinum" weight="light" />
+                    <span>Calcular Envio Blindado</span>
                   </div>
 
                   <form onSubmit={handleApplyCep} className="flex gap-2">
@@ -309,15 +309,15 @@ export default function CartPage() {
                 <div className="bg-canvas-well border border-border-subtle p-5 space-y-4 shadow-lg flex flex-col justify-between">
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-text-optic">
-                      <Tag className="w-4 h-4 text-text-platinum" />
-                      <span>Cupom de Desconto</span>
+                      <Tag className="w-4 h-4 text-text-platinum" weight="light" />
+                      <span>Voucher de Desconto</span>
                     </div>
 
                     {couponCode ? (
                       <div className="p-3 bg-canvas-base border border-emerald-500/30 flex items-center justify-between font-mono text-xs">
                         <div className="flex items-center gap-2 text-emerald-400">
-                          <Check className="w-4 h-4" />
-                          <span>Cupom <strong>{couponCode}</strong> aplicado!</span>
+                          <Check className="w-4 h-4" weight="light" />
+                          <span>Voucher <strong>{couponCode}</strong> autenticado!</span>
                         </div>
                         <button
                           type="button"
@@ -334,7 +334,7 @@ export default function CartPage() {
                             type="text"
                             value={inputCoupon}
                             onChange={(e) => setInputCoupon(e.target.value)}
-                            placeholder="Insira o código (ex: ONYX10)"
+                            placeholder="Código do lote (ex: ONYX10)"
                             className="flex-1 h-10 bg-canvas-base border border-border-subtle px-3 text-xs font-mono text-text-optic uppercase outline-none focus:border-text-optic"
                           />
                           <button
@@ -351,7 +351,7 @@ export default function CartPage() {
                         )}
                         {couponSuccess && (
                           <span className="text-emerald-400 text-[11px] font-mono block">
-                            Desconto de 10% aplicado com sucesso!
+                            Abatimento forense de 10% aplicado com sucesso!
                           </span>
                         )}
                       </form>
@@ -359,7 +359,7 @@ export default function CartPage() {
                   </div>
 
                   <div className="p-2.5 bg-canvas-base border border-border-subtle text-[11px] font-mono text-text-slate">
-                    💡 Dica: Use o cupom <strong>PRIMEIRACOMPRA</strong> para obter 10% de desconto no seu primeiro pedido curado.
+                    VOUCHER FORENSE: Use <strong>ONYX10</strong> ou <strong>PRIMEIRACOMPRA</strong> para 10% de abatimento no primeiro lote curado.
                   </div>
                 </div>
               </div>
@@ -376,7 +376,7 @@ export default function CartPage() {
                 {/* Subtotals breakdown */}
                 <div className="space-y-3 font-mono text-xs">
                   <div className="flex items-center justify-between text-text-platinum">
-                    <span>Subtotal de Peças:</span>
+                    <span>Subtotal do Acervo:</span>
                     <span className="text-text-optic font-bold">
                       R$ {subtotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                     </span>
@@ -384,7 +384,7 @@ export default function CartPage() {
 
                   {discount > 0 && (
                     <div className="flex items-center justify-between text-emerald-400">
-                      <span>Desconto ({couponCode}):</span>
+                      <span>Abatimento ({couponCode}):</span>
                       <span className="font-bold">
                         - R$ {discount.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                       </span>
@@ -392,7 +392,7 @@ export default function CartPage() {
                   )}
 
                   <div className="flex items-center justify-between text-text-platinum">
-                    <span>Frete:</span>
+                    <span>Envio Assegurado:</span>
                     <span className="text-text-optic font-bold">
                       {shipping > 0
                         ? `R$ ${shipping.toFixed(2).replace(".", ",")}`
@@ -422,28 +422,28 @@ export default function CartPage() {
                   className="w-full h-14 min-h-[50px] bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 hover:bg-neutral-200 active:scale-[0.99] transition cursor-pointer shadow-lg"
                 >
                   <span>AVANÇAR PARA O CHECKOUT</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4" weight="light" />
                 </button>
 
                 <Link
                   href="/produtos"
                   className="block text-center font-mono text-xs text-text-platinum hover:text-text-optic uppercase underline transition-colors"
                 >
-                  Continuar Garimpando &rarr;
+                  Continuar Explorando o Acervo &rarr;
                 </Link>
 
                 {/* Trust and Forensics Guarantees */}
                 <div className="pt-4 border-t border-border-subtle space-y-2.5 font-mono text-[11px] text-text-slate">
                   <div className="flex items-center gap-2">
-                    <Lock className="w-3.5 h-3.5 text-text-platinum shrink-0" />
+                    <Lock className="w-3.5 h-3.5 text-text-platinum shrink-0" weight="light" />
                     <span>Ambiente Criptografado SSL 256-bit</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" weight="light" />
                     <span>Garantia de Autenticidade ou 100% Reembolso</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Truck className="w-3.5 h-3.5 text-text-platinum shrink-0" />
+                    <Truck className="w-3.5 h-3.5 text-text-platinum shrink-0" weight="light" />
                     <span>Lacre de Segurança Inviolável com Certificado</span>
                   </div>
                 </div>

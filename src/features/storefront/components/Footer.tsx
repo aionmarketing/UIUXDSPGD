@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "@phosphor-icons/react";
 import { TAXONOMY_CATEGORIES, TAXONOMY_SUBCATEGORIES } from "@/features/seller-pwa/taxonomy";
 
 export function Footer() {
@@ -18,10 +18,10 @@ export function Footer() {
             </span>
           </div>
           <p className="text-[11px] text-text-platinum leading-relaxed font-sans">
-            Plataforma curada de streetwear, luxo e arquivo vintage. Compre e venda peças exclusivas com garantia incondicional de autenticidade.
+            Plataforma curada de streetwear, passarela e arquivo vintage. Autenticação forense digital com garantia vitalícia de originalidade.
           </p>
           <div className="flex items-center gap-2 text-[10px] text-emerald-400">
-            <ShieldCheck className="w-4 h-4" />
+            <ShieldCheck weight="light" className="w-4 h-4" />
             <span>100% DE PEÇAS AUTÊNTICAS</span>
           </div>
         </div>
@@ -57,9 +57,9 @@ export function Footer() {
           </div>
 
           <div className="flex items-center gap-6 text-text-platinum">
-            <Link href="/admin/produtos" className="hover:text-text-optic flex items-center gap-1 font-bold">
-              <span>Quero Vender // Painel PWA</span>
-              <ArrowUpRight className="w-3 h-3" />
+            <Link href="/addclothes" className="hover:text-text-optic flex items-center gap-1 font-bold">
+              <span>Painel de Curadoria // PWA</span>
+              <ArrowUpRight weight="light" className="w-3 h-3" />
             </Link>
             <Link href="#" className="hover:text-text-optic">
               Termos de Uso &amp; Autenticidade

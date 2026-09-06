@@ -17,6 +17,7 @@ import {
   Tag,
   Scale,
   RefreshCw,
+  Camera,
 } from "lucide-react";
 import { useSellerListingStore } from "../stores/useSellerListingStore";
 import {
@@ -33,6 +34,7 @@ import type { ItemCondition } from "../types";
 
 export function SellerProductUploadView() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const {
@@ -263,7 +265,18 @@ export function SellerProductUploadView() {
 
       {/* 2. FORM BODY */}
       <main className="flex-1 px-4 py-6 space-y-6">
-        {/* Hidden Native File Input: Explicitly supports multiple and NO capture='environment' */}
+        {/* Pinned Native Camera Input for iOS & Android (as per .context/design.md Section 4) */}
+        <input
+          ref={cameraInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          id="seller-camera-input"
+          className="sr-only"
+          onChange={handleFileChange}
+        />
+
+        {/* Native Multi-File Library Picker */}
         <input
           ref={fileInputRef}
           type="file"
@@ -299,7 +312,27 @@ export function SellerProductUploadView() {
             )}
           </div>
 
-          {/* Upload Dropzone / Trigger Button */}
+          {/* Massive Touch Targets: Direct Camera Capture (iOS) + Multi-File Library */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button
+              type="button"
+              onClick={() => cameraInputRef.current?.click()}
+              className="h-14 min-h-[48px] px-4 bg-canvas-well border border-border-subtle hover:border-text-optic text-text-optic font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer active:scale-[0.99] transition-all shadow-sm"
+            >
+              <Camera className="w-4 h-4 text-emerald-400" />
+              <span>Câmera Direta (iOS)</span>
+            </button>
+            <button
+              type="button"
+              onClick={triggerFileInput}
+              className="h-14 min-h-[48px] px-4 bg-canvas-well border border-border-subtle hover:border-text-optic text-text-optic font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer active:scale-[0.99] transition-all shadow-sm"
+            >
+              <UploadCloud className="w-4 h-4 text-text-platinum" />
+              <span>Galeria de Fotos (Múltiplas)</span>
+            </button>
+          </div>
+
+          {/* Upload Dropzone */}
           <div
             onDragOver={(e) => {
               e.preventDefault();
@@ -308,7 +341,7 @@ export function SellerProductUploadView() {
             onDragLeave={() => setIsDragOver(false)}
             onDrop={handleDrop}
             onClick={triggerFileInput}
-            className={`w-full p-4 border-2 border-dashed transition-all cursor-pointer flex flex-col items-center justify-center text-center gap-2 min-h-[120px] ${
+            className={`w-full p-4 border-2 border-dashed transition-all cursor-pointer flex flex-col items-center justify-center text-center gap-2 min-h-[100px] ${
               isDragOver
                 ? "border-text-optic bg-canvas-well"
                 : photos.length > 0
@@ -316,21 +349,21 @@ export function SellerProductUploadView() {
                 : "border-border-subtle bg-canvas-well hover:border-text-optic"
             }`}
           >
-            <div className="w-10 h-10 bg-canvas-base border border-border-subtle flex items-center justify-center text-text-optic">
+            <div className="w-8 h-8 bg-canvas-base border border-border-subtle flex items-center justify-center text-text-optic">
               {photos.length === 0 ? (
-                <UploadCloud className="w-5 h-5" />
+                <UploadCloud className="w-4 h-4" />
               ) : (
-                <Plus className="w-5 h-5" />
+                <Plus className="w-4 h-4" />
               )}
             </div>
             <div>
               <span className="text-xs font-mono font-bold text-text-optic uppercase tracking-wider block">
                 {photos.length === 0
-                  ? "Selecionar ou Fotografar Peça"
-                  : "Adicionar Mais Fotos"}
+                  ? "Arraste fotos ou clique aqui"
+                  : "Adicionar Mais Arquivos"}
               </span>
-              <span className="text-[11px] text-text-slate block mt-0.5">
-                Abre galeria ou câmera nativa • Suporta múltiplas imagens
+              <span className="text-[10px] text-text-slate block mt-0.5">
+                Otimização automática para WebP editorial em alta resolução
               </span>
             </div>
           </div>

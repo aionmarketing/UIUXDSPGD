@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Sparkles } from "lucide-react";
+import { Sparkle } from "@phosphor-icons/react";
 
 const MARQUEE_ITEMS = [
   "SUPREME",
@@ -29,7 +29,7 @@ export function KineticMarquee() {
             <span className="font-bold text-text-optic hover:text-emerald-400 transition-colors">
               {item}
             </span>
-            <Sparkles className="w-3 h-3 text-text-slate shrink-0" />
+            <Sparkle weight="light" className="w-3.5 h-3.5 text-text-slate shrink-0" />
           </div>
         ))}
         {MARQUEE_ITEMS.map((item, idx) => (
@@ -37,7 +37,7 @@ export function KineticMarquee() {
             <span className="font-bold text-text-optic hover:text-emerald-400 transition-colors">
               {item}
             </span>
-            <Sparkles className="w-3 h-3 text-text-slate shrink-0" />
+            <Sparkle weight="light" className="w-3.5 h-3.5 text-text-slate shrink-0" />
           </div>
         ))}
       </div>

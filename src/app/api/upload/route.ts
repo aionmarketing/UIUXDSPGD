@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
+  "image/jpg",
   "image/png",
   "image/webp",
   "image/avif",
@@ -14,9 +15,24 @@ const ALLOWED_MIME_TYPES = new Set([
   "image/svg+xml",
   "image/heic",
   "image/heif",
+  "image/heic-sequence",
+  "image/heif-sequence",
+  "application/octet-stream",
 ]);
 
-const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // Aceita até 25MB original do celular para compressão
+const ALLOWED_EXTENSIONS = new Set([
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".webp",
+  ".avif",
+  ".gif",
+  ".svg",
+  ".heic",
+  ".heif",
+]);
+
+const MAX_FILE_SIZE_BYTES = 35 * 1024 * 1024; // Aceita até 35MB original do iOS / celular
 
 export async function POST(req: NextRequest) {
   try {
@@ -39,11 +55,15 @@ export async function POST(req: NextRequest) {
     > = [];
 
     for (const file of files) {
-      if (!ALLOWED_MIME_TYPES.has(file.type)) {
+      const ext = path.extname(file.name).toLowerCase();
+      const isMimeAllowed = ALLOWED_MIME_TYPES.has(file.type);
+      const isExtAllowed = ALLOWED_EXTENSIONS.has(ext);
+
+      if (!isMimeAllowed && !isExtAllowed) {
         return NextResponse.json(
           {
             success: false,
-            error: `Formato de arquivo não suportado (${file.type}). Use JPG, PNG, WEBP ou AVIF.`,
+            error: `Formato de arquivo não suportado (${file.type || ext}). Envie fotos em JPG, PNG, WEBP, HEIC ou AVIF.`,
           },
           { status: 400 }
         );
@@ -53,7 +73,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(
           {
             success: false,
-            error: `Arquivo ${file.name} excede o limite de 25MB.`,
+            error: `Arquivo ${file.name} excede o limite máximo de 35MB.`,
           },
           { status: 400 }
         );
@@ -64,28 +84,35 @@ export async function POST(req: NextRequest) {
 
       let processedBuffer: Buffer = rawBuffer;
       let targetFilename = file.name;
-      let targetMimeType = file.type;
+      let targetMimeType = file.type || "image/jpeg";
 
-      // Otimização inteligente: converte imagens raster (JPG, PNG, etc.) para WebP de alta fidelidade
-      if (file.type !== "image/svg+xml") {
-        const ext = path.extname(file.name);
-        const baseName = path.basename(file.name, ext);
-        targetFilename = `${baseName}.webp`;
-        targetMimeType = "image/webp";
+      // Otimização inteligente de alta fidelidade: converte fotos do celular (inclusive iOS HEIC) para WebP
+      if (file.type !== "image/svg+xml" && ext !== ".svg") {
+        try {
+          const baseName = path.basename(file.name, ext);
+          targetFilename = `${baseName}.webp`;
+          targetMimeType = "image/webp";
 
-        processedBuffer = await sharp(rawBuffer)
-          .rotate() // Auto-orienta com base no sensor do celular (EXIF)
-          .resize({
-            width: 1800,
-            height: 1800,
-            fit: "inside",
-            withoutEnlargement: true,
-          })
-          .webp({
-            quality: 82, // Padrão ouro para moda e arquivo: sem ruído visível, 90% mais leve
-            effort: 4,
-          })
-          .toBuffer();
+          processedBuffer = await sharp(rawBuffer)
+            .rotate() // Auto-orienta com base no sensor EXIF do iPhone/Android
+            .resize({
+              width: 1800,
+              height: 1800,
+              fit: "inside",
+              withoutEnlargement: true,
+            })
+            .webp({
+              quality: 85, // Fidelidade editorial sem ruído visível
+              effort: 4,
+            })
+            .toBuffer();
+        } catch (sharpErr) {
+          console.warn(`[Upload] Sharp conversão fallback para ${file.name}:`, sharpErr);
+          // Fallback gracioso mantendo o buffer original se conversão falhar
+          processedBuffer = rawBuffer;
+          targetFilename = file.name;
+          targetMimeType = file.type || "image/jpeg";
+        }
       }
 
       const uploaded = await storage.upload(processedBuffer, targetFilename, targetMimeType);

@@ -7,16 +7,16 @@ import {
   Truck,
   CreditCard,
   QrCode,
-  CheckCircle2,
+  CheckCircle,
   Lock,
   ArrowRight,
   ArrowLeft,
-  Sparkles,
+  Sparkle,
   Copy,
   Check,
   UserCheck,
   MapPin,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import {
   useCartStore,
   AVAILABLE_SHIPPING_METHODS,
@@ -143,14 +143,14 @@ export default function CheckoutPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <span className="font-mono text-xs text-text-slate uppercase tracking-widest block">
-                FINALIZAR COMPRA // AMBIENTE SEGURO
+                PROTOCOLO DE LIQUIDAÇÃO // AMBIENTE CRIPTOGRAFADO
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold font-mono uppercase text-text-optic">
-                Finalização de Pedido
+                Liquidação de Aquisição
               </h1>
             </div>
             <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 bg-canvas-well px-3 py-1.5 border border-border-subtle w-fit">
-              <Lock className="w-3.5 h-3.5" />
+              <Lock className="w-3.5 h-3.5" weight="light" />
               <span>SSL 256-BIT ENCRYPTION</span>
             </div>
           </div>
@@ -191,17 +191,17 @@ export default function CheckoutPage() {
           <div className="bg-canvas-well border border-border-subtle p-8 sm:p-12 max-w-3xl mx-auto space-y-8 shadow-2xl animate-in zoom-in-95 duration-200">
             <div className="text-center space-y-3">
               <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                <CheckCircle2 className="w-9 h-9" />
+                <CheckCircle className="w-9 h-9" weight="light" />
               </div>
               <div className="inline-flex items-center gap-2 bg-canvas-base border border-border-subtle px-3 py-1 text-xs font-mono text-text-platinum uppercase">
-                <Sparkles className="w-3.5 h-3.5 text-text-optic" />
-                <span>PEDIDO CONFIRMADO // CERTIFICADO GERADO</span>
+                <Sparkle className="w-3.5 h-3.5 text-text-optic" weight="light" />
+                <span>PEDIDO CONFIRMADO // CERTIFICADO FORENSE EMITIDO</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black font-mono uppercase text-text-optic">
-                Pedido Confirmado com Sucesso!
+                Aquisição Confirmada
               </h2>
               <p className="text-xs sm:text-sm font-mono text-text-platinum max-w-xl mx-auto">
-                Seu pedido foi registrado com sucesso. O comprovante detalhado e o laudo de autenticidade foram enviados para <strong>{identification.email}</strong>.
+                Sua peça de arquivo foi reservada e catalogada. O laudo pericial com número de série e confirmação foi expedido para <strong>{identification.email}</strong>.
               </p>
             </div>
 
@@ -233,13 +233,13 @@ export default function CheckoutPage() {
                 <div className="p-4 bg-canvas-well border border-emerald-500/30 space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-emerald-400 uppercase flex items-center gap-1.5">
-                      <QrCode className="w-4 h-4" />
+                      <QrCode className="w-4 h-4" weight="light" />
                       Pagamento Instantâneo via PIX
                     </span>
                     <span className="text-[10px] text-text-slate">Válido por 15 minutos</span>
                   </div>
                   <p className="text-[11px] text-text-platinum">
-                    Copie a chave Pix abaixo ou utilize o leitor de QR Code do seu aplicativo bancário para confirmação imediata.
+                    Copie a chave Pix abaixo ou utilize o leitor de QR Code do seu aplicativo bancário para liquidação imediata.
                   </p>
                   <div className="flex gap-2">
                     <input
@@ -253,7 +253,7 @@ export default function CheckoutPage() {
                       onClick={handleCopyPix}
                       className="h-9 px-4 bg-text-optic text-canvas-base font-bold text-xs uppercase flex items-center gap-1.5 hover:bg-neutral-200 transition cursor-pointer"
                     >
-                      {copiedPix ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedPix ? <Check className="w-3.5 h-3.5" weight="light" /> : <Copy className="w-3.5 h-3.5" weight="light" />}
                       <span>{copiedPix ? "Copiado" : "Copiar"}</span>
                     </button>
                   </div>
@@ -262,7 +262,7 @@ export default function CheckoutPage() {
 
               {/* Shipping Destination Summary */}
               <div className="pt-2 text-text-slate text-[11px] flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-text-platinum shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-text-platinum shrink-0 mt-0.5" weight="light" />
                 <span>
                   Entrega em: {address.street}, {address.number} - {address.complement}, {address.neighborhood}, {address.city} - {address.state}, CEP {address.cep}
                 </span>
@@ -274,8 +274,8 @@ export default function CheckoutPage() {
                 href="/produtos"
                 className="w-full sm:w-auto h-12 px-8 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-neutral-200 transition"
               >
-                <span>Voltar à Loja</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Voltar ao Acervo</span>
+                <ArrowRight className="w-4 h-4" weight="light" />
               </Link>
               <Link
                 href="/"
@@ -301,7 +301,7 @@ export default function CheckoutPage() {
                       ETAPA 1 DE 4
                     </span>
                     <h2 className="text-xl font-bold font-mono uppercase text-text-optic flex items-center gap-2">
-                      <UserCheck className="w-5 h-5 text-text-platinum" />
+                      <UserCheck className="w-5 h-5 text-text-platinum" weight="light" />
                       <span>Identificação do Comprador</span>
                     </h2>
                   </div>
@@ -379,7 +379,7 @@ export default function CheckoutPage() {
                       className="h-12 px-6 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:bg-neutral-200 transition cursor-pointer"
                     >
                       <span>Prosseguir para Endereço</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4" weight="light" />
                     </button>
                   </div>
                 </form>
@@ -396,7 +396,7 @@ export default function CheckoutPage() {
                       ETAPA 2 DE 4
                     </span>
                     <h2 className="text-xl font-bold font-mono uppercase text-text-optic flex items-center gap-2">
-                      <MapPin className="w-5 h-5 text-text-platinum" />
+                      <MapPin className="w-5 h-5 text-text-platinum" weight="light" />
                       <span>Endereço de Destino</span>
                     </h2>
                   </div>
@@ -509,7 +509,7 @@ export default function CheckoutPage() {
                       onClick={() => setCurrentStep(1)}
                       className="font-mono text-xs text-text-slate hover:text-text-optic flex items-center gap-1.5 cursor-pointer"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" />
+                      <ArrowLeft className="w-3.5 h-3.5" weight="light" />
                       <span>Voltar</span>
                     </button>
 
@@ -518,7 +518,7 @@ export default function CheckoutPage() {
                       className="h-12 px-6 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:bg-neutral-200 transition cursor-pointer"
                     >
                       <span>Prosseguir para Frete</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4" weight="light" />
                     </button>
                   </div>
                 </form>
@@ -532,8 +532,8 @@ export default function CheckoutPage() {
                       ETAPA 3 DE 4
                     </span>
                     <h2 className="text-xl font-bold font-mono uppercase text-text-optic flex items-center gap-2">
-                      <Truck className="w-5 h-5 text-text-platinum" />
-                      <span>Opção de Envio</span>
+                      <Truck className="w-5 h-5 text-text-platinum" weight="light" />
+                      <span>Modalidade de Envio Blindado</span>
                     </h2>
                   </div>
 
@@ -576,7 +576,7 @@ export default function CheckoutPage() {
                       onClick={() => setCurrentStep(2)}
                       className="font-mono text-xs text-text-slate hover:text-text-optic flex items-center gap-1.5 cursor-pointer"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" />
+                      <ArrowLeft className="w-3.5 h-3.5" weight="light" />
                       <span>Voltar</span>
                     </button>
 
@@ -586,7 +586,7 @@ export default function CheckoutPage() {
                       className="h-12 px-6 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:bg-neutral-200 transition cursor-pointer"
                     >
                       <span>Prosseguir para Pagamento</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4" weight="light" />
                     </button>
                   </div>
                 </div>
@@ -600,7 +600,7 @@ export default function CheckoutPage() {
                       ETAPA 4 DE 4
                     </span>
                     <h2 className="text-xl font-bold font-mono uppercase text-text-optic flex items-center gap-2">
-                      <CreditCard className="w-5 h-5 text-text-platinum" />
+                      <CreditCard className="w-5 h-5 text-text-platinum" weight="light" />
                       <span>Forma de Pagamento</span>
                     </h2>
                   </div>
@@ -616,7 +616,7 @@ export default function CheckoutPage() {
                           : "bg-canvas-base text-text-slate border-border-subtle hover:text-text-optic"
                       }`}
                     >
-                      <QrCode className="w-4 h-4" />
+                      <QrCode className="w-4 h-4" weight="light" />
                       <span>PIX (5% OFF)</span>
                     </button>
 
@@ -629,7 +629,7 @@ export default function CheckoutPage() {
                           : "bg-canvas-base text-text-slate border-border-subtle hover:text-text-optic"
                       }`}
                     >
-                      <CreditCard className="w-4 h-4" />
+                      <CreditCard className="w-4 h-4" weight="light" />
                       <span>Cartão 12x</span>
                     </button>
 
@@ -642,7 +642,7 @@ export default function CheckoutPage() {
                           : "bg-canvas-base text-text-slate border-border-subtle hover:text-text-optic"
                       }`}
                     >
-                      <Sparkles className="w-4 h-4" />
+                      <Sparkle className="w-4 h-4" weight="light" />
                       <span>Cripto Vault</span>
                     </button>
                   </div>
@@ -753,17 +753,17 @@ export default function CheckoutPage() {
                       onClick={() => setCurrentStep(3)}
                       className="font-mono text-xs text-text-slate hover:text-text-optic flex items-center gap-1.5 cursor-pointer"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" />
+                      <ArrowLeft className="w-3.5 h-3.5" weight="light" />
                       <span>Voltar</span>
                     </button>
 
                     <button
-                      type="button"
+                      type="submit"
                       onClick={handleFinishOrder}
                       className="h-14 px-8 bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-2 hover:bg-neutral-200 transition cursor-pointer shadow-xl"
                     >
-                      <span>FINALIZAR PEDIDO</span>
-                      <Check className="w-4 h-4" />
+                      <span>CONFIRMAR AQUISIÇÃO</span>
+                      <Check className="w-4 h-4" weight="light" />
                     </button>
                   </div>
                 </div>
@@ -775,7 +775,7 @@ export default function CheckoutPage() {
               <div className="bg-canvas-well border border-border-subtle p-6 space-y-6 shadow-2xl sticky top-24 font-mono text-xs">
                 <div className="pb-3 border-b border-border-subtle font-bold uppercase tracking-widest text-text-optic flex items-center justify-between">
                   <span>Resumo do Pedido</span>
-                  <span className="text-text-slate">{items.length} itens</span>
+                  <span className="text-text-slate">{items.length} {items.length === 1 ? "peça" : "peças"}</span>
                 </div>
 
                 {/* Items preview */}
@@ -801,7 +801,7 @@ export default function CheckoutPage() {
                 {/* Totals Breakdown */}
                 <div className="pt-4 border-t border-border-subtle space-y-2 text-text-platinum">
                   <div className="flex items-center justify-between">
-                    <span>Subtotal:</span>
+                    <span>Subtotal do Acervo:</span>
                     <span className="text-text-optic font-bold">
                       R$ {subtotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                     </span>
@@ -809,7 +809,7 @@ export default function CheckoutPage() {
 
                   {discount > 0 && (
                     <div className="flex items-center justify-between text-emerald-400">
-                      <span>Desconto de Cupom:</span>
+                      <span>Abatimento Voucher:</span>
                       <span className="font-bold">
                         - R$ {discount.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                       </span>
@@ -826,7 +826,7 @@ export default function CheckoutPage() {
                   )}
 
                   <div className="flex items-center justify-between">
-                    <span>Frete ({shippingOption.label}):</span>
+                    <span>Envio Blindado ({shippingOption.label}):</span>
                     <span className="text-text-optic font-bold">
                       R$ {shipping.toFixed(2).replace(".", ",")}
                     </span>
@@ -840,7 +840,7 @@ export default function CheckoutPage() {
                       </span>
                     </div>
                     <span className="text-[10px] text-emerald-400 font-bold uppercase">
-                      PROCESSO BLINDADO
+                      LIQUIDAÇÃO SEGURADA
                     </span>
                   </div>
                 </div>
@@ -848,12 +848,12 @@ export default function CheckoutPage() {
                 {/* Security badges */}
                 <div className="pt-4 border-t border-border-subtle space-y-2 text-[11px] text-text-slate">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Autenticação pericial pré-despacho</span>
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" weight="light" />
+                    <span>Certificação Forense e Lacre Inviolável Pré-Despacho</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Lock className="w-3.5 h-3.5 text-text-platinum shrink-0" />
-                    <span>Pagamento protegido contra fraudes</span>
+                    <Lock className="w-3.5 h-3.5 text-text-platinum shrink-0" weight="light" />
+                    <span>Protocolo Criptográfico Anti-Fraude 256-Bit</span>
                   </div>
                 </div>
               </div>

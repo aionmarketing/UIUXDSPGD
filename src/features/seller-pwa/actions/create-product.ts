@@ -138,8 +138,12 @@ export async function createProductAction(input: CreateProductInput) {
       });
     }
 
-    revalidatePath("/produtos");
-    revalidatePath("/");
+    try {
+      revalidatePath("/produtos");
+      revalidatePath("/");
+    } catch {
+      // Ignored if called outside Next.js request context (e.g. testing / background jobs)
+    }
 
     return {
       success: true,

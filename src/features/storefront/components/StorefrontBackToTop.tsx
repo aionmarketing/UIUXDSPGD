@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp } from "@phosphor-icons/react";
 import { useScrollLab } from "@/features/scroll-lab";
 
 export function StorefrontBackToTop() {
@@ -57,7 +57,7 @@ export function StorefrontBackToTop() {
           />
         </svg>
 
-        <ArrowUp className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
+        <ArrowUp weight="light" className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
       </button>
     </div>
   );

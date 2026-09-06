@@ -8,14 +8,14 @@ import {
   Lock,
   ArrowRight,
   Eye,
-  EyeOff,
+  EyeSlash,
   Check,
-  Sparkles,
+  Sparkle,
   User,
-  KeyRound,
-  Mail,
+  Key,
+  EnvelopeSimple,
   Fingerprint,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 
 export default function EntrarPage() {
   const router = useRouter();
@@ -71,7 +71,7 @@ export default function EntrarPage() {
         {/* Monolith Header Emblem */}
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 bg-canvas-well border border-border-subtle px-3 py-1 text-[11px] font-mono tracking-widest text-text-platinum uppercase">
-            <Sparkles className="w-3.5 h-3.5 text-text-optic" />
+            <Sparkle className="w-3.5 h-3.5 text-text-optic" weight="light" />
             <span>ACESSO SEGURO // DESAPEGADO ID</span>
           </div>
 
@@ -129,7 +129,7 @@ export default function EntrarPage() {
                   E-mail Cadastrado
                 </label>
                 <div className="relative flex items-center">
-                  <Mail className="w-4 h-4 text-text-slate absolute left-3.5" />
+                  <EnvelopeSimple className="w-4 h-4 text-text-slate absolute left-3.5" weight="light" />
                   <input
                     type="email"
                     required
@@ -155,7 +155,7 @@ export default function EntrarPage() {
                   </button>
                 </div>
                 <div className="relative flex items-center">
-                  <KeyRound className="w-4 h-4 text-text-slate absolute left-3.5" />
+                  <Key className="w-4 h-4 text-text-slate absolute left-3.5" weight="light" />
                   <input
                     type={showPassword ? "text" : "password"}
                     required
@@ -167,9 +167,9 @@ export default function EntrarPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 text-text-slate hover:text-text-optic"
+                    className="absolute right-3 text-text-slate hover:text-text-optic cursor-pointer"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? <EyeSlash className="w-4 h-4" weight="light" /> : <Eye className="w-4 h-4" weight="light" />}
                   </button>
                 </div>
               </div>
@@ -194,13 +194,13 @@ export default function EntrarPage() {
               >
                 {isSubmitted ? (
                   <>
-                    <Check className="w-4 h-4" />
+                    <Check className="w-4 h-4" weight="light" />
                     <span>Autenticando...</span>
                   </>
                 ) : (
                   <>
                     <span>ACESSAR MINHA CONTA</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4" weight="light" />
                   </>
                 )}
               </button>
@@ -212,7 +212,7 @@ export default function EntrarPage() {
                   onClick={() => alert("Simulação Passkey: Chave biométrica física validada.")}
                   className="w-full h-10 bg-canvas-base border border-border-subtle hover:border-text-optic text-text-platinum hover:text-text-optic text-xs font-mono flex items-center justify-center gap-2 transition cursor-pointer"
                 >
-                  <Fingerprint className="w-4 h-4" />
+                  <Fingerprint className="w-4 h-4" weight="light" />
                   <span>Acesso com Passkey / Biometria</span>
                 </button>
               </div>
@@ -227,7 +227,7 @@ export default function EntrarPage() {
                   Nome Completo
                 </label>
                 <div className="relative flex items-center">
-                  <User className="w-4 h-4 text-text-slate absolute left-3.5" />
+                  <User className="w-4 h-4 text-text-slate absolute left-3.5" weight="light" />
                   <input
                     type="text"
                     required
@@ -244,7 +244,7 @@ export default function EntrarPage() {
                   E-mail
                 </label>
                 <div className="relative flex items-center">
-                  <Mail className="w-4 h-4 text-text-slate absolute left-3.5" />
+                  <EnvelopeSimple className="w-4 h-4 text-text-slate absolute left-3.5" weight="light" />
                   <input
                     type="email"
                     required
@@ -337,13 +337,13 @@ export default function EntrarPage() {
               >
                 {isSubmitted ? (
                   <>
-                    <Check className="w-4 h-4" />
+                    <Check className="w-4 h-4" weight="light" />
                     <span>Criando Conta...</span>
                   </>
                 ) : (
                   <>
                     <span>CRIAR MINHA CONTA</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4" weight="light" />
                   </>
                 )}
               </button>
@@ -355,11 +355,11 @@ export default function EntrarPage() {
         <div className="flex flex-col items-center gap-3 border-t border-border-subtle pt-4 font-mono text-[11px] text-text-slate">
           <div className="flex items-center justify-center gap-6">
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" weight="light" />
               <span>Dados Criptografados</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <Lock className="w-3.5 h-3.5 text-text-platinum" />
+              <Lock className="w-3.5 h-3.5 text-text-platinum" weight="light" />
               <span>Autenticação Segura</span>
             </span>
           </div>
@@ -368,7 +368,7 @@ export default function EntrarPage() {
             href="/"
             className="text-text-platinum hover:text-text-optic transition-colors underline pt-1"
           >
-            &larr; Voltar à Página Inicial
+            &larr; Voltar ao Acervo Principal
           </Link>
         </div>
       </div>

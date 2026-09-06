@@ -1,7 +1,8 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getProductBySlug, getRelatedProducts, CATALOG_PRODUCTS } from "@/features/storefront";
+import { CATALOG_PRODUCTS } from "@/features/storefront";
+import { getDbProductBySlug, getDbRelatedProducts } from "@/db/queries";
 import { PDPClientView } from "./PDPClientView";
 
 interface PageProps {
@@ -17,7 +18,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getDbProductBySlug(slug);
 
   if (!product) {
     return {
@@ -33,15 +34,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getDbProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
-  const relatedProducts = getRelatedProducts(product.id, 4);
+  const relatedProducts = await getDbRelatedProducts(product.id, 4);
 
   return (
     <PDPClientView product={product} relatedProducts={relatedProducts} />
   );
 }
+
