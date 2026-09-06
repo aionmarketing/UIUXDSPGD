@@ -1,0 +1,16 @@
+export { Header } from "./components/Header";
+export { Hero } from "./components/Hero";
+export { NovidadesGrid } from "./components/NovidadesGrid";
+export { BrandsGrid } from "./components/BrandsGrid";
+export { Footer } from "./components/Footer";
+export { GorillaAvatar } from "./components/avatar";
+export { useCartStore, AVAILABLE_SHIPPING_METHODS, type CartItem, type ShippingMethod } from "./stores/useCartStore";
+export {
+  CATALOG_PRODUCTS,
+  getProductBySlug,
+  getRelatedProducts,
+  type CatalogProduct,
+  type ForensicReport,
+  type ProductMeasurements,
+} from "./data/products";
+
