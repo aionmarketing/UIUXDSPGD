@@ -18,6 +18,8 @@ export interface PhotoItem {
   previewUrl: string;
   name: string;
   size: number;
+  order?: number;
+  isPrimary?: boolean;
 }
 
 export interface Dimensions {
@@ -47,6 +49,8 @@ export interface SellerListingState extends SellerProductFormData {
   isSubmitted: boolean;
   processingStep: string;
   submissionTimestamp: number | null;
+  createdSlug: string | null;
+  errorMessage: string | null;
 
   // Single-photo backward compatibility
   photoUrl: string | null;

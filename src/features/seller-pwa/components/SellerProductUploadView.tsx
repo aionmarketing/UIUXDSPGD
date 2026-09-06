@@ -49,6 +49,8 @@ export function SellerProductUploadView() {
     isSubmitting,
     isSubmitted,
     processingStep,
+    createdSlug,
+    errorMessage,
     addPhotos,
     removePhoto,
     setPrimaryPhoto,
@@ -208,10 +210,19 @@ export function SellerProductUploadView() {
         </div>
 
         <div className="py-6 space-y-3">
+          {createdSlug && (
+            <a
+              href={`/produtos/${createdSlug}`}
+              className="w-full h-16 min-h-[48px] bg-emerald-400 text-canvas-base font-bold text-sm uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 hover:bg-emerald-300 active:scale-[0.99] transition-all font-mono"
+            >
+              <span>Ver Peça no Storefront</span>
+              <ArrowRight className="w-5 h-5" />
+            </a>
+          )}
           <button
             type="button"
             onClick={resetListing}
-            className="w-full h-16 min-h-[48px] bg-text-optic text-canvas-base font-bold text-sm uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 hover:bg-neutral-200 active:scale-[0.99] transition-all font-mono"
+            className="w-full h-16 min-h-[48px] bg-canvas-well border border-border-subtle text-text-optic font-bold text-sm uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 hover:bg-white/10 active:scale-[0.99] transition-all font-mono"
           >
             <RefreshCw className="w-5 h-5" />
             <span>Cadastrar Novo Produto</span>
@@ -242,6 +253,13 @@ export function SellerProductUploadView() {
           </span>
         </div>
       </header>
+
+      {errorMessage && (
+        <div className="bg-red-500/10 border-b border-red-500/30 p-4 font-mono text-xs text-red-400 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
 
       {/* 2. FORM BODY */}
       <main className="flex-1 px-4 py-6 space-y-6">

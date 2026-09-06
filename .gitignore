@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+/public/uploads
+drizzle/
 
 # debug
 npm-debug.log*
