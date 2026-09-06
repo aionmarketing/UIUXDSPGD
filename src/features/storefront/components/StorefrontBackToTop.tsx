@@ -1,17 +1,29 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowUp } from "@phosphor-icons/react";
-import { useScrollLab } from "@/features/scroll-lab";
 
 export function StorefrontBackToTop() {
-  const { progress, scrollTo } = useScrollLab();
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const currentProgress = scrollHeight > 0 ? Math.min(Math.max(scrollY / scrollHeight, 0), 1) : 0;
+      setProgress(currentProgress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Only show once user has scrolled past 12% of the page
   const isVisible = progress > 0.12;
 
   const handleClick = () => {
-    scrollTo(0, { duration: 1.2 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const circumference = 2 * Math.PI * 18;
