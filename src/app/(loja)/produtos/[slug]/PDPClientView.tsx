@@ -98,9 +98,9 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
         {/* 2. Main Two-Column Viewport */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* LEFT COLUMN: Photographic Gallery + Forensic Certificate (NO 3D garment) */}
-          <div className="lg:col-span-7 space-y-6">
-            {/* Main Specular Liquid Glass Photo Container */}
-            <div className="relative aspect-[4/5] w-full bg-glass-substrate backdrop-blur-[36px] border-t border-border-specular border-b border-border-subtle shadow-2xl overflow-hidden group">
+          <div className="lg:col-span-5 space-y-6">
+            {/* Main Specular Liquid Glass Photo Container - Compact 50% Visual Scale */}
+            <div className="relative aspect-[4/5] w-full max-w-[340px] sm:max-w-[380px] mx-auto bg-glass-substrate backdrop-blur-[36px] border-t border-border-specular border-b border-border-subtle shadow-2xl overflow-hidden group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={product.images[activeImageIndex] || product.images[0]}
@@ -112,13 +112,13 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
               />
 
               {/* Floating Badges */}
-              <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none">
-                <span className="bg-canvas-well/90 backdrop-blur border border-border-subtle text-text-optic px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider">
+              <div className="absolute top-3 left-3 flex items-center gap-1.5 pointer-events-none">
+                <span className="bg-canvas-well/90 backdrop-blur border border-border-subtle text-text-optic px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider">
                   {product.condition}
                 </span>
 
                 {product.tag && (
-                  <span className="bg-text-optic text-canvas-base px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider shadow">
+                  <span className="bg-text-optic text-canvas-base px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider shadow">
                     {product.tag}
                   </span>
                 )}
@@ -128,25 +128,25 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
               <button
                 type="button"
                 onClick={() => setIsZoomed(!isZoomed)}
-                className="absolute top-4 right-4 bg-canvas-well/90 hover:bg-canvas-well border border-border-subtle text-text-optic px-2.5 py-1 font-mono text-[10px] uppercase flex items-center gap-1.5 transition cursor-pointer"
+                className="absolute top-3 right-3 bg-canvas-well/90 hover:bg-canvas-well border border-border-subtle text-text-optic px-2 py-0.5 font-mono text-[9px] uppercase flex items-center gap-1 transition cursor-pointer"
               >
-                <MagnifyingGlassPlus weight="light" className="w-3.5 h-3.5" />
-                <span>{isZoomed ? "Reduzir" : "Zoom Óptico"}</span>
+                <MagnifyingGlassPlus weight="light" className="w-3 h-3" />
+                <span>{isZoomed ? "Reduzir" : "Zoom"}</span>
               </button>
 
               {/* Bottom Angle Indicator */}
-              <div className="absolute bottom-4 right-4 bg-canvas-well/80 backdrop-blur px-3 py-1 border border-border-subtle text-[10px] font-mono text-text-platinum font-bold">
-                ÂNGULO {activeImageIndex + 1} DE {product.images.length}
+              <div className="absolute bottom-3 right-3 bg-canvas-well/80 backdrop-blur px-2 py-0.5 border border-border-subtle text-[9px] font-mono text-text-platinum font-bold">
+                {activeImageIndex + 1} / {product.images.length}
               </div>
 
-              <div className="absolute bottom-4 left-4 bg-canvas-well/80 backdrop-blur px-3 py-1 border border-border-subtle text-[10px] font-mono text-emerald-400 font-bold flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>FOTOGRAFIA MACRO AUTÊNTICA</span>
+              <div className="absolute bottom-3 left-3 bg-canvas-well/80 backdrop-blur px-2 py-0.5 border border-border-subtle text-[9px] font-mono text-emerald-400 font-bold flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" />
+                <span>AUTÊNTICO</span>
               </div>
             </div>
 
             {/* Gallery Thumbnail Strip */}
-            <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+            <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 max-w-[340px] sm:max-w-[380px] mx-auto">
               {product.images.map((img, idx) => (
                 <button
                   key={idx}
@@ -234,7 +234,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
           </div>
 
           {/* RIGHT COLUMN: Monolithic Data Well (Brand, Name, Condition, Price, CTAs, Shipping) */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-7 space-y-6">
             {/* Primary High-Contrast Data Well (--color-canvas-well) */}
             <div className="bg-canvas-well border border-border-subtle p-6 sm:p-8 space-y-6 shadow-2xl">
               {/* Brand & Subcategory */}
@@ -520,7 +520,7 @@ export function PDPClientView({ product, relatedProducts }: PDPClientViewProps) 
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
             {relatedProducts.map((rel) => (
               <ProductCard key={rel.id} product={rel} />
             ))}
