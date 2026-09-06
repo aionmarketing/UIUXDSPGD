@@ -84,6 +84,16 @@ export const productMeasurements = pgTable("product_measurements", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// 6. MEDIA FILES TABLE (Serverless Persistent Media Storage)
+export const mediaFiles = pgTable("media_files", {
+  key: text("key").primaryKey(), // e.g. "1725628192-supreme-hoodie-abc.webp"
+  filename: text("filename").notNull(),
+  mimeType: text("mime_type").notNull(),
+  data: text("data").notNull(), // Base64 encoded media buffer
+  size: integer("size").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // RELATIONS DEFINITIONS
 export const sellersRelations = relations(sellers, ({ many }) => ({
   products: many(products),

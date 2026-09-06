@@ -1,5 +1,12 @@
 import { create } from "zustand";
-import type { SellerListingState, PhotoItem, ItemCondition, Dimensions } from "../types";
+import type {
+  SellerListingState,
+  PhotoItem,
+  ItemCondition,
+  Dimensions,
+  EditorialTag,
+  ProductMeasurementsInput,
+} from "../types";
 import type { TaxonomyCategory, TaxonomyGender } from "../taxonomy";
 import { TAXONOMY_SUBCATEGORIES, PACKAGE_PRESETS } from "../taxonomy";
 import { createProductAction } from "../actions/create-product";
@@ -10,19 +17,29 @@ const INITIAL_DIMENSIONS: Dimensions = {
   height: "10",
 };
 
+const INITIAL_MEASUREMENTS: ProductMeasurementsInput = {
+  fit: "Regular / Fiel ao tamanho",
+};
+
 export const useSellerListingStore = create<SellerListingState>((set, get) => ({
   // Form Data
   photos: [],
   brand: "",
+  isCustomBrand: false,
+  customBrand: "",
   gender: "",
   category: "",
   subcategory: "",
   condition: "",
   title: "",
   price: "",
+  size: "M",
+  tag: "ARQUIVO",
+  description: "",
   weight: "0.5",
   packageSize: "P",
   dimensions: INITIAL_DIMENSIONS,
+  measurements: INITIAL_MEASUREMENTS,
   notes: "",
 
   // Backward compatibility
@@ -109,6 +126,8 @@ export const useSellerListingStore = create<SellerListingState>((set, get) => ({
   },
 
   setBrand: (brand: string) => set({ brand }),
+  setIsCustomBrand: (isCustomBrand: boolean) => set({ isCustomBrand }),
+  setCustomBrand: (customBrand: string) => set({ customBrand }),
   setGender: (gender: TaxonomyGender | "") => set({ gender }),
   setCategory: (category: TaxonomyCategory | "") => {
     const subs = category ? TAXONOMY_SUBCATEGORIES[category] || [] : [];
@@ -121,6 +140,9 @@ export const useSellerListingStore = create<SellerListingState>((set, get) => ({
   setCondition: (condition: ItemCondition | "") => set({ condition }),
   setTitle: (title: string) => set({ title }),
   setPrice: (price: string) => set({ price }),
+  setSize: (size: string) => set({ size }),
+  setTag: (tag: EditorialTag) => set({ tag }),
+  setDescription: (description: string) => set({ description }),
   setWeight: (weight: string) => set({ weight }),
   setPackageSize: (packageSize: string) => {
     const preset = PACKAGE_PRESETS.find((p) => p.id === packageSize);
@@ -132,6 +154,11 @@ export const useSellerListingStore = create<SellerListingState>((set, get) => ({
   setDimensions: (dim: Partial<Dimensions>) => {
     set({
       dimensions: { ...get().dimensions, ...dim },
+    });
+  },
+  setMeasurements: (measurements: Partial<ProductMeasurementsInput>) => {
+    set({
+      measurements: { ...get().measurements, ...measurements },
     });
   },
   setNotes: (notes: string) => set({ notes }),
@@ -148,15 +175,21 @@ export const useSellerListingStore = create<SellerListingState>((set, get) => ({
       photoUrl: null,
       photoFile: null,
       brand: "",
+      isCustomBrand: false,
+      customBrand: "",
       gender: "",
       category: "",
       subcategory: "",
       condition: "",
       title: "",
       price: "",
+      size: "M",
+      tag: "ARQUIVO",
+      description: "",
       weight: "0.5",
       packageSize: "P",
       dimensions: INITIAL_DIMENSIONS,
+      measurements: INITIAL_MEASUREMENTS,
       notes: "",
       isSubmitting: false,
       isSubmitted: false,
@@ -228,19 +261,26 @@ export const useSellerListingStore = create<SellerListingState>((set, get) => ({
 
       set({ processingStep: "Gravando produto no Neon PostgreSQL (São Paulo)..." });
 
+      const finalBrand =
+        state.isCustomBrand && state.customBrand.trim()
+          ? state.customBrand.trim()
+          : state.brand || "Desconhecida";
+
       // 2. Call server action to insert into Neon
       const result = await createProductAction({
-        title: state.title || `${state.brand} - ${state.subcategory || state.category}`,
-        brand: state.brand,
+        title: state.title || `${finalBrand} - ${state.subcategory || state.category}`,
+        brand: finalBrand,
         gender: state.gender || "Unissex",
-        category: state.category,
-        subcategory: state.subcategory,
+        category: state.category || "Roupas",
+        subcategory: state.subcategory || "Peça",
         condition: state.condition,
         price: Number(state.price) || 0,
-        size: state.notes?.includes("Tamanho:") ? state.notes.split("Tamanho:")[1].trim() : "M",
+        size: state.size || "M",
+        tag: state.tag || "ARQUIVO",
         weightKg: Number(state.weight) || 0.5,
-        description: state.notes || undefined,
+        description: state.description || state.notes || undefined,
         images: uploadedImages,
+        measurements: state.measurements,
       });
 
       if (!result.success) {
