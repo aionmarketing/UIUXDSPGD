@@ -19,6 +19,7 @@ import {
 } from "@phosphor-icons/react";
 import {
   useCartStore,
+  useRewardStore,
   AVAILABLE_SHIPPING_METHODS,
   ShippingMethod,
 } from "@/features/storefront";
@@ -36,6 +37,13 @@ export default function CheckoutPage() {
   const setShippingMethod = useCartStore((state) => state.setShippingMethod);
   const storedCep = useCartStore((state) => state.cep);
   const clearCart = useCartStore((state) => state.clearCart);
+  const couponCode = useCartStore((state) => state.couponCode);
+  const discountRate = useCartStore((state) => state.discountRate);
+
+  const triggerCelebration = useRewardStore((state) => state.triggerCelebration);
+  const calculateReward = useRewardStore((state) => state.calculateReward);
+
+  const [awardedBananas, setAwardedBananas] = useState<number>(0);
 
   const getSubtotal = useCartStore((state) => state.getSubtotal);
   const getDiscountAmount = useCartStore((state) => state.getDiscountAmount);
@@ -87,7 +95,7 @@ export default function CheckoutPage() {
   if (!mounted) {
     return (
       <div className="min-h-screen bg-canvas-base py-16 px-4 text-center font-mono text-xs text-text-slate">
-        Inicializando checkout seguro...
+        Inicializando checkout seguro…
       </div>
     );
   }
@@ -117,6 +125,14 @@ export default function CheckoutPage() {
   const handleFinishOrder = () => {
     const generatedOrder = `MNL-2026-${Math.floor(10000 + Math.random() * 90000)}`;
     setOrderNumber(generatedOrder);
+
+    // Phase 9: Banana Reward System
+    // Every $10 USD (R$ 50 BRL) = 1 banana; 10% coupon = 10 bonus bananas
+    const hasTenPercentCoupon = discountRate >= 0.1 || (couponCode && couponCode.includes("10"));
+    const bananas = calculateReward(subtotal, !!hasTenPercentCoupon);
+    setAwardedBananas(bananas);
+    triggerCelebration(bananas);
+
     setCurrentStep(5);
     clearCart();
   };
@@ -203,6 +219,26 @@ export default function CheckoutPage() {
               <p className="text-xs sm:text-sm font-mono text-text-platinum max-w-xl mx-auto">
                 Sua peça de arquivo foi reservada e catalogada. O laudo pericial com número de série e confirmação foi expedido para <strong>{identification.email}</strong>.
               </p>
+            </div>
+
+            {/* Banana Rewards Confirmation Banner (Phase 9) */}
+            <div className="bg-canvas-base border border-amber-500/30 p-4 font-mono text-xs flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-xl shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                  🍌
+                </div>
+                <div>
+                  <span className="text-[10px] text-amber-400 font-bold uppercase tracking-widest block">
+                    RECOMPENSA DO GORILA // HABITAT VAULT
+                  </span>
+                  <span className="text-text-optic font-semibold">
+                    +{awardedBananas} Bananas creditadas em seu cofre
+                  </span>
+                </div>
+              </div>
+              <div className="text-[11px] text-text-slate text-right">
+                Protocolo: <strong className="text-emerald-400 uppercase">LIQUIDADO NO COFRE</strong>
+              </div>
             </div>
 
             {/* Protocol Card */}
@@ -308,60 +344,71 @@ export default function CheckoutPage() {
 
                   <div className="space-y-4 font-mono text-xs">
                     <div className="space-y-1.5">
-                      <label className="text-text-slate uppercase font-bold text-[11px] block">
+                      <label htmlFor="buyer-name" className="text-text-slate uppercase font-bold text-[11px] block">
                         Nome Completo
                       </label>
                       <input
+                        id="buyer-name"
                         type="text"
                         required
+                        autoComplete="name"
                         value={identification.name}
                         onChange={(e) => setIdentification({ ...identification, name: e.target.value })}
                         placeholder="Ex: Alexandre Silva"
-                        className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                        className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="buyer-email" className="text-text-slate uppercase font-bold text-[11px] block">
                           E-mail para Laudo e NF-e
                         </label>
                         <input
+                          id="buyer-email"
                           type="email"
                           required
+                          autoComplete="email"
+                          inputMode="email"
                           value={identification.email}
                           onChange={(e) => setIdentification({ ...identification, email: e.target.value })}
                           placeholder="seu@email.com"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
 
                       <div className="space-y-1.5">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="buyer-cpf" className="text-text-slate uppercase font-bold text-[11px] block">
                           CPF (Auditoria Fiscal)
                         </label>
                         <input
+                          id="buyer-cpf"
                           type="text"
                           required
+                          autoComplete="off"
+                          inputMode="numeric"
                           value={identification.cpf}
                           onChange={(e) => setIdentification({ ...identification, cpf: e.target.value })}
                           placeholder="000.000.000-00"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-text-slate uppercase font-bold text-[11px] block">
+                      <label htmlFor="buyer-phone" className="text-text-slate uppercase font-bold text-[11px] block">
                         WhatsApp / Celular para Rastreamento
                       </label>
                       <input
+                        id="buyer-phone"
                         type="tel"
                         required
+                        autoComplete="tel"
+                        inputMode="tel"
                         value={identification.phone}
                         onChange={(e) => setIdentification({ ...identification, phone: e.target.value })}
                         placeholder="(11) 99999-9999"
-                        className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                        className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                       />
                     </div>
                   </div>
@@ -404,100 +451,114 @@ export default function CheckoutPage() {
                   <div className="space-y-4 font-mono text-xs">
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="space-y-1.5 sm:col-span-1">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="address-cep" className="text-text-slate uppercase font-bold text-[11px] block">
                           CEP
                         </label>
                         <input
+                          id="address-cep"
                           type="text"
                           required
+                          autoComplete="postal-code"
+                          inputMode="numeric"
                           value={address.cep}
                           onChange={(e) => setAddress({ ...address, cep: e.target.value })}
                           placeholder="01310-100"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
                       <div className="space-y-1.5 sm:col-span-2">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="address-street" className="text-text-slate uppercase font-bold text-[11px] block">
                           Logradouro / Rua
                         </label>
                         <input
+                          id="address-street"
                           type="text"
                           required
+                          autoComplete="street-address"
                           value={address.street}
                           onChange={(e) => setAddress({ ...address, street: e.target.value })}
                           placeholder="Avenida Paulista"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="address-number" className="text-text-slate uppercase font-bold text-[11px] block">
                           Número
                         </label>
                         <input
+                          id="address-number"
                           type="text"
                           required
+                          autoComplete="address-line2"
                           value={address.number}
                           onChange={(e) => setAddress({ ...address, number: e.target.value })}
                           placeholder="1578"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
                       <div className="space-y-1.5 sm:col-span-2">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="address-complement" className="text-text-slate uppercase font-bold text-[11px] block">
                           Complemento
                         </label>
                         <input
+                          id="address-complement"
                           type="text"
+                          autoComplete="address-line3"
                           value={address.complement}
                           onChange={(e) => setAddress({ ...address, complement: e.target.value })}
                           placeholder="Apto, Sala, Bloco"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="address-neighborhood" className="text-text-slate uppercase font-bold text-[11px] block">
                           Bairro
                         </label>
                         <input
+                          id="address-neighborhood"
                           type="text"
                           required
                           value={address.neighborhood}
                           onChange={(e) => setAddress({ ...address, neighborhood: e.target.value })}
                           placeholder="Bela Vista"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="address-city" className="text-text-slate uppercase font-bold text-[11px] block">
                           Cidade
                         </label>
                         <input
+                          id="address-city"
                           type="text"
                           required
+                          autoComplete="address-level2"
                           value={address.city}
                           onChange={(e) => setAddress({ ...address, city: e.target.value })}
                           placeholder="São Paulo"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="address-state" className="text-text-slate uppercase font-bold text-[11px] block">
                           Estado (UF)
                         </label>
                         <input
+                          id="address-state"
                           type="text"
                           required
                           maxLength={2}
+                          autoComplete="address-level1"
                           value={address.state}
                           onChange={(e) => setAddress({ ...address, state: e.target.value.toUpperCase() })}
                           placeholder="SP"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic uppercase"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic uppercase"
                         />
                       </div>
                     </div>
@@ -664,56 +725,66 @@ export default function CheckoutPage() {
                   {paymentMethod === "credit_card" && (
                     <div className="space-y-4 font-mono text-xs">
                       <div className="space-y-1.5">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="cc-number" className="text-text-slate uppercase font-bold text-[11px] block">
                           Número do Cartão
                         </label>
                         <input
+                          id="cc-number"
                           type="text"
+                          autoComplete="cc-number"
+                          inputMode="numeric"
                           value={creditCard.number}
                           onChange={(e) => setCreditCard({ ...creditCard, number: e.target.value })}
                           placeholder="4532 •••• •••• ••••"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                         />
                       </div>
 
                       <div className="space-y-1.5">
-                        <label className="text-text-slate uppercase font-bold text-[11px] block">
+                        <label htmlFor="cc-name" className="text-text-slate uppercase font-bold text-[11px] block">
                           Nome Impresso no Cartão
                         </label>
                         <input
+                          id="cc-name"
                           type="text"
+                          autoComplete="cc-name"
                           value={creditCard.holder}
                           onChange={(e) => setCreditCard({ ...creditCard, holder: e.target.value.toUpperCase() })}
                           placeholder="ALEXANDRE SILVA"
-                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic uppercase"
+                          className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic uppercase"
                         />
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1.5">
-                          <label className="text-text-slate uppercase font-bold text-[11px] block">
+                          <label htmlFor="cc-exp" className="text-text-slate uppercase font-bold text-[11px] block">
                             Validade (MM/AA)
                           </label>
                           <input
+                            id="cc-exp"
                             type="text"
+                            autoComplete="cc-exp"
                             value={creditCard.expiry}
                             onChange={(e) => setCreditCard({ ...creditCard, expiry: e.target.value })}
                             placeholder="12/28"
-                            className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                            className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                           />
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="text-text-slate uppercase font-bold text-[11px] block">
+                          <label htmlFor="cc-csc" className="text-text-slate uppercase font-bold text-[11px] block">
                             CVV
                           </label>
                           <input
+                            id="cc-csc"
                             type="text"
                             maxLength={4}
+                            autoComplete="cc-csc"
+                            inputMode="numeric"
                             value={creditCard.cvv}
                             onChange={(e) => setCreditCard({ ...creditCard, cvv: e.target.value })}
                             placeholder="123"
-                            className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus:border-text-optic"
+                            className="w-full h-11 bg-canvas-base border border-border-subtle px-3.5 text-xs text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                           />
                         </div>
                       </div>

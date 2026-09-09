@@ -59,7 +59,7 @@ export default function CartPage() {
   if (!mounted) {
     return (
       <div className="min-h-screen bg-canvas-base py-16 px-4 text-center font-mono text-xs text-text-slate">
-        Carregando sua sacola...
+        Carregando sua sacola…
       </div>
     );
   }
@@ -258,16 +258,22 @@ export default function CartPage() {
                   </div>
 
                   <form onSubmit={handleApplyCep} className="flex gap-2">
+                    <label htmlFor="cart-shipping-cep" className="sr-only">
+                      CEP de entrega
+                    </label>
                     <input
+                      id="cart-shipping-cep"
                       type="text"
+                      autoComplete="postal-code"
+                      inputMode="numeric"
                       value={inputCep}
                       onChange={(e) => setInputCep(e.target.value)}
                       placeholder="CEP de entrega (Ex: 01310-100)"
-                      className="flex-1 h-10 bg-canvas-base border border-border-subtle px-3 text-xs font-mono text-text-optic outline-none focus:border-text-optic"
+                      className="flex-1 h-10 bg-canvas-base border border-border-subtle px-3 text-xs font-mono text-text-optic outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                     />
                     <button
                       type="submit"
-                      className="h-10 px-4 bg-canvas-base border border-border-subtle hover:border-text-optic text-text-optic font-mono font-bold text-xs uppercase tracking-wider transition cursor-pointer"
+                      className="h-10 px-4 bg-canvas-base border border-border-subtle hover:border-text-optic text-text-optic font-mono font-bold text-xs uppercase tracking-wider transition cursor-pointer focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                     >
                       OK
                     </button>
@@ -290,15 +296,15 @@ export default function CartPage() {
                             name="cart_shipping"
                             checked={selectedShipping?.id === method.id}
                             onChange={() => setShippingMethod(method)}
-                            className="accent-text-optic"
+                            className="accent-text-optic focus-visible:ring-1 focus-visible:ring-white"
                           />
                           <div>
                             <span className="font-bold block text-xs">{method.label}</span>
                             <span className="text-[10px] text-text-slate">{method.estimatedDays}</span>
                           </div>
                         </div>
-                        <span className="font-bold text-xs">
-                          R$ {method.price.toFixed(2).replace(".", ",")}
+                        <span className="font-bold text-xs tabular-nums">
+                          {"R$\u00A0"}{method.price.toFixed(2).replace(".", ",")}
                         </span>
                       </label>
                     ))}
@@ -322,7 +328,7 @@ export default function CartPage() {
                         <button
                           type="button"
                           onClick={removeCoupon}
-                          className="text-text-slate hover:text-red-400 underline text-[11px]"
+                          className="text-text-slate hover:text-red-400 underline text-[11px] focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                         >
                           Remover
                         </button>
@@ -330,16 +336,22 @@ export default function CartPage() {
                     ) : (
                       <form onSubmit={handleApplyCoupon} className="space-y-2">
                         <div className="flex gap-2">
+                          <label htmlFor="cart-coupon-input" className="sr-only">
+                            Código do cupom
+                          </label>
                           <input
+                            id="cart-coupon-input"
                             type="text"
+                            autoComplete="off"
+                            spellCheck={false}
                             value={inputCoupon}
                             onChange={(e) => setInputCoupon(e.target.value)}
                             placeholder="Código do lote (ex: ONYX10)"
-                            className="flex-1 h-10 bg-canvas-base border border-border-subtle px-3 text-xs font-mono text-text-optic uppercase outline-none focus:border-text-optic"
+                            className="flex-1 h-10 bg-canvas-base border border-border-subtle px-3 text-xs font-mono text-text-optic uppercase outline-none focus-visible:ring-1 focus-visible:ring-white focus:border-text-optic"
                           />
                           <button
                             type="submit"
-                            className="h-10 px-4 bg-canvas-base border border-border-subtle hover:border-text-optic text-text-optic font-mono font-bold text-xs uppercase tracking-wider transition cursor-pointer"
+                            className="h-10 px-4 bg-canvas-base border border-border-subtle hover:border-text-optic text-text-optic font-mono font-bold text-xs uppercase tracking-wider transition cursor-pointer focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                           >
                             Aplicar
                           </button>

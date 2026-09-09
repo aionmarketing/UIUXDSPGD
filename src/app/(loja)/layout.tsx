@@ -1,7 +1,13 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header, Footer } from "@/features/storefront";
+import {
+  Header,
+  Footer,
+  JungleEnvironment,
+  MonkeyAppearances,
+  BananaCelebration,
+} from "@/features/storefront";
 
 export const metadata: Metadata = {
   title: "Desapegado // Acervo de Streetwear & Luxo",
@@ -15,12 +21,29 @@ export default function LojaLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-canvas-base bg-blueprint-grid bg-ambient-specular text-text-optic selection:bg-text-optic selection:text-canvas-base relative">
+    <div className="min-h-screen flex flex-col bg-canvas-base bg-blueprint-grid bg-ambient-jungle text-text-optic selection:bg-text-optic selection:text-canvas-base relative">
+      {/* Skip to main content link for keyboard and screen reader accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-text-optic focus:text-canvas-base focus:font-mono focus:text-xs focus:font-bold focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-amber-400"
+      >
+        Pular para o conteúdo principal
+      </a>
+
+      {/* 0. ATMOSPHERIC JUNGLE HABITAT LAYERS (Background, Midground, Foreground) */}
+      <JungleEnvironment />
+
+      {/* 0.1 OCCASIONAL MONKEY / APE MICRO-APPEARANCES (Phase 5) */}
+      <MonkeyAppearances />
+
+      {/* 0.2 PHYSICAL BANANA CELEBRATION MODAL OVERLAY (Phase 9) */}
+      <BananaCelebration />
+
       {/* 1. TOP NAVIGATION HEADER (Restored to top with Glassmorphism) */}
       <Header />
 
       {/* 2. MAIN CONTENT AREA (Full Width with Bottom Respiration) */}
-      <main className="flex-1 min-w-0 pb-16">{children}</main>
+      <main id="main-content" className="flex-1 min-w-0 pb-16">{children}</main>
 
       {/* 3. STOREFRONT FOOTER */}
       <Footer />

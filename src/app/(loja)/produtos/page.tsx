@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, Suspense } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
   FadersHorizontal,
@@ -10,7 +9,6 @@ import {
   ArrowsDownUp,
   ArrowClockwise,
   Sparkle,
-  CaretDown,
 } from "@phosphor-icons/react";
 import {
   CATALOG_PRODUCTS,
@@ -27,30 +25,25 @@ import {
 
 function PLPContent() {
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category") || "ALL";
-  const initialSubcategory = searchParams.get("subcategory") || "ALL";
-  const initialBrand = searchParams.get("brand") || "ALL";
-  const initialCondition = searchParams.get("condition") || "ALL";
-  const initialSearch = searchParams.get("q") || "";
-
   const [productsList, setProductsList] = useState<CatalogProduct[]>(CATALOG_PRODUCTS);
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
-  const [selectedSubcategory, setSelectedSubcategory] = useState<string>(initialSubcategory);
-  const [selectedBrand, setSelectedBrand] = useState<string>(initialBrand);
-  const [selectedCondition, setSelectedCondition] = useState<string>(initialCondition);
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    () => searchParams.get("category") || "ALL"
+  );
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string>(
+    () => searchParams.get("subcategory") || "ALL"
+  );
+  const [selectedBrand, setSelectedBrand] = useState<string>(
+    () => searchParams.get("brand") || "ALL"
+  );
+  const [selectedCondition, setSelectedCondition] = useState<string>(
+    () => searchParams.get("condition") || "ALL"
+  );
   const [priceTier, setPriceTier] = useState<string>("ALL");
-  const [searchQuery, setSearchQuery] = useState<string>(initialSearch);
+  const [searchQuery, setSearchQuery] = useState<string>(
+    () => searchParams.get("q") || ""
+  );
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "name">("featured");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-
-  // Sync with URL params if they change
-  useEffect(() => {
-    if (searchParams.get("category")) setSelectedCategory(searchParams.get("category")!);
-    if (searchParams.get("subcategory")) setSelectedSubcategory(searchParams.get("subcategory")!);
-    if (searchParams.get("brand")) setSelectedBrand(searchParams.get("brand")!);
-    if (searchParams.get("condition")) setSelectedCondition(searchParams.get("condition")!);
-    if (searchParams.get("q")) setSearchQuery(searchParams.get("q")!);
-  }, [searchParams]);
 
   // Fetch live products from Neon DB via /api/products
   useEffect(() => {
@@ -146,7 +139,7 @@ function PLPContent() {
                 <ArrowsDownUp weight="light" className="w-3.5 h-3.5 text-text-slate mr-2 shrink-0" />
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
+                  onChange={(e) => setSortBy(e.target.value as "featured" | "price-asc" | "price-desc" | "name")}
                   className="bg-transparent text-text-optic font-mono text-xs outline-none cursor-pointer pr-4"
                 >
                   <option value="featured" className="bg-[#0c0e14] text-white">Destaques da Curadoria</option>
@@ -425,7 +418,7 @@ function PLPContent() {
       </div>
 
       {/* 4. Mobile Filter Drawer */}
-      {mobileFilterOpen && (
+      {mobileFilterOpen ? (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex justify-end">
           <div className="w-full max-w-xs bg-canvas-well border-l border-border-subtle p-6 space-y-6 overflow-y-auto font-mono text-xs">
             <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
@@ -433,7 +426,8 @@ function PLPContent() {
               <button
                 type="button"
                 onClick={() => setMobileFilterOpen(false)}
-                className="w-8 h-8 flex items-center justify-center border border-border-subtle text-text-optic"
+                aria-label="Fechar filtros"
+                className="w-8 h-8 flex items-center justify-center border border-border-subtle text-text-optic focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
               >
                 <X weight="light" className="w-4 h-4" />
               </button>
@@ -455,27 +449,46 @@ function PLPContent() {
                       : "bg-canvas-base text-text-platinum border-border-subtle"
                   }`}
                 >
-                  Todas ({productsList.length})
+                  Todas as Categorias
                 </button>
-                {TAXONOMY_CATEGORIES.map((c) => (
+                {TAXONOMY_CATEGORIES.map((cat) => (
                   <button
-                    key={c}
+                    key={cat}
                     type="button"
                     onClick={() => {
-                      setSelectedCategory(c);
+                      setSelectedCategory(cat);
                       setSelectedSubcategory("ALL");
                     }}
                     className={`w-full p-2 text-left border ${
-                      selectedCategory === c
+                      selectedCategory === cat
                         ? "bg-text-optic text-canvas-base font-bold border-text-optic"
                         : "bg-canvas-base text-text-platinum border-border-subtle"
                     }`}
                   >
-                    {c}
+                    {cat}
                   </button>
                 ))}
               </div>
             </div>
+
+            {/* Mobile Subcategory */}
+            {selectedCategory !== "ALL" && TAXONOMY_SUBCATEGORIES[selectedCategory as TaxonomyCategory] ? (
+              <div className="space-y-2">
+                <label className="text-text-slate font-bold uppercase text-[10px]">Subcategoria</label>
+                <select
+                  value={selectedSubcategory}
+                  onChange={(e) => setSelectedSubcategory(e.target.value)}
+                  className="w-full bg-canvas-base border border-border-subtle p-2 text-text-optic"
+                >
+                  <option value="ALL">Todas as Subcategorias</option>
+                  {TAXONOMY_SUBCATEGORIES[selectedCategory as TaxonomyCategory].map((sub) => (
+                    <option key={sub} value={sub}>
+                      {sub}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : null}
 
             {/* Mobile Brand */}
             <div className="space-y-2">
@@ -483,9 +496,9 @@ function PLPContent() {
               <select
                 value={selectedBrand}
                 onChange={(e) => setSelectedBrand(e.target.value)}
-                className="w-full p-2.5 bg-canvas-base border border-border-subtle text-text-optic"
+                className="w-full bg-canvas-base border border-border-subtle p-2 text-text-optic"
               >
-                <option value="ALL">Todas as Marcas</option>
+                <option value="ALL">Todas as Marcas ({TAXONOMY_BRANDS.length})</option>
                 {TAXONOMY_BRANDS.map((b) => (
                   <option key={b} value={b}>
                     {b}
@@ -499,31 +512,36 @@ function PLPContent() {
               <button
                 type="button"
                 onClick={() => setMobileFilterOpen(false)}
-                className="w-full h-11 bg-text-optic text-canvas-base font-bold uppercase tracking-wider"
+                className="w-full h-11 bg-text-optic text-canvas-base font-bold uppercase tracking-wider focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
               >
                 Ver {filteredProducts.length} Peças
               </button>
-              {hasActiveFilters && (
+              {hasActiveFilters ? (
                 <button
                   type="button"
                   onClick={handleResetFilters}
-                  className="w-full h-11 bg-canvas-base border border-border-subtle text-text-platinum hover:text-text-optic font-bold uppercase tracking-wider"
+                  className="w-full h-11 bg-canvas-base border border-border-subtle text-text-platinum hover:text-text-optic font-bold uppercase tracking-wider focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                 >
                   Limpar Todos
                 </button>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
 
+function PLPContentKeyWrapper() {
+  const searchParams = useSearchParams();
+  return <PLPContent key={searchParams.toString()} />;
+}
+
 export default function ProdutosPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-canvas-base p-12 font-mono text-xs text-text-slate">Carregando acervo...</div>}>
-      <PLPContent />
+    <Suspense fallback={<div className="min-h-screen bg-canvas-base p-12 font-mono text-xs text-text-slate">Carregando acervo…</div>}>
+      <PLPContentKeyWrapper />
     </Suspense>
   );
 }

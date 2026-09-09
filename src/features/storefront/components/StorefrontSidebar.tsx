@@ -73,13 +73,6 @@ export function StorefrontSidebar() {
 
   const isOpen = isPinned || isHovered;
 
-  // Collapse accordions when sidebar collapses
-  useEffect(() => {
-    if (!isOpen) {
-      setExpandedSection(null);
-    }
-  }, [isOpen]);
-
   // Handle ESC key to close mobile drawer or collapse
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -259,18 +252,19 @@ export function StorefrontSidebar() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="BUSCAR ACERVO..."
+                placeholder="BUSCAR ACERVO…"
                 className="w-full bg-transparent text-text-optic placeholder:text-text-slate font-mono text-[10px] tracking-wider uppercase outline-none"
               />
-              {searchQuery && (
+              {searchQuery ? (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  className="text-text-slate hover:text-text-optic text-[9px] font-mono px-1"
+                  aria-label="Limpar busca"
+                  className="text-text-slate hover:text-text-optic text-[9px] font-mono px-1 focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                 >
                   <X weight="light" className="w-3 h-3" />
                 </button>
-              )}
+              ) : null}
               <kbd className="hidden xl:inline-flex items-center text-[8px] font-mono text-text-slate bg-canvas-base px-1 border border-border-subtle ml-1">
                 ↵
               </kbd>
@@ -283,7 +277,8 @@ export function StorefrontSidebar() {
                 setTimeout(() => searchInputRef.current?.focus(), 150);
               }}
               title="Buscar no acervo"
-              className="w-full h-9 flex items-center justify-center bg-canvas-well border border-border-subtle hover:border-border-specular text-text-platinum hover:text-text-optic transition-colors cursor-pointer"
+              aria-label="Buscar no acervo"
+              className="w-full h-9 flex items-center justify-center bg-canvas-well border border-border-subtle hover:border-border-specular text-text-platinum hover:text-text-optic transition-colors cursor-pointer focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
             >
               <MagnifyingGlass weight="light" className="w-4 h-4" />
             </button>
@@ -294,7 +289,7 @@ export function StorefrontSidebar() {
         <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden py-3 px-2 space-y-1.5 scrollbar-thin scrollbar-thumb-border-subtle">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isSectionExpanded = expandedSection === item.id;
+            const isSectionExpanded = isOpen && expandedSection === item.id;
             const isActive =
               pathname === item.href ||
               (item.id === "roupas" && pathname.includes("category=Roupas")) ||

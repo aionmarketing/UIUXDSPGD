@@ -79,10 +79,6 @@ export function BrandsGrid() {
   const [showAllBrands, setShowAllBrands] = useState(false);
   const [activeHoverBrand, setActiveHoverBrand] = useState<string | null>(null);
 
-  const otherBrands = TAXONOMY_BRANDS.filter(
-    (b) => !FEATURED_BRANDS.some((fb) => fb.name.toLowerCase() === b.toLowerCase())
-  );
-
   return (
     <section id="marcas" className="w-full bg-canvas-base py-12 px-4 sm:px-8 border-b border-border-subtle overflow-hidden">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -200,9 +196,9 @@ export function BrandsGrid() {
         </div>
 
         {/* Expandable Taxonomy Drawer for All Other Brands */}
-        {showAllBrands && (
+        {showAllBrands ? (
           <div className="bg-canvas-well border border-border-subtle p-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
-            <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+            <div className="flex items-center justify-between border-border-subtle pb-3 border-b">
               <span className="font-mono text-xs uppercase font-bold tracking-wider text-text-optic">
                 Todas as Casas do Acervo ({TAXONOMY_BRANDS.length})
               </span>
@@ -216,7 +212,7 @@ export function BrandsGrid() {
                 <Link
                   key={brand}
                   href={`/produtos?brand=${encodeURIComponent(brand)}`}
-                  className="px-3 py-2 bg-canvas-base border border-border-subtle hover:border-text-optic hover:text-text-optic text-text-platinum font-mono text-xs uppercase tracking-wider transition-colors flex items-center justify-between"
+                  className="px-3 py-2 bg-canvas-base border border-border-subtle hover:border-text-optic hover:text-text-optic text-text-platinum font-mono text-xs uppercase tracking-wider transition-colors flex items-center justify-between focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                 >
                   <span className="truncate">{brand}</span>
                   <ArrowUpRight weight="light" className="w-3 h-3 text-text-slate shrink-0" />
@@ -224,7 +220,7 @@ export function BrandsGrid() {
               ))}
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   );

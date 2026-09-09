@@ -147,8 +147,8 @@ export function Hero() {
             ref={tagRef}
             className="inline-flex items-center gap-2.5 w-fit border border-white/15 bg-[#0c0e14]/80 backdrop-blur-md px-3 py-1.5 text-xs font-mono tracking-widest uppercase text-text-platinum shadow-sm"
           >
-            <Sparkle weight="light" className="w-3.5 h-3.5 text-text-optic" />
-            <span>MONOLITH ONYX // ACERVO DIGITAL INDESTRUTÍVEL</span>
+            <Sparkle weight="light" className="w-3.5 h-3.5 text-emerald-400" />
+            <span>DESAPEGO // DIGITAL JUNGLE ARCHIVE • HABITAT GORILA</span>
           </div>
 
           {/* Core Headline */}
@@ -205,46 +205,78 @@ export function Hero() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: 3D Gorilla Viewport Wrapped in Liquid Specular Glass */}
+        {/* RIGHT COLUMN: 3D Gorilla Viewport Wrapped in Tropical Habitat Specular Glass */}
         <div className="lg:col-span-6 relative flex flex-col items-center justify-center w-full">
           {/* Telemetry Header Pill */}
           <div className="w-full max-w-[500px] lg:max-w-none flex items-center justify-between mb-2 gap-2">
-            <div className="flex items-center gap-1.5 bg-[#0c0e14]/80 backdrop-blur-md border border-white/15 px-3 py-1 text-[11px] font-mono shadow-sm">
-              <Sparkle weight="light" className="w-3.5 h-3.5 text-text-optic" />
+            <div className="flex items-center gap-1.5 bg-[#0c0e14]/85 backdrop-blur-md border border-white/15 px-3 py-1 text-[11px] font-mono shadow-sm">
+              <Sparkle weight="light" className="w-3.5 h-3.5 text-emerald-400" />
               <span className="font-bold text-text-optic tracking-wider uppercase">
-                MASCOTE INTERATIVO // 3D
+                HABITAT DIGITAL // GORILA 3D
               </span>
             </div>
 
-            <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase tracking-widest shrink-0">
-              ● RASTREAMENTO ÓPTICO
+            <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase tracking-widest shrink-0 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              RASTREAMENTO ÓPTICO 60FPS
             </span>
           </div>
 
           {/* LIQUID GLASS CONTAINER WRAPPING THE 3D GORILLA CANVAS */}
           <div
             ref={canvasContainerRef}
-            className="relative w-full aspect-square max-w-[520px] lg:max-w-none bg-[#0c0e14]/70 backdrop-blur-2xl border border-white/[0.14] shadow-2xl shadow-black/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2)] overflow-hidden p-2 sm:p-4"
+            className="relative w-full aspect-square max-w-[520px] lg:max-w-none bg-[#090d0b]/80 backdrop-blur-2xl border border-emerald-500/20 shadow-2xl shadow-black/90 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2)] overflow-hidden p-2 sm:p-4"
           >
+            {/* Deep Habitat Chlorophyll Rim Light behind Gorilla */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-60"
+              style={{
+                background:
+                  "radial-gradient(circle at 50% 52%, rgba(16, 185, 129, 0.18) 0%, rgba(5, 15, 10, 0.4) 55%, transparent 75%)",
+              }}
+            />
+
+            {/* Subtle Peripheral Silhouette Fronds framing the enclosure */}
+            <div className="absolute top-0 right-0 w-44 h-44 pointer-events-none opacity-20">
+              <svg viewBox="0 0 100 100" fill="none" className="w-full h-full">
+                <path
+                  d="M100,0 C70,15 45,45 25,80 C40,55 70,30 100,0 Z"
+                  fill="#10b981"
+                />
+                <path
+                  d="M100,20 C75,35 55,60 40,95 C55,70 80,45 100,20 Z"
+                  fill="#065f46"
+                />
+              </svg>
+            </div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 pointer-events-none opacity-15 rotate-180">
+              <svg viewBox="0 0 100 100" fill="none" className="w-full h-full">
+                <path
+                  d="M100,0 C70,15 45,45 25,80 C40,55 70,30 100,0 Z"
+                  fill="#10b981"
+                />
+              </svg>
+            </div>
+
             {/* Ambient Corner Specular Crosshairs */}
-            <div className="absolute top-3 left-3 text-[11px] font-mono text-text-slate pointer-events-none z-10 select-none">
+            <div className="absolute top-3 left-3 text-[11px] font-mono text-emerald-400/60 pointer-events-none z-10 select-none">
               +
             </div>
-            <div className="absolute top-3 right-3 text-[11px] font-mono text-text-slate pointer-events-none z-10 select-none">
+            <div className="absolute top-3 right-3 text-[11px] font-mono text-emerald-400/60 pointer-events-none z-10 select-none">
               +
             </div>
-            <div className="absolute bottom-3 left-3 text-[11px] font-mono text-text-slate pointer-events-none z-10 select-none">
+            <div className="absolute bottom-3 left-3 text-[11px] font-mono text-emerald-400/60 pointer-events-none z-10 select-none">
               +
             </div>
-            <div className="absolute bottom-3 right-3 text-[11px] font-mono text-text-slate pointer-events-none z-10 select-none">
+            <div className="absolute bottom-3 right-3 text-[11px] font-mono text-emerald-400/60 pointer-events-none z-10 select-none">
               +
             </div>
 
             {/* Subtle Specular Top Highlight Streak */}
             <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
 
-            {/* The existing 3D Gorilla Canvas component */}
-            <div className="w-full h-full relative">
+            {/* The sacred 3D Gorilla Canvas component - UNTOUCHED CENTERPIECE */}
+            <div className="w-full h-full relative z-10">
               <GorillaAvatar />
             </div>
           </div>
@@ -252,18 +284,18 @@ export function Hero() {
           {/* STOREFRONT UI RULE: FLOATING SPECULAR LIQUID GLASS TELEMETRY CARD */}
           <div
             ref={glassCardRef}
-            className="w-[94%] sm:w-[88%] -mt-10 sm:-mt-14 relative z-20 bg-[#0c0e16]/85 backdrop-blur-2xl border border-white/[0.15] shadow-2xl shadow-black/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.18)] p-4 sm:p-5 space-y-3"
+            className="w-[94%] sm:w-[88%] -mt-10 sm:-mt-14 relative z-20 bg-[#0a0f0d]/90 backdrop-blur-2xl border border-white/[0.16] shadow-2xl shadow-black/85 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22)] p-4 sm:p-5 space-y-3"
           >
             {/* Specular Liquid Glass Header for Avatar */}
             <div className="flex items-center justify-between pb-2 border-b border-white/[0.1]">
               <div className="flex items-center gap-2">
-                <Sparkle weight="light" className="w-4 h-4 text-text-optic" />
+                <Sparkle weight="light" className="w-4 h-4 text-emerald-400" />
                 <span className="font-mono text-xs font-bold tracking-wider uppercase text-text-optic">
-                  TELEMETRIA FORENSE // MODELO 3D INTERATIVO
+                  TELEMETRIA FORENSE // HABITAT GORILA 3D
                 </span>
               </div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400">
-                CURSOR ATIVO
+                SENSOR ATIVO
               </span>
             </div>
 

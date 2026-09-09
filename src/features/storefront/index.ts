@@ -8,6 +8,10 @@ export { BrandsGrid } from "./components/BrandsGrid";
 export { StorefrontBackToTop } from "./components/StorefrontBackToTop";
 export { Footer } from "./components/Footer";
 export { GorillaAvatar } from "./components/avatar";
+export { JungleEnvironment } from "./components/environment/JungleEnvironment";
+export { MonkeyAppearances } from "./components/environment/MonkeyAppearances";
+export { BananaCelebration } from "./components/reward/BananaCelebration";
+export { useRewardStore } from "./stores/useRewardStore";
 export { useCartStore, AVAILABLE_SHIPPING_METHODS, type CartItem, type ShippingMethod } from "./stores/useCartStore";
 export {
   CATALOG_PRODUCTS,

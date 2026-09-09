@@ -7,14 +7,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Sparkle,
   ShieldCheck,
-  ArrowsClockwise,
-  Eye,
-  SlidersHorizontal,
   Check,
   Bag,
   MagnifyingGlass,
   ArrowUpRight,
-  Info,
   Flame,
 } from "@phosphor-icons/react";
 import { CATALOG_PRODUCTS } from "@/features/storefront/data/products";
@@ -220,7 +216,6 @@ export default function GlassmorphismPreviewPage() {
           {/* Interactive Style Selector Buttons */}
           <div className="flex items-center gap-1.5 p-1 bg-black/60 border border-white/15 rounded-sm backdrop-blur-xl">
             {(["obsidian", "refraction", "minimalist"] as GlassStyle[]).map((styleId) => {
-              const def = STYLES[styleId];
               const isActive = activeStyle === styleId;
               return (
                 <button

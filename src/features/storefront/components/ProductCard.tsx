@@ -9,7 +9,6 @@ import {
   Bag,
   Check,
   ArrowUpRight,
-  Sparkle,
 } from "@phosphor-icons/react";
 import type { CatalogProduct } from "../data/products";
 import { useCartStore } from "../stores/useCartStore";
@@ -67,7 +66,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           "relative flex flex-col justify-between h-full w-full overflow-hidden",
           "bg-[#0c0e14]/70 backdrop-blur-xl",
           "border border-white/[0.12] shadow-xl shadow-black/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16)]",
-          "transition-all duration-300 ease-out",
+          "transition-[background-color,border-color,box-shadow,transform] duration-300 ease-out",
           "group-hover:border-white/30 group-hover:bg-[#121622]/80 group-hover:shadow-2xl group-hover:shadow-black/70 group-hover:-translate-y-1"
         )}
       >
@@ -87,6 +86,9 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           <img
             src={primaryImage}
             alt={`${product.brand} - ${product.name}`}
+            width={600}
+            height={800}
+            decoding="async"
             loading={priority ? "eager" : "lazy"}
             className={clsx(
               "w-full h-full object-cover transition-transform duration-700 ease-out",
@@ -96,17 +98,20 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           />
 
           {/* Secondary Photo on Hover if available */}
-          {product.images?.length > 1 && (
+          {product.images?.length > 1 ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={hoverImage}
               alt={`${product.name} alternate angle`}
+              width={600}
+              height={800}
+              decoding="async"
               className={clsx(
                 "absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out",
                 isHovered ? "opacity-100 scale-105" : "opacity-0 scale-100"
               )}
             />
-          )}
+          ) : null}
 
           {/* Top Badges (Tag & Authenticity) */}
           <div className="absolute top-2 inset-x-2 flex items-center justify-between pointer-events-none z-20">
@@ -161,21 +166,21 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           {/* Price & Quick Add CTA */}
           <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between gap-2">
             <div className="flex flex-col">
-              <span className="font-mono text-xs sm:text-sm font-bold text-text-optic">
-                R$ {product.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+              <span className="font-mono text-xs sm:text-sm font-bold text-text-optic tabular-nums">
+                {"R$\u00A0"}{product.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
               </span>
-              {product.originalRetailPrice && product.originalRetailPrice > product.price && (
-                <span className="font-mono text-[9px] text-text-slate line-through">
-                  R$ {product.originalRetailPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+              {product.originalRetailPrice && product.originalRetailPrice > product.price ? (
+                <span className="font-mono text-[9px] text-text-slate line-through tabular-nums">
+                  {"R$\u00A0"}{product.originalRetailPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                 </span>
-              )}
+              ) : null}
             </div>
 
             <div className="flex items-center gap-1.5">
               <Link
                 href={`/produtos/${product.slug}`}
                 aria-label={`Ver detalhes de ${product.name}`}
-                className="w-8 h-8 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/40 text-text-platinum hover:text-text-optic flex items-center justify-center transition-all cursor-pointer shadow-sm"
+                className="w-8 h-8 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/40 text-text-platinum hover:text-text-optic flex items-center justify-center transition-colors cursor-pointer shadow-sm focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
               >
                 <ArrowUpRight weight="light" className="w-3.5 h-3.5" />
               </Link>
@@ -185,7 +190,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
                 onClick={handleAddToCart}
                 aria-label={`Adicionar ${product.name} à sacola`}
                 className={clsx(
-                  "h-8 px-2.5 sm:px-3 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer border",
+                  "h-8 px-2.5 sm:px-3 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer border focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none",
                   isAdded
                     ? "bg-emerald-400 text-canvas-base border-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.3)]"
                     : "bg-text-optic text-canvas-base border-text-optic hover:bg-neutral-200 active:scale-[0.98] shadow-sm"

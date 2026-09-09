@@ -13,13 +13,13 @@ import {
   ArrowUpRight,
   User,
   Globe,
-  Sparkle,
 } from "@phosphor-icons/react";
 import {
   TAXONOMY_SUBCATEGORIES,
   TAXONOMY_BRANDS,
 } from "@/features/seller-pwa/taxonomy";
 import { useCartStore } from "../stores/useCartStore";
+import { useRewardStore } from "../stores/useRewardStore";
 
 const emptySubscribe = () => () => {};
 
@@ -40,6 +40,7 @@ export function Header() {
   );
 
   const itemCount = useCartStore((state) => state.getItemCount());
+  const bananaBalance = useRewardStore((state) => state.bananaBalance);
 
   const handleMouseEnter = (menuKey: string) => {
     if (dropdownTimeoutRef.current) {
@@ -85,7 +86,7 @@ export function Header() {
           {/* Subtle Left Tag */}
           <div className="hidden md:flex items-center gap-2 font-mono text-[10px] text-text-slate tracking-widest uppercase">
             <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block animate-pulse" />
-            <span>ACERVO DIGITAL // PEÇAS CERTIFICADAS</span>
+            <span>DIGITAL JUNGLE ARCHIVE // HABITAT GORILA</span>
           </div>
 
           {/* Centralized Search Bar (Directly Above Nav Bar) */}
@@ -102,19 +103,20 @@ export function Header() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="BUSCAR ACERVO (SUPREME, GORE-TEX, LANVIN, FLEECE...)"
+                placeholder="BUSCAR ACERVO (SUPREME, GORE-TEX, LANVIN, FLEECE…)"
                 aria-label="Buscar produtos no acervo"
                 className="w-full bg-transparent text-text-optic placeholder:text-text-slate font-mono text-[11px] tracking-wider uppercase outline-none"
               />
-              {searchQuery && (
+              {searchQuery ? (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  className="text-text-slate hover:text-text-optic text-[10px] font-mono px-1"
+                  aria-label="Limpar busca"
+                  className="text-text-slate hover:text-text-optic text-[10px] font-mono px-1 focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                 >
                   LIMPAR
                 </button>
-              )}
+              ) : null}
               <kbd className="hidden lg:inline-flex items-center gap-0.5 bg-canvas-well border border-border-subtle text-[9px] font-mono text-text-slate px-1.5 py-0.5 ml-2">
                 ENTER
               </kbd>
@@ -159,7 +161,7 @@ export function Header() {
             </div>
 
             {/* Currency Tooltip */}
-            {showCurrencyTooltip && (
+            {showCurrencyTooltip ? (
               <div className="absolute right-0 top-full mt-2 w-56 p-2 bg-canvas-well border border-border-subtle shadow-2xl z-50 text-[10px] text-text-platinum space-y-1 animate-in fade-in duration-150">
                 <div className="flex items-center gap-1 text-text-optic font-bold">
                   <Globe weight="light" className="w-3.5 h-3.5 text-emerald-400" />
@@ -169,7 +171,7 @@ export function Header() {
                   Base cambial em tempo real integrada para paridade BRL / USD para envios internacionais.
                 </p>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
@@ -185,8 +187,8 @@ export function Header() {
                 <span className="font-mono text-lg sm:text-xl font-black tracking-[0.25em] text-text-optic leading-none uppercase">
                   DESAPEGADO
                 </span>
-                <span className="text-[9px] font-mono tracking-[0.3em] text-text-slate uppercase mt-1">
-                  ARCHIVE // STREETWEAR &amp; LUXURY
+                <span className="text-[9px] font-mono tracking-[0.25em] text-emerald-400/90 uppercase mt-1">
+                  DIGITAL JUNGLE ARCHIVE // LUXURY
                 </span>
               </div>
             </Link>
@@ -211,8 +213,10 @@ export function Header() {
             >
               <button
                 type="button"
+                aria-expanded={activeDropdown === "Roupas"}
+                aria-haspopup="true"
                 onClick={() => setActiveDropdown(activeDropdown === "Roupas" ? null : "Roupas")}
-                className={`py-1 flex items-center gap-1.5 uppercase transition-colors cursor-pointer relative group ${
+                className={`py-1 flex items-center gap-1.5 uppercase transition-colors cursor-pointer relative group focus-visible:ring-1 focus-visible:ring-white focus:outline-none ${
                   activeDropdown === "Roupas"
                     ? "text-text-optic font-bold"
                     : "text-text-platinum hover:text-text-optic"
@@ -229,7 +233,7 @@ export function Header() {
               </button>
 
               {/* Liquid Glass Specular Dropdown Container for Roupas */}
-              {activeDropdown === "Roupas" && (
+              {activeDropdown === "Roupas" ? (
                 <div
                   className="absolute left-0 top-full pt-3 w-[440px] animate-in fade-in slide-in-from-top-2 duration-150"
                   onMouseEnter={() => handleMouseEnter("Roupas")}
@@ -253,7 +257,7 @@ export function Header() {
                             key={item}
                             href={`/produtos?category=Roupas&subcategory=${encodeURIComponent(item)}`}
                             onClick={() => setActiveDropdown(null)}
-                            className="p-2 hover:bg-canvas-base border border-transparent hover:border-border-subtle text-text-platinum hover:text-text-optic flex items-center justify-between group transition-all"
+                            className="p-2 hover:bg-canvas-base border border-transparent hover:border-border-subtle text-text-platinum hover:text-text-optic flex items-center justify-between group transition-all focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                           >
                             <span>{item}</span>
                             <ArrowUpRight weight="light" className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-text-optic" />
@@ -267,7 +271,7 @@ export function Header() {
                       <Link
                         href="/produtos?category=Roupas"
                         onClick={() => setActiveDropdown(null)}
-                        className="text-text-optic hover:underline flex items-center gap-1 font-semibold"
+                        className="text-text-optic hover:underline flex items-center gap-1 font-semibold focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                       >
                         <span>Explorar Todas</span>
                         <ArrowUpRight weight="light" className="w-3 h-3" />
@@ -275,7 +279,7 @@ export function Header() {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* SNEAKERS DROPDOWN */}
@@ -286,10 +290,12 @@ export function Header() {
             >
               <button
                 type="button"
+                aria-expanded={activeDropdown === "Sneakers"}
+                aria-haspopup="true"
                 onClick={() =>
                   setActiveDropdown(activeDropdown === "Sneakers" ? null : "Sneakers")
                 }
-                className={`py-1 flex items-center gap-1.5 uppercase transition-colors cursor-pointer relative group ${
+                className={`py-1 flex items-center gap-1.5 uppercase transition-colors cursor-pointer relative group focus-visible:ring-1 focus-visible:ring-white focus:outline-none ${
                   activeDropdown === "Sneakers"
                     ? "text-text-optic font-bold"
                     : "text-text-platinum hover:text-text-optic"
@@ -306,7 +312,7 @@ export function Header() {
               </button>
 
               {/* Liquid Glass Dropdown Container for Sneakers */}
-              {activeDropdown === "Sneakers" && (
+              {activeDropdown === "Sneakers" ? (
                 <div
                   className="absolute left-0 top-full pt-3 w-[420px] animate-in fade-in slide-in-from-top-2 duration-150"
                   onMouseEnter={() => handleMouseEnter("Sneakers")}
@@ -329,7 +335,7 @@ export function Header() {
                             key={brandItem}
                             href={`/produtos?category=Sneakers&brand=${encodeURIComponent(brandItem)}`}
                             onClick={() => setActiveDropdown(null)}
-                            className="p-2.5 hover:bg-canvas-base border border-transparent hover:border-border-subtle text-text-platinum hover:text-text-optic flex items-center justify-between group transition-all"
+                            className="p-2.5 hover:bg-canvas-base border border-transparent hover:border-border-subtle text-text-platinum hover:text-text-optic flex items-center justify-between group transition-all focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                           >
                             <span className="font-bold text-text-optic">{brandItem}</span>
                             <span className="text-[10px] text-text-slate flex items-center gap-1 group-hover:text-text-optic">
@@ -346,7 +352,7 @@ export function Header() {
                       <Link
                         href="/produtos?category=Sneakers"
                         onClick={() => setActiveDropdown(null)}
-                        className="text-text-optic hover:underline flex items-center gap-1 font-semibold"
+                        className="text-text-optic hover:underline flex items-center gap-1 font-semibold focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                       >
                         <span>Explorar Sneakers</span>
                         <ArrowUpRight weight="light" className="w-3 h-3" />
@@ -354,7 +360,7 @@ export function Header() {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* ACESSÓRIOS DROPDOWN */}
@@ -365,10 +371,12 @@ export function Header() {
             >
               <button
                 type="button"
+                aria-expanded={activeDropdown === "Acessórios"}
+                aria-haspopup="true"
                 onClick={() =>
                   setActiveDropdown(activeDropdown === "Acessórios" ? null : "Acessórios")
                 }
-                className={`py-1 flex items-center gap-1.5 uppercase transition-colors cursor-pointer relative group ${
+                className={`py-1 flex items-center gap-1.5 uppercase transition-colors cursor-pointer relative group focus-visible:ring-1 focus-visible:ring-white focus:outline-none ${
                   activeDropdown === "Acessórios"
                     ? "text-text-optic font-bold"
                     : "text-text-platinum hover:text-text-optic"
@@ -387,7 +395,7 @@ export function Header() {
               </button>
 
               {/* Liquid Glass Dropdown Container for Acessórios */}
-              {activeDropdown === "Acessórios" && (
+              {activeDropdown === "Acessórios" ? (
                 <div
                   className="absolute left-0 top-full pt-3 w-[440px] animate-in fade-in slide-in-from-top-2 duration-150"
                   onMouseEnter={() => handleMouseEnter("Acessórios")}
@@ -410,7 +418,7 @@ export function Header() {
                             key={item}
                             href={`/produtos?category=${encodeURIComponent("Acessórios")}&subcategory=${encodeURIComponent(item)}`}
                             onClick={() => setActiveDropdown(null)}
-                            className="p-2 hover:bg-canvas-base border border-transparent hover:border-border-subtle text-text-platinum hover:text-text-optic flex items-center justify-between group transition-all"
+                            className="p-2 hover:bg-canvas-base border border-transparent hover:border-border-subtle text-text-platinum hover:text-text-optic flex items-center justify-between group transition-all focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                           >
                             <span>{item}</span>
                             <ArrowUpRight weight="light" className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-text-optic" />
@@ -424,7 +432,7 @@ export function Header() {
                       <Link
                         href={`/produtos?category=${encodeURIComponent("Acessórios")}`}
                         onClick={() => setActiveDropdown(null)}
-                        className="text-text-optic hover:underline flex items-center gap-1 font-semibold"
+                        className="text-text-optic hover:underline flex items-center gap-1 font-semibold focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                       >
                         <span>Ver Acessórios</span>
                         <ArrowUpRight weight="light" className="w-3 h-3" />
@@ -432,7 +440,7 @@ export function Header() {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* MARCAS DROPDOWN */}
@@ -443,8 +451,10 @@ export function Header() {
             >
               <button
                 type="button"
+                aria-expanded={activeDropdown === "Marcas"}
+                aria-haspopup="true"
                 onClick={() => setActiveDropdown(activeDropdown === "Marcas" ? null : "Marcas")}
-                className={`py-1 flex items-center gap-1.5 uppercase transition-colors cursor-pointer relative group ${
+                className={`py-1 flex items-center gap-1.5 uppercase transition-colors cursor-pointer relative group focus-visible:ring-1 focus-visible:ring-white focus:outline-none ${
                   activeDropdown === "Marcas"
                     ? "text-text-optic font-bold"
                     : "text-text-platinum hover:text-text-optic"
@@ -461,7 +471,7 @@ export function Header() {
               </button>
 
               {/* Liquid Glass Dropdown Container for Marcas */}
-              {activeDropdown === "Marcas" && (
+              {activeDropdown === "Marcas" ? (
                 <div
                   className="absolute -left-20 top-full pt-3 w-[560px] animate-in fade-in slide-in-from-top-2 duration-150"
                   onMouseEnter={() => handleMouseEnter("Marcas")}
@@ -484,7 +494,7 @@ export function Header() {
                             key={item}
                             href={`/produtos?brand=${encodeURIComponent(item)}`}
                             onClick={() => setActiveDropdown(null)}
-                            className="p-1.5 hover:bg-canvas-base border border-transparent hover:border-border-subtle text-text-platinum hover:text-text-optic flex items-center justify-between group transition-all"
+                            className="p-1.5 hover:bg-canvas-base border border-transparent hover:border-border-subtle text-text-platinum hover:text-text-optic flex items-center justify-between group transition-all focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                           >
                             <span className="truncate">{item}</span>
                             <ArrowUpRight weight="light" className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-text-optic" />
@@ -498,7 +508,7 @@ export function Header() {
                       <Link
                         href="/#marcas"
                         onClick={() => setActiveDropdown(null)}
-                        className="text-text-optic hover:underline flex items-center gap-1 font-semibold"
+                        className="text-text-optic hover:underline flex items-center gap-1 font-semibold focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                       >
                         <span>Ver Vitrine 3D</span>
                         <ArrowUpRight weight="light" className="w-3 h-3" />
@@ -506,7 +516,7 @@ export function Header() {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
           </nav>
 
@@ -527,6 +537,18 @@ export function Header() {
               <User weight="light" className="w-4 h-4 text-text-platinum" />
               <span className="hidden md:inline">Entrar</span>
             </Link>
+
+            {/* Banana Rewards Vault Counter Pill */}
+            <div
+              title="Cofre de Bananas do Gorila // R$ 50 = 1 Banana • Cupom 10% = 10 Bananas"
+              className="h-10 px-3 bg-canvas-well border border-amber-500/30 hover:border-amber-400 text-amber-400 flex items-center gap-1.5 text-xs font-mono transition-colors shadow-sm cursor-help"
+            >
+              <span className="text-sm">🍌</span>
+              <span className="font-bold">{mounted ? bananaBalance : 0}</span>
+              <span className="hidden sm:inline text-[9px] text-text-slate tracking-wider uppercase">
+                COFRE
+              </span>
+            </div>
 
             {/* Shopping Bag Button (Links to /carrinho with live count) */}
             <Link
@@ -556,7 +578,7 @@ export function Header() {
       </div>
 
       {/* 3. Mobile Navigation Drawer (Full Taxonomy Accordion & Cohesive Links) */}
-      {mobileMenuOpen && (
+      {mobileMenuOpen ? (
         <div className="lg:hidden w-full bg-canvas-base border-b border-border-subtle p-5 space-y-5 animate-in fade-in slide-in-from-top-4 duration-200 font-mono text-xs max-h-[85vh] overflow-y-auto">
           <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
             <span className="text-text-platinum uppercase tracking-widest font-bold text-xs">
@@ -570,7 +592,7 @@ export function Header() {
             <Link
               href="/produtos"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full p-3.5 bg-canvas-well border border-border-subtle flex items-center justify-between font-bold text-text-optic uppercase tracking-wider block"
+              className="w-full p-3.5 bg-canvas-well border border-border-subtle flex items-center justify-between font-bold text-text-optic uppercase tracking-wider block focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
             >
               <span>Novidades Recentes</span>
               <ArrowUpRight weight="light" className="w-4 h-4 text-text-platinum" />
@@ -580,10 +602,11 @@ export function Header() {
             <div className="border border-border-subtle bg-canvas-well">
               <button
                 type="button"
+                aria-expanded={mobileExpandedCat === "Roupas"}
                 onClick={() =>
                   setMobileExpandedCat(mobileExpandedCat === "Roupas" ? null : "Roupas")
                 }
-                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-text-optic uppercase tracking-wider cursor-pointer"
+                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-text-optic uppercase tracking-wider cursor-pointer focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
               >
                 <span>Roupas ({TAXONOMY_SUBCATEGORIES.Roupas.length})</span>
                 <CaretDown
@@ -593,30 +616,31 @@ export function Header() {
                   }`}
                 />
               </button>
-              {mobileExpandedCat === "Roupas" && (
+              {mobileExpandedCat === "Roupas" ? (
                 <div className="p-3 border-t border-border-subtle grid grid-cols-2 gap-2 bg-canvas-base">
                   {TAXONOMY_SUBCATEGORIES.Roupas.map((item) => (
                     <Link
                       key={item}
                       href={`/produtos?category=Roupas&subcategory=${encodeURIComponent(item)}`}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="p-2 text-text-platinum hover:text-text-optic border border-border-subtle bg-canvas-well text-center"
+                      className="p-2 text-text-platinum hover:text-text-optic border border-border-subtle bg-canvas-well text-center focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                     >
                       {item}
                     </Link>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* Mobile Acessórios Accordion */}
             <div className="border border-border-subtle bg-canvas-well">
               <button
                 type="button"
+                aria-expanded={mobileExpandedCat === "Acessórios"}
                 onClick={() =>
                   setMobileExpandedCat(mobileExpandedCat === "Acessórios" ? null : "Acessórios")
                 }
-                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-text-optic uppercase tracking-wider cursor-pointer"
+                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-text-optic uppercase tracking-wider cursor-pointer focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
               >
                 <span>Acessórios ({TAXONOMY_SUBCATEGORIES.Acessórios.length})</span>
                 <CaretDown
@@ -628,30 +652,31 @@ export function Header() {
                   }`}
                 />
               </button>
-              {mobileExpandedCat === "Acessórios" && (
+              {mobileExpandedCat === "Acessórios" ? (
                 <div className="p-3 border-t border-border-subtle grid grid-cols-2 gap-2 bg-canvas-base">
                   {TAXONOMY_SUBCATEGORIES.Acessórios.map((item) => (
                     <Link
                       key={item}
                       href={`/produtos?category=${encodeURIComponent("Acessórios")}&subcategory=${encodeURIComponent(item)}`}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="p-2 text-text-platinum hover:text-text-optic border border-border-subtle bg-canvas-well text-center"
+                      className="p-2 text-text-platinum hover:text-text-optic border border-border-subtle bg-canvas-well text-center focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                     >
                       {item}
                     </Link>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* Mobile Sneakers Accordion */}
             <div className="border border-border-subtle bg-canvas-well">
               <button
                 type="button"
+                aria-expanded={mobileExpandedCat === "Sneakers"}
                 onClick={() =>
                   setMobileExpandedCat(mobileExpandedCat === "Sneakers" ? null : "Sneakers")
                 }
-                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-text-optic uppercase tracking-wider cursor-pointer"
+                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-text-optic uppercase tracking-wider cursor-pointer focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
               >
                 <span>Sneakers ({TAXONOMY_SUBCATEGORIES.Sneakers.length})</span>
                 <CaretDown
@@ -663,30 +688,31 @@ export function Header() {
                   }`}
                 />
               </button>
-              {mobileExpandedCat === "Sneakers" && (
+              {mobileExpandedCat === "Sneakers" ? (
                 <div className="p-3 border-t border-border-subtle grid grid-cols-2 gap-2 bg-canvas-base">
                   {TAXONOMY_SUBCATEGORIES.Sneakers.map((item) => (
                     <Link
                       key={item}
                       href={`/produtos?category=Sneakers&brand=${encodeURIComponent(item)}`}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="p-2 text-text-platinum hover:text-text-optic border border-border-subtle bg-canvas-well text-center font-bold"
+                      className="p-2 text-text-platinum hover:text-text-optic border border-border-subtle bg-canvas-well text-center font-bold focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                     >
                       {item}
                     </Link>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* Mobile Marcas Direct */}
             <div className="border border-border-subtle bg-canvas-well">
               <button
                 type="button"
+                aria-expanded={mobileExpandedCat === "Marcas"}
                 onClick={() =>
                   setMobileExpandedCat(mobileExpandedCat === "Marcas" ? null : "Marcas")
                 }
-                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-text-optic uppercase tracking-wider cursor-pointer"
+                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-text-optic uppercase tracking-wider cursor-pointer focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
               >
                 <span>Marcas ({TAXONOMY_BRANDS.length})</span>
                 <CaretDown
@@ -698,20 +724,20 @@ export function Header() {
                   }`}
                 />
               </button>
-              {mobileExpandedCat === "Marcas" && (
+              {mobileExpandedCat === "Marcas" ? (
                 <div className="p-3 border-t border-border-subtle grid grid-cols-2 gap-2 bg-canvas-base max-h-56 overflow-y-auto">
                   {TAXONOMY_BRANDS.map((b) => (
                     <Link
                       key={b}
                       href={`/produtos?brand=${encodeURIComponent(b)}`}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="p-2 text-text-platinum hover:text-text-optic border border-border-subtle bg-canvas-well text-center"
+                      className="p-2 text-text-platinum hover:text-text-optic border border-border-subtle bg-canvas-well text-center focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
                     >
                       {b}
                     </Link>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
 
@@ -719,7 +745,7 @@ export function Header() {
             <Link
               href="/entrar"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-3 bg-canvas-well border border-border-subtle text-text-optic flex items-center justify-between"
+              className="p-3 bg-canvas-well border border-border-subtle text-text-optic flex items-center justify-between focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
             >
               <span className="font-bold">Minha Conta // Entrar</span>
               <User weight="light" className="w-4 h-4 text-text-platinum" />
@@ -727,14 +753,14 @@ export function Header() {
             <Link
               href="/carrinho"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-3 bg-canvas-well border border-border-subtle text-text-optic flex items-center justify-between"
+              className="p-3 bg-canvas-well border border-border-subtle text-text-optic flex items-center justify-between focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
             >
               <span className="font-bold">Sacola de Compras ({mounted ? itemCount : 0})</span>
               <Bag weight="light" className="w-4 h-4 text-text-platinum" />
             </Link>
           </div>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }

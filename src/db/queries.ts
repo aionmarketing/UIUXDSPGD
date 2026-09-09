@@ -5,12 +5,67 @@ import { CATALOG_PRODUCTS } from "@/features/storefront/data/products";
 import type { TaxonomyBrand, TaxonomyCategory, TaxonomyGender } from "@/features/seller-pwa/taxonomy";
 import type { ItemCondition } from "@/features/seller-pwa/types";
 
+interface RawProductImage {
+  imageUrl: string;
+  orderIndex?: number | null;
+}
+
+interface RawForensicReport {
+  certificateId?: string | null;
+  inspector?: string | null;
+  inspectionDate?: string | null;
+  overallGrade?: string | null;
+  stitchPrecision?: string | null;
+  labelHologram?: string | null;
+  fabricDensity?: string | null;
+  serialMatch?: string | null;
+}
+
+interface RawMeasurements {
+  chest?: string | null;
+  length?: string | null;
+  shoulders?: string | null;
+  insole?: string | null;
+  fit?: string | null;
+}
+
+interface RawSeller {
+  name?: string | null;
+  verified?: boolean | null;
+  rating?: string | number | null;
+  salesCount?: number | null;
+  location?: string | null;
+}
+
+export interface RawDbProduct {
+  id: string;
+  slug: string;
+  name: string;
+  brand: string;
+  gender?: string | null;
+  category?: string | null;
+  subcategory?: string | null;
+  condition?: string | null;
+  conditionLabel?: string | null;
+  conditionNotes?: string | null;
+  price: string | number;
+  originalRetailPrice?: string | number | null;
+  size?: string | null;
+  description: string;
+  tag?: string | null;
+  weightKg?: string | number | null;
+  images?: RawProductImage[];
+  forensicReport?: RawForensicReport | null;
+  measurements?: RawMeasurements | null;
+  seller?: RawSeller | null;
+}
+
 // Helper to safely format DB product into storefront CatalogProduct format
-export function mapDbProductToCatalog(p: any): CatalogProduct {
+export function mapDbProductToCatalog(p: RawDbProduct): CatalogProduct {
   const sortedImages = (p.images || [])
     .slice()
-    .sort((a: any, b: any) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0))
-    .map((img: any) => img.imageUrl);
+    .sort((a, b) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0))
+    .map((img) => img.imageUrl);
 
   const images = sortedImages.length > 0 ? sortedImages : ["/placeholder-product.webp"];
 
@@ -30,7 +85,7 @@ export function mapDbProductToCatalog(p: any): CatalogProduct {
     size: p.size || "M",
     images,
     description: p.description,
-    tag: p.tag as any,
+    tag: p.tag as CatalogProduct["tag"],
     forensicReport: p.forensicReport
       ? {
           certificateId: p.forensicReport.certificateId || "ONYX-CERT",
@@ -69,7 +124,7 @@ export function mapDbProductToCatalog(p: any): CatalogProduct {
         },
     seller: p.seller
       ? {
-          name: p.seller.name,
+          name: p.seller.name || "Vendedor Verificado",
           verified: Boolean(p.seller.verified),
           rating: Number(p.seller.rating) || 5.0,
           salesCount: p.seller.salesCount || 1,
