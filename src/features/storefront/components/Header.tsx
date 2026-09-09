@@ -78,9 +78,9 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-canvas-base/95 backdrop-blur-xl border-b border-border-subtle">
+    <header className="sticky top-0 z-50 w-full glass-header">
       {/* 1. TOP CENTRALIZED SEARCH & CURRENCY BAR (Directly above the lowered navbar) */}
-      <div className="w-full bg-canvas-well/80 border-b border-border-subtle/80 px-4 sm:px-8 py-2">
+      <div className="w-full bg-[#0a0b10]/65 backdrop-blur-xl border-b border-white/[0.08] px-4 sm:px-8 py-2">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           {/* Subtle Left Tag */}
           <div className="hidden md:flex items-center gap-2 font-mono text-[10px] text-text-slate tracking-widest uppercase">
@@ -175,7 +175,7 @@ export function Header() {
       </div>
 
       {/* 2. MAIN NAV BAR (Lowered slightly with generous breathing room and spread-out links) */}
-      <div className="relative w-full bg-glass-substrate backdrop-blur-[36px] border-b border-border-subtle shadow-2xl px-4 sm:px-8 py-4 transition-all">
+      <div className="relative w-full bg-[#0c0e14]/65 backdrop-blur-2xl border-b border-white/[0.12] shadow-2xl px-4 sm:px-8 py-3.5 transition-all">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Left: Brand Monolith */}
           <div className="flex items-center gap-6">

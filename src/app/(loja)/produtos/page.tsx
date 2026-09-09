@@ -121,10 +121,10 @@ function PLPContent() {
   }, [productsList, selectedCategory, selectedSubcategory, selectedBrand, selectedCondition, priceTier, searchQuery, sortBy]);
 
   return (
-    <div className="w-full min-h-screen bg-canvas-base text-text-optic py-8 sm:py-12 px-4 sm:px-8">
+    <div className="w-full min-h-screen text-text-optic py-8 sm:py-12 px-4 sm:px-8 pb-24">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* 1. Header Hero Title */}
-        <div className="space-y-3 pb-4 border-b border-border-subtle">
+        <div className="space-y-3 pb-4 border-b border-white/[0.1]">
           <div className="flex items-center gap-2 text-[11px] font-mono tracking-widest text-text-platinum uppercase">
             <Sparkle weight="light" className="w-3.5 h-3.5 text-text-optic" />
             <span>CATÁLOGO // ACERVO DE MODA &amp; ARQUIVO</span>
@@ -142,24 +142,24 @@ function PLPContent() {
 
             {/* Sort & Mobile Filter Trigger */}
             <div className="flex items-center gap-2">
-              <div className="relative bg-canvas-well border border-border-subtle flex items-center px-3 h-10">
+              <div className="relative bg-[#0c0e14]/80 backdrop-blur-md border border-white/15 flex items-center px-3 h-10 shadow-sm">
                 <ArrowsDownUp weight="light" className="w-3.5 h-3.5 text-text-slate mr-2 shrink-0" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
-                  className="bg-canvas-well text-text-optic font-mono text-xs outline-none cursor-pointer pr-4"
+                  className="bg-transparent text-text-optic font-mono text-xs outline-none cursor-pointer pr-4"
                 >
-                  <option value="featured">Destaques da Curadoria</option>
-                  <option value="price-asc">Menor Preço</option>
-                  <option value="price-desc">Maior Preço</option>
-                  <option value="name">Alfabética (A-Z)</option>
+                  <option value="featured" className="bg-[#0c0e14] text-white">Destaques da Curadoria</option>
+                  <option value="price-asc" className="bg-[#0c0e14] text-white">Menor Preço</option>
+                  <option value="price-desc" className="bg-[#0c0e14] text-white">Maior Preço</option>
+                  <option value="name" className="bg-[#0c0e14] text-white">Alfabética (A-Z)</option>
                 </select>
               </div>
 
               <button
                 type="button"
                 onClick={() => setMobileFilterOpen(true)}
-                className="lg:hidden h-10 px-3.5 bg-canvas-well border border-border-subtle text-text-optic font-mono text-xs flex items-center gap-1.5 hover:border-border-specular transition cursor-pointer"
+                className="lg:hidden h-10 px-3.5 bg-[#0c0e14]/80 backdrop-blur-md border border-white/15 text-text-optic font-mono text-xs flex items-center gap-1.5 hover:border-white/30 transition cursor-pointer"
               >
                 <FadersHorizontal weight="light" className="w-4 h-4" />
                 <span>Filtros</span>
@@ -168,8 +168,8 @@ function PLPContent() {
           </div>
         </div>
 
-        {/* 2. REFACTORED HORIZONTAL FILTER BAR (Replaces the vertical sidebar completely) */}
-        <div className="w-full bg-canvas-well border border-border-subtle p-3 sm:p-4 space-y-3 shadow-md">
+        {/* 2. REFACTORED HORIZONTAL FILTER BAR (Glass Substrate) */}
+        <div className="w-full bg-[#0c0e14]/75 backdrop-blur-xl border border-white/[0.12] p-3 sm:p-4 space-y-3 shadow-2xl shadow-black/60 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.14)]">
           {/* Top Row: Primary Category Tabs */}
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <div className="flex items-center gap-1 flex-wrap font-mono text-xs">
@@ -415,7 +415,7 @@ function PLPContent() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5">
               {filteredProducts.map((product, idx) => (
                 <ProductCard key={product.id} product={product} priority={idx < 10} />
               ))}

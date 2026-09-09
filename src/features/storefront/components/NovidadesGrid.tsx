@@ -27,12 +27,12 @@ export function NovidadesGrid() {
       : productsList.filter((item) => item.category === selectedCategory).slice(0, 10);
 
   return (
-    <section id="novidades" className="w-full bg-canvas-base py-14 px-4 sm:px-8 border-b border-border-subtle">
+    <section id="novidades" className="w-full bg-transparent py-14 px-4 sm:px-8 border-b border-white/[0.1]">
       <div className="max-w-7xl mx-auto space-y-7">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border-subtle pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/[0.1] pb-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 bg-canvas-well border border-border-subtle px-2.5 py-1 text-xs font-mono tracking-widest text-text-platinum uppercase">
+            <div className="inline-flex items-center gap-2 bg-[#0c0e14]/75 backdrop-blur-md border border-white/15 px-2.5 py-1 text-xs font-mono tracking-widest text-text-platinum uppercase shadow-sm">
               <Sparkle weight="light" className="w-3.5 h-3.5 text-text-optic" />
               <span>CURADORIA // RECÉM-CHEGADOS</span>
             </div>
@@ -53,8 +53,8 @@ export function NovidadesGrid() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3.5 py-2 min-h-[40px] uppercase tracking-wider transition cursor-pointer border ${
                   selectedCategory === cat
-                    ? "bg-text-optic text-canvas-base border-text-optic font-bold"
-                    : "bg-canvas-well text-text-slate border-border-subtle hover:text-text-optic hover:border-border-specular"
+                    ? "bg-text-optic text-canvas-base border-text-optic font-bold shadow-md"
+                    : "bg-[#0c0e14]/70 backdrop-blur-md text-text-slate border-white/10 hover:text-text-optic hover:border-white/30"
                 }`}
               >
                 {cat === "ALL" ? "Todas as Peças" : cat}
@@ -63,8 +63,8 @@ export function NovidadesGrid() {
           </div>
         </div>
 
-        {/* Product Grid - Compact 5-Column High-Density Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+        {/* Product Grid - Editorial Balanced Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5">
           {filteredProducts.map((product, idx) => (
             <ProductCard key={product.id} product={product} priority={idx < 5} />
           ))}
@@ -74,7 +74,7 @@ export function NovidadesGrid() {
         <div className="pt-6 flex justify-center">
           <Link
             href="/produtos"
-            className="h-12 px-8 bg-canvas-well border border-border-subtle hover:border-text-optic text-text-optic font-mono font-bold text-xs uppercase tracking-widest inline-flex items-center gap-2.5 hover:bg-white/[0.04] transition-all group shadow-lg"
+            className="h-12 px-8 bg-[#0c0e14]/80 backdrop-blur-xl border border-white/20 hover:border-white/50 text-text-optic font-mono font-bold text-xs uppercase tracking-widest inline-flex items-center gap-2.5 hover:bg-white/[0.08] transition-all group shadow-2xl shadow-black/70"
           >
             <span>Explorar Todo o Catálogo ({productsList.length} Peças)</span>
             <ArrowUpRight weight="light" className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

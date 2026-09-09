@@ -127,7 +127,7 @@ export function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[90vh] w-full bg-canvas-base text-text-optic overflow-hidden flex flex-col justify-between border-b border-border-subtle"
+      className="relative min-h-[90vh] w-full bg-transparent text-text-optic overflow-hidden flex flex-col justify-between border-b border-white/[0.1]"
     >
       {/* Background Substrate Radial Glow (Onyx Basalt Depth) */}
       <div
@@ -145,7 +145,7 @@ export function Hero() {
           {/* Badge & Edition */}
           <div
             ref={tagRef}
-            className="inline-flex items-center gap-2.5 w-fit border border-border-subtle bg-canvas-well px-3 py-1.5 text-xs font-mono tracking-widest uppercase text-text-platinum"
+            className="inline-flex items-center gap-2.5 w-fit border border-white/15 bg-[#0c0e14]/80 backdrop-blur-md px-3 py-1.5 text-xs font-mono tracking-widest uppercase text-text-platinum shadow-sm"
           >
             <Sparkle weight="light" className="w-3.5 h-3.5 text-text-optic" />
             <span>MONOLITH ONYX // ACERVO DIGITAL INDESTRUTÍVEL</span>
@@ -162,12 +162,12 @@ export function Hero() {
             ARQUIVO VINTAGE.
           </h1>
 
-          {/* CONTRAST MANDATE BLOCK (Monolith Onyx tokens) */}
+          {/* CONTRAST MANDATE BLOCK (Glass Substrate) */}
           <div
             ref={contrastBlockRef}
-            className="bg-canvas-well border border-border-subtle p-5 sm:p-6 space-y-3 shadow-lg"
+            className="bg-[#0c0e14]/75 backdrop-blur-xl border border-white/[0.12] p-5 sm:p-6 space-y-3 shadow-2xl shadow-black/60 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.14)]"
           >
-            <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+            <div className="flex items-center justify-between border-b border-white/[0.1] pb-2">
               <span className="text-[11px] font-mono uppercase tracking-widest text-text-slate">
                 GARANTIA FORENSE DE AUTENTICIDADE
               </span>
@@ -189,7 +189,7 @@ export function Hero() {
           >
             <Link
               href="/produtos"
-              className="h-14 px-8 min-h-[48px] bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 hover:bg-neutral-200 active:scale-[0.99] transition cursor-pointer"
+              className="h-14 px-8 min-h-[48px] bg-text-optic text-canvas-base font-mono font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 hover:bg-neutral-200 active:scale-[0.99] transition cursor-pointer shadow-lg"
             >
               <span>EXPLORAR ACERVO</span>
               <ArrowDown weight="light" className="w-4 h-4" />
@@ -197,7 +197,7 @@ export function Hero() {
 
             <Link
               href="/produtos?condition=DSWT"
-              className="h-14 px-6 min-h-[48px] bg-glass-substrate backdrop-blur-[36px] border-t border-border-specular border-b-black/90 border-x border-border-subtle text-text-optic font-mono font-semibold text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-2 hover:bg-white/10 active:scale-[0.99] transition shadow-lg cursor-pointer"
+              className="h-14 px-6 min-h-[48px] bg-[#0c0e14]/70 backdrop-blur-xl border border-white/20 text-text-optic font-mono font-semibold text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-2 hover:bg-white/10 active:scale-[0.99] transition shadow-lg cursor-pointer"
             >
               <Lightning weight="light" className="w-4 h-4 text-emerald-400" />
               <span>PEÇAS LACRADAS (DSWT)</span>
@@ -208,23 +208,23 @@ export function Hero() {
         {/* RIGHT COLUMN: 3D Gorilla Viewport Wrapped in Liquid Specular Glass */}
         <div className="lg:col-span-6 relative flex flex-col items-center justify-center w-full">
           {/* Telemetry Header Pill */}
-          <div className="w-full max-w-[500px] lg:max-w-none flex items-center justify-between mb-2">
-            <div className="flex items-center gap-1.5 bg-canvas-well border border-border-subtle px-3 py-1.5 text-[11px] font-mono">
+          <div className="w-full max-w-[500px] lg:max-w-none flex items-center justify-between mb-2 gap-2">
+            <div className="flex items-center gap-1.5 bg-[#0c0e14]/80 backdrop-blur-md border border-white/15 px-3 py-1 text-[11px] font-mono shadow-sm">
               <Sparkle weight="light" className="w-3.5 h-3.5 text-text-optic" />
               <span className="font-bold text-text-optic tracking-wider uppercase">
-                MASCOTE INTERATIVO // 3D WIREFRAME
+                MASCOTE INTERATIVO // 3D
               </span>
             </div>
 
-            <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase tracking-widest">
-              ● RASTREAMENTO ÓPTICO EM TEMPO REAL
+            <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase tracking-widest shrink-0">
+              ● RASTREAMENTO ÓPTICO
             </span>
           </div>
 
           {/* LIQUID GLASS CONTAINER WRAPPING THE 3D GORILLA CANVAS */}
           <div
             ref={canvasContainerRef}
-            className="relative w-full aspect-square max-w-[520px] lg:max-w-none bg-glass-substrate backdrop-blur-[36px] border-t border-border-specular border-b-black/90 border-x border-border-subtle shadow-2xl overflow-hidden p-2 sm:p-4"
+            className="relative w-full aspect-square max-w-[520px] lg:max-w-none bg-[#0c0e14]/70 backdrop-blur-2xl border border-white/[0.14] shadow-2xl shadow-black/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2)] overflow-hidden p-2 sm:p-4"
           >
             {/* Ambient Corner Specular Crosshairs */}
             <div className="absolute top-3 left-3 text-[11px] font-mono text-text-slate pointer-events-none z-10 select-none">
@@ -252,10 +252,10 @@ export function Hero() {
           {/* STOREFRONT UI RULE: FLOATING SPECULAR LIQUID GLASS TELEMETRY CARD */}
           <div
             ref={glassCardRef}
-            className="w-[94%] sm:w-[88%] -mt-12 sm:-mt-16 relative z-20 bg-glass-substrate backdrop-blur-[36px] border-t border-border-specular border-b-black/90 border-x border-border-subtle shadow-2xl p-4 sm:p-5 space-y-3"
+            className="w-[94%] sm:w-[88%] -mt-10 sm:-mt-14 relative z-20 bg-[#0c0e16]/85 backdrop-blur-2xl border border-white/[0.15] shadow-2xl shadow-black/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.18)] p-4 sm:p-5 space-y-3"
           >
             {/* Specular Liquid Glass Header for Avatar */}
-            <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
+            <div className="flex items-center justify-between pb-2 border-b border-white/[0.1]">
               <div className="flex items-center gap-2">
                 <Sparkle weight="light" className="w-4 h-4 text-text-optic" />
                 <span className="font-mono text-xs font-bold tracking-wider uppercase text-text-optic">
@@ -268,7 +268,7 @@ export function Hero() {
             </div>
 
             {/* Solid bg-canvas-well block for WCAG AAA Contrast */}
-            <div className="bg-canvas-well border border-border-subtle p-3.5 space-y-2.5">
+            <div className="bg-black/50 border border-white/[0.08] p-3.5 space-y-2.5">
               <div className="flex items-baseline justify-between">
                 <div>
                   <h2 className="text-sm font-bold uppercase tracking-tight text-text-optic font-mono">

@@ -1,0 +1,38 @@
+{
+  "taste-skill": {
+    "size": 87126,
+    "hash": "aa194351b246b8b4799099d4ed7b033d29eab6e6e3d58d8d2172978be7b3ec89"
+  },
+  "brutalist-skill": {
+    "size": 8450,
+    "hash": "fffbaac8597f07679e9d87145533567658aedba3b5eca6f16a7075a333048caa"
+  },
+  "minimalist-skill": {
+    "size": 7896,
+    "hash": "36bc7328f085405f43b476938e62460fa573bf7e984e949e072bcf014831a44c"
+  },
+  "soft-skill": {
+    "size": 10545,
+    "hash": "e1e32f5e2d420872c6c7332b53d5ff7721946766b78c4822b424c2d512c8fdbc"
+  },
+  "brandkit": {
+    "size": 15967,
+    "hash": "b0c4837e1bd140ca816ae54948754ddd2ac1e2a4d3619363777a80caf00b2ede"
+  },
+  "redesign-skill": {
+    "size": 15032,
+    "hash": "98ad3e5b051bfb71b2795f7e8a6aa0d32b51ee095606c098a4b2822ac07926c9"
+  },
+  "stitch-skill": {
+    "size": 11732,
+    "hash": "46bdb08fee2dded38b6ba0a051230a502d6ac6e4044afd47592cb40c256028b5"
+  },
+  "output-skill": {
+    "size": 2582,
+    "hash": "e5bf48b1ae561511439cf71672209a10a88cee0968cc925909ff861dfa0a96a7"
+  },
+  "image-to-code-skill": {
+    "size": 36361,
+    "hash": "4c060a8064a8b13380bc2ef3d6e6a1d0b1e316aa093cd9807d0ce9e4eeb037fa"
+  }
+}

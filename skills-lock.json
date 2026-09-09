@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "brandkit": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/brandkit/SKILL.md",
+      "computedHash": "b0c4837e1bd140ca816ae54948754ddd2ac1e2a4d3619363777a80caf00b2ede"
+    },
+    "brutalist-skill": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/brutalist-skill/SKILL.md",
+      "computedHash": "fffbaac8597f07679e9d87145533567658aedba3b5eca6f16a7075a333048caa"
+    },
     "gsap-core": {
       "source": "greensock/gsap-skills",
       "sourceType": "github",
@@ -48,6 +60,144 @@
       "sourceType": "github",
       "skillPath": "skills/gsap-utils/SKILL.md",
       "computedHash": "72af4a036d417d6eaef7478eca2f28e760631fb78db822ba34a9c706797aab62"
+    },
+    "image-to-code-skill": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/image-to-code-skill/SKILL.md",
+      "computedHash": "4c060a8064a8b13380bc2ef3d6e6a1d0b1e316aa093cd9807d0ce9e4eeb037fa"
+    },
+    "minimalist-skill": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/minimalist-skill/SKILL.md",
+      "computedHash": "36bc7328f085405f43b476938e62460fa573bf7e984e949e072bcf014831a44c"
+    },
+    "output-skill": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/output-skill/SKILL.md",
+      "computedHash": "e5bf48b1ae561511439cf71672209a10a88cee0968cc925909ff861dfa0a96a7"
+    },
+    "redesign-skill": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/redesign-skill/SKILL.md",
+      "computedHash": "98ad3e5b051bfb71b2795f7e8a6aa0d32b51ee095606c098a4b2822ac07926c9"
+    },
+    "soft-skill": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/soft-skill/SKILL.md",
+      "computedHash": "e1e32f5e2d420872c6c7332b53d5ff7721946766b78c4822b424c2d512c8fdbc"
+    },
+    "stitch-skill": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/stitch-skill/SKILL.md",
+      "computedHash": "46bdb08fee2dded38b6ba0a051230a502d6ac6e4044afd47592cb40c256028b5"
+    },
+    "taste-skill": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "aa194351b246b8b4799099d4ed7b033d29eab6e6e3d58d8d2172978be7b3ec89"
+    },
+    "threejs-animation": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-animation/SKILL.md",
+      "computedHash": "dc216f81050a62921540c9286b77e072e48a2cf5e7d7b04ae14c7f658bb2fa0e"
+    },
+    "threejs-audio": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-audio/SKILL.md",
+      "computedHash": "a78877ac937896527c719e9c902ffb3dcc2386c4472d5d4bdc18cd80ed9a4334"
+    },
+    "threejs-camera": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-camera/SKILL.md",
+      "computedHash": "89d49a3ebcd762fe10cc85398e93fe447bc7520378b88679087b885ccdc22456"
+    },
+    "threejs-core": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-core/SKILL.md",
+      "computedHash": "b537768f6de5157743cd84a3711764b77211d9edf5f90d8a1bd0c9da815c1cab"
+    },
+    "threejs-geometry": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-geometry/SKILL.md",
+      "computedHash": "67c36d06fe7361b0fb142145c3685e7c255b82e6cc0ad04e59d537aa8822406a"
+    },
+    "threejs-lighting": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-lighting/SKILL.md",
+      "computedHash": "c94b90a8823cec9e1094a2f06def2e84ce097b00b0995439a9ac0e97935b6be7"
+    },
+    "threejs-loaders": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-loaders/SKILL.md",
+      "computedHash": "537b8e0bd718bf4751aecbba521409afe0d31d867ab14d4cd0662865c560c286"
+    },
+    "threejs-materials": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-materials/SKILL.md",
+      "computedHash": "b132c6e4bd678eff9877e9b3032ef320d2bc70784ca7339ab825cb39337a4c96"
+    },
+    "threejs-performance": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-performance/SKILL.md",
+      "computedHash": "9ec37cbf2a237f75eb90175b57d4118170640ade96de8622a207a1e3c22f974d"
+    },
+    "threejs-physics": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-physics/SKILL.md",
+      "computedHash": "2c1125e9b5e8fcb957191d4ff585883399108b5b7eea734922f3b3cca2f45cf4"
+    },
+    "threejs-postprocessing": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-postprocessing/SKILL.md",
+      "computedHash": "46a7eebee8e0040903ded17f96cf26d5c841959322fd056d0ab42579f98d1f2e"
+    },
+    "threejs-react": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-react/SKILL.md",
+      "computedHash": "81fd66726988a92eecd6cf30509909705525c1e6e5d737dfe5b0d38145dca9f8"
+    },
+    "threejs-shaders": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-shaders/SKILL.md",
+      "computedHash": "ef7acc0a483a32c98421ccc8254675d3594a90fa6e2bb97fdec29848f83a3848"
+    },
+    "threejs-xr": {
+      "source": "alton47/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-xr/SKILL.md",
+      "computedHash": "30200497f2644b4311e37a18eaf88b299de55c0be07695ee74864fcfa1572440"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "computedHash": "ca7b0c0c6e5f2750043f7f0cd72d16ac4e2abc48f9b5500d047a4b77a2506212"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "f4647ca866a3accf763777f83e7682954f0187cd6bea7eea0399796652414e8f"
     }
   }
 }
